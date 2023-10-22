@@ -1,0 +1,15 @@
+configuration:
+  swagger:
+    app: 'An app for your ads'
+    description: 'A simple system for posting and seeing other peoples ads built with Spring Boot'
+    developer: 'Elma Sarajlić'
+    email: 'elma.sarajlic@stu.ibu.edu.ba'
+  mailsender:
+    default: 'sendgrid'
+
+spring:
+ data:
+   mongodb:
+     uri: mongodb+srv://elmasarajlic:biLmagJWDqu0PBLJ@cluster0.qqyhjfn.mongodb.net/?retryWrites=true&w=majority
+     database: elmasarajlic
+

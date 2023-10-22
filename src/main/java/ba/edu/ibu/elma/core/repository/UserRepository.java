@@ -1,23 +1,14 @@
 package ba.edu.ibu.elma.core.repository;
+
 import ba.edu.ibu.elma.core.model.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Optional;
 
 @Repository
-public class UserRepository {
+public interface UserRepository extends MongoRepository<User,String> {
+    Optional<User> findByUsernameAndPassword(String username, String password);
+    Optional<User> findFirstByEmailLike(String emailPattern);
 
-    private List<User> users;
-
-    public UserRepository() {
-        this.users = Arrays.asList(
-                new User(1, "Aldin", "Kovačević", "aldin.kovacevic@ibu.edu.ba"),
-                new User(2, "Bećir", "Isaković", "becir.isakovic@ibu.edu.ba")
-        );
-    }
-
-    public List<User> findAll() {
-        return users;
-    }
 }

@@ -1,17 +1,21 @@
-package ba.edu.ibu.elma.core.model;
-
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+package ba.edu.ibu.elma.rest.dto;
 import java.util.Date;
+import ba.edu.ibu.elma.core.model.Ad;
+import ba.edu.ibu.elma.core.service.AdService;
 
+public class AdDTO {
 
-@Document
-public class Ad {
-    @Id
     private String id;
     private String title;
     private String description;
     private Date creationDate;
+
+    public AdDTO(Ad ad) {
+        this.id = ad.getId();
+        this.title = ad.getTitle();
+        this.description = ad.getDescription();
+        this.creationDate = ad.getCreationDate();
+    }
 
     public String getId() {
         return id;
@@ -27,17 +31,14 @@ public class Ad {
 
     public void setTitle(String title) {
         this.title = title;
-
     }
+
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    public void setDescription(String description) { this.description = description;}
 
     public Date getCreationDate() {
         return creationDate;
@@ -47,3 +48,4 @@ public class Ad {
         this.creationDate = creationDate;
     }
 }
+
