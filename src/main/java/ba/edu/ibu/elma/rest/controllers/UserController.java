@@ -19,7 +19,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(path = "/rgister", method = RequestMethod.POST)
+    @RequestMapping(path = "/regitgister", method = RequestMethod.POST)
     public ResponseEntity<UserDTO> register(@RequestBody UserRequestDTO userRequestDTO) {
         return ResponseEntity.ok(userService.register(userRequestDTO));
     }
