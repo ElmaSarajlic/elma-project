@@ -4,53 +4,49 @@ import ba.edu.ibu.elma.core.api.mailsender.MailSender;
 import ba.edu.ibu.elma.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.elma.core.model.User;
 import ba.edu.ibu.elma.core.repository.UserRepository;
-import ba.edu.ibu.elma.rest.dto.UserDTO;
-import ba.edu.ibu.elma.rest.dto.UserRequestDTO;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.io.NotActiveException;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.stream.Collectors.toList;
+import ba.edu.ibu.elma.core.model.enums.UserType;
+import ba.edu.ibu.elma.rest.dto.UserDTO;
+import ba.edu.ibu.elma.rest.dto.UserRequestDTO;
+
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
 
-    /**
-     * Method 1: Using @Autowired with implementation names
-     */
     @Autowired
     private MailSender mailgunSender;
 
     @Autowired
     private MailSender sendgridSender;
-
-    /**
-     * Method 2: Using @ConditionalOnProperty and application.yml
-     */
-//    @Autowired
-//    private MailSender mailSender;
-
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public List<UserDTO> getUsers() {
+    public List<UserDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
-        // List<User> users = userRepository.findAllCustom();
-
         return users
                 .stream()
                 .map(UserDTO::new)
-                .collect(toList());
+                .collect(Collectors.toList());
+    }
+
+    public UserDTO register(UserRequestDTO payload) {
+        User user = userRepository.save(payload.toEntity());
+
+        return new UserDTO(user);
+    }
+
+    public UserDTO login(String username, String password) {
+        User user = userRepository.findByUsernameAndPassword(username, password)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid username or password"));
+        return new UserDTO(user);
     }
 
     public UserDTO getUserById(String id) {
@@ -61,19 +57,14 @@ public class UserService {
         return new UserDTO(user.get());
     }
 
-    public UserDTO addUser(UserRequestDTO payload) {
-        User user = userRepository.save(payload.toEntity());
-        return new UserDTO(user);
-    }
-
     public UserDTO updateUser(String id, UserRequestDTO payload) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()) {
+        Optional<User> existingUser = userRepository.findById(id);
+        if (existingUser.isEmpty()) {
             throw new ResourceNotFoundException("The user with the given ID does not exist.");
         }
         User updatedUser = payload.toEntity();
-        updatedUser.setId(user.get().getId());
-        updatedUser = userRepository.save(updatedUser);
+        updatedUser.setId(existingUser.get().getId());
+        userRepository.save(updatedUser);
         return new UserDTO(updatedUser);
     }
 
@@ -82,19 +73,19 @@ public class UserService {
         user.ifPresent(userRepository::delete);
     }
 
-    public UserDTO filterByEmail(String email) {
-        Optional<User> user = userRepository.findFirstByEmailLike(email);
-        // Optional<User> user = userRepository.findByEmailCustom(email);
-        return user.map(UserDTO::new).orElse(null);
+    public void updateType(String id, UserType type) {
+        Optional<User> userOpt = userRepository.findById(id);
+        if (userOpt.isEmpty()) {
+            throw new ResourceNotFoundException("The user with the given ID does not exist.");
+        }
+        User user = userOpt.get();
+        user.setUserType(type);
+        userRepository.save(user);
     }
 
-    public UserDetailsService userDetailsService() {
-        return new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String username) {
-                return userRepository.findByUsernameOrEmail(username)
-                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            }
-        };
+    public UserDTO filterByEmail(String email) {
+        Optional<User> user = userRepository.findFirstByEmailLike(email);
+
+        return user.map(UserDTO::new).orElse(null);
     }
 }
