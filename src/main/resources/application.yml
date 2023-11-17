@@ -13,3 +13,6 @@ spring:
      uri: mongodb+srv://elmasarajlic:biLmagJWDqu0PBLJ@cluster0.qqyhjfn.mongodb.net/?retryWrites=true&w=majority
      database: elmasarajlic
 
+security:
+  jwt:
+    secret: 'mXLjT3Gm4skNsCdNtWodbHPb1GqY35fGwaisLwImIp8cPZP7W6'
