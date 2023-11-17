@@ -18,7 +18,7 @@ public interface UserRepository extends MongoRepository<User, String> {
     List<User> findAllCustom();
 
 
-    @Query(value="{email:'?0'}", fields="{'id': 1, 'firstName': 1, 'lastName': 1, 'email': 1, 'username': 1, 'userType': 1}")
+    @Query(value="{email:'?0'}", fields="{'id': 1, 'email': 1, 'username': 1, 'userType': 1}")
     Optional<User> findByEmailCustom(String email);
 
     Optional<User> findByEmail(String email);

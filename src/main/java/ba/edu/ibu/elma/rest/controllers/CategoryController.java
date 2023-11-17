@@ -3,6 +3,7 @@ package ba.edu.ibu.elma.rest.controllers;
 import ba.edu.ibu.elma.core.service.CategoryService;
 import ba.edu.ibu.elma.rest.dto.CategoryDTO;
 import ba.edu.ibu.elma.rest.dto.CategoryRequestDTO;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/categories")
+@RequestMapping("api/categories")
+@SecurityRequirement(name = "JWT Security")
 public class CategoryController {
 
     @Autowired
