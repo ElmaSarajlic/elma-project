@@ -8,6 +8,7 @@ import ba.edu.ibu.elma.rest.dto.AdRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -56,6 +57,19 @@ public class AdService {
     public void deleteAd(String adId) {
         Optional<Ad> ad = adRepository.findById(adId);
         ad.ifPresent(adRepository::delete);
+    }
+
+    public List<AdDTO> getAdsByCategory(String adCategory) {
+        List<Ad> ads = adRepository.findByCategory(adCategory);
+
+        if (ads.isEmpty()) {
+            throw new ResourceNotFoundException("Ads with the given category do not exist.");
+        }
+
+        // Convert the list of Ad objects to a list of AdDTO objects
+        return ads.stream()
+                .map(AdDTO::new)
+                .collect(Collectors.toList());
     }
 
 

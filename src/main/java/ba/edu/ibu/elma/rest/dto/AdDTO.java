@@ -9,12 +9,14 @@ public class AdDTO {
     private String title;
     private String description;
     private Date creationDate;
+    private String category;
 
     public AdDTO(Ad ad) {
         this.id = ad.getId();
         this.title = ad.getTitle();
         this.description = ad.getDescription();
         this.creationDate = ad.getCreationDate();
+        this.category = ad.getCategory();
     }
 
     public String getId() {
@@ -46,6 +48,13 @@ public class AdDTO {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getCategory(){
+        return category;
+    }
+    public void setCategory(String category){
+        this.category = category;
     }
 }
 
