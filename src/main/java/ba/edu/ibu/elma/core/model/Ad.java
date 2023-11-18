@@ -12,6 +12,7 @@ public class Ad {
     private String title;
     private String description;
     private Date creationDate;
+    private String category;
 
     public String getId() {
         return id;
@@ -45,5 +46,13 @@ public class Ad {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getCategory(){
+        return category;
+    }
+
+    public void setCategory(String category){
+        this.category = category;
     }
 }
