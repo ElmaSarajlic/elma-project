@@ -38,6 +38,7 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.GET)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable String categoryId) {
         CategoryDTO category = categoryService.getCategoryById(categoryId);
         if (category != null) {
@@ -47,8 +48,7 @@ public class CategoryController {
         }
     }
 
-    @RequestMapping(value = "/{categoryId}", method = RequestMethod.PUT)
-    public ResponseEntity<CategoryDTO> updateCategory(@PathVariable String categoryId, @RequestBody CategoryRequestDTO categoryRequestDTO) {
+    @RequestMapping(value = "/{categoryId}", method = RequestMethod.PUT) public ResponseEntity<CategoryDTO> updateCategory(@PathVariable String categoryId, @RequestBody CategoryRequestDTO categoryRequestDTO) {
         CategoryDTO updatedCategory = categoryService.updateCategory(categoryId, categoryRequestDTO);
         if (updatedCategory != null) {
             return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
