@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class CategoryController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasAnyAuthority( 'ADMIN')")
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryRequestDTO categoryRequestDTO) {
         CategoryDTO createdCategory = categoryService.createCategory(categoryRequestDTO);
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
