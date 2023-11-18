@@ -60,6 +60,7 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Void> deleteCategory(@PathVariable String categoryId) {
         categoryService.deleteCategory(categoryId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
