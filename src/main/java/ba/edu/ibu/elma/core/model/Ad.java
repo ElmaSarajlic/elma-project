@@ -14,6 +14,16 @@ public class Ad {
     private Date creationDate;
     private String category;
 
+    public Ad(){}
+
+    public Ad(String id, String title, String category, String description, Date creationDate) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.category = category;
+        this.creationDate = creationDate;
+    }
+
     public String getId() {
         return id;
     }
