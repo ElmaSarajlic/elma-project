@@ -25,11 +25,12 @@ public class CategoryController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasAnyAuthority( 'ADMIN')")
+    @PreAuthorize("hasAuthority( 'ADMIN')")
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryRequestDTO categoryRequestDTO) {
         CategoryDTO createdCategory = categoryService.createCategory(categoryRequestDTO);
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
+
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<CategoryDTO>> getAllCategories() {
@@ -38,7 +39,7 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.GET)
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN', 'REGISTERED')")
     public ResponseEntity<CategoryDTO> getCategoryById(@PathVariable String categoryId) {
         CategoryDTO category = categoryService.getCategoryById(categoryId);
         if (category != null) {
@@ -49,7 +50,7 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.PUT)
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CategoryDTO> updateCategory(@PathVariable String categoryId, @RequestBody CategoryRequestDTO categoryRequestDTO) {
         CategoryDTO updatedCategory = categoryService.updateCategory(categoryId, categoryRequestDTO);
         if (updatedCategory != null) {
@@ -60,7 +61,7 @@ public class CategoryController {
     }
 
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteCategory(@PathVariable String categoryId) {
         categoryService.deleteCategory(categoryId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

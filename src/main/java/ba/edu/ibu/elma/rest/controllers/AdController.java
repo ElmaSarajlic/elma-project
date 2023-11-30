@@ -37,7 +37,7 @@ public class AdController {
     }
 
     @RequestMapping( method = RequestMethod.GET, path = "/{adId}")
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'REGISTERED')")
     public ResponseEntity<AdDTO> getAdById(@PathVariable String adId) {
         AdDTO ad = adService.getAdById(adId);
         if (ad != null) {
