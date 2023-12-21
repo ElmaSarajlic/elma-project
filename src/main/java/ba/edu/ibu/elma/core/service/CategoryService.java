@@ -51,8 +51,13 @@ public class CategoryService {
         return new CategoryDTO(updatedCategory);
     }
 
+
     public void deleteCategory(String categoryId) {
         Optional<Category> category = categoryRepository.findById(categoryId);
-        category.ifPresent(categoryRepository::delete);
+        if (category.isEmpty()) {
+            throw new ResourceNotFoundException("The category with the given ID does not exist.");
+        }
+        categoryRepository.delete(category.get());
     }
 }
+

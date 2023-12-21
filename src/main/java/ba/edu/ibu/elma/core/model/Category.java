@@ -2,10 +2,19 @@ package ba.edu.ibu.elma.core.model;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.Date;
+
 public class Category {
     @Id
     private String id;
     private String name;
+
+    public Category(){}
+
+    public Category(String id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     public String getId() {
         return id;

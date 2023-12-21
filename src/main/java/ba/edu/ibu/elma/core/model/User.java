@@ -3,16 +3,21 @@ package ba.edu.ibu.elma.core.model;
 import ba.edu.ibu.elma.core.model.enums.UserType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.util.Date;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @Document
-public class User {
+public class User implements UserDetails {
     @Id
     private String id;
     private UserType userType;
-    private String username;
     private String email;
+    private String username;
     private String password;
     private Date creationDate;
 
@@ -30,7 +35,6 @@ public class User {
 
     public void setUserType(UserType userType) {
         this.userType = userType;
-
     }
 
     public String getEmail() {
@@ -45,8 +49,33 @@ public class User {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
     public void setUsername(String userName) {
         this.username = userName;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(userType.name()));
     }
 
     public String getPassword() {
