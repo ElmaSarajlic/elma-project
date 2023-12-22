@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import {adList}  from '../../constants'
 import AdCard from '../AdCard/AdCard'
 
