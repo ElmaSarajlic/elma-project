@@ -1,23 +1,16 @@
-import './App.css';
-import AdCard from './components/AdCard';
-import { Ad } from './utils/types'; // Make sure to import the Ad type or adjust the import path
+import BookList from "./components/AdList"
 
-
-const ad: Ad = {
-  id:"1",
-  title: 'reklama1',
-  description: 'reklamni proizvod itd',
-  category: 'selling',
- }
- 
 
 function App() {
- 
-  return (
-    <>
-      <AdCard ad = {ad}/>
-    </>
-  );
+
+
+ return (
+   <>
+     <h2 className="m-2">Find a book...</h2>
+     <BookList />
+   </>
+ )
 }
 
-export default App;
+
+export default App
