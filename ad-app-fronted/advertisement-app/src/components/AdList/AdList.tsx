@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import {adList}  from '../../constants'
 import AdCard from '../AdCard/AdCard'
 
@@ -8,6 +8,12 @@ type Props = {}
 
 const AdList = (props: Props) => {
    const [ads, setads] = useState(adList)
+
+
+   //const search = (e: ChangeEvent<HTMLInputElement>) => {
+    //const filteredAds = adList.filter(ad => ad.title.toLowerCase().includes(e.target.value.toLowerCase()))
+    //setads(filteredAds)}
+
 
 
    return (
