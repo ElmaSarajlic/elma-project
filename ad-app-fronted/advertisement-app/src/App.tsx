@@ -1,4 +1,6 @@
 import BookList from "./components/AdList"
+import UserInfo from "./components/UserInfo"
+import {user} from "./constants"
 
 
 function App() {
@@ -6,8 +8,7 @@ function App() {
 
  return (
    <>
-     <h2 className="m-2">Find an ad...</h2>
-     <BookList />
+     <UserInfo user = {user} />
    </>
  )
 }
