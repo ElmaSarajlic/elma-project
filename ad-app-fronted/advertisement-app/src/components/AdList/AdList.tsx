@@ -1,31 +1,30 @@
-import { useState } from 'react'
-import {adList}  from '../../constants'
-import AdCard from '../AdCard/AdCard'
+import React, { useState } from 'react';
+import { adList } from '../../constants';
+import AdCard from '../AdCard/AdCard';
+import Grid from '@mui/material/Grid';
 
-
-type Props = {}
-
+type Props = {};
 
 const AdList = (props: Props) => {
-   const [ads, setads] = useState(adList)
+  const [ads, setAds] = useState(adList);
 
+  // Uncomment and use this function for search functionality
+  // const search = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const filteredAds = adList.filter(ad => 
+  //     ad.title.toLowerCase().includes(e.target.value.toLowerCase())
+  //   );
+  //   setAds(filteredAds);
+  // };
 
-   //const search = (e: ChangeEvent<HTMLInputElement>) => {
-    //const filteredAds = adList.filter(ad => ad.title.toLowerCase().includes(e.target.value.toLowerCase()))
-    //setads(filteredAds)}
+  return (
+    <Grid container spacing={2}>
+      {ads.map((ad, index) => (
+        <Grid item xs={12} key={index}>
+          <AdCard ad={ad} />
+        </Grid>
+      ))}
+    </Grid>
+  );
+};
 
-
-
-   return (
-       <div className="row">
-           {
-               ads.map((ad, i) => (
-                   <AdCard ad={ad} key={i} />
-               ))
-           }
-       </div>
-   )
-}
-
-
-export default AdList
+export default AdList;
