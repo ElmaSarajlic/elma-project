@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { categoryList } from '../constants'; // Adjust the import path as necessary
-import { Category, SubCategory } from '../utils/types'; // Adjust this import path as necessary
+import { categoryList } from '../../constants'; // Adjust the import path as necessary
+import { Category, SubCategory } from '../../utils/types'; // Adjust this import path as necessary
 import { Container, Card, CardContent, TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 interface AdFormData {

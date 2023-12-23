@@ -1,4 +1,4 @@
-import AdForm from './AdForm'
+import AdForm from './components/AdForm'
 import './App.css'
 import AdList from './components/AdList'
 import CategoryCard from './components/CategoryCard'
@@ -8,6 +8,7 @@ import Login from './components/login'
 import Register from './components/register'
 import { categoryList } from './constants'
 import { Category } from './utils/types'
+import AdCard from './components/AdCard'
 
 
 function App() {
@@ -23,7 +24,8 @@ function App() {
     </div>
   </div>   */}
   {/*<CategoryList categories={categoryList} />*/}
-  {<AdForm/>  }
+  {/*<AdForm/> */ }
+  {<AdList />}
 
 
     </>
