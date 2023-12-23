@@ -1,6 +1,6 @@
 import { Ad } from './utils/types'; // Make sure to import the Ad type or adjust the import path
 import{User} from './utils/types';
- 
+import { Category } from './utils/types' ; 
 
 export const adList: Ad[] = [{
     id:"1",
@@ -28,3 +28,17 @@ export const adList: Ad[] = [{
         email: 'johndoe@gmail.com',
         password: 'password'
       }
+
+
+  export const categoryList: Category[] =[{
+    id : "1",
+    title : "category1"
+  },
+  {
+    id : "1",
+    title : "category2"
+  },
+  {
+    id : "1",
+    title : "category3"
+  }]
