@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { categoryList } from '../../constants'; // Adjust the import path as necessary
 import { Category, SubCategory } from '../../utils/types'; // Adjust this import path as necessary
-import { Container, Card, CardContent, TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Container, Card, CardContent, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
 
 interface AdFormData {
   imageUrl: string;
@@ -9,6 +9,11 @@ interface AdFormData {
   contact: string;
   category: string;
   subCategory: string;
+}
+
+interface FormErrors {
+  contact: string;
+  category: string;
 }
 
 const NewAdForm: React.FC = () => {
@@ -19,12 +24,21 @@ const NewAdForm: React.FC = () => {
     category: '',
     subCategory: ''
   });
+  const [errors, setErrors] = useState<FormErrors>({
+    contact: '',
+    category: ''
+  });
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string | undefined; value: unknown }>) => {
     const name = e.target.name as keyof AdFormData;
     const value = e.target.value as string;
     setFormData({ ...formData, [name]: value });
+
+    // Clear errors when the user starts to correct them
+    if (name === 'contact' || name === 'category') {
+      setErrors({ ...errors, [name]: '' });
+    }
 
     if (name === 'category') {
       const selectedCategory = categoryList.find(category => category.title === value);
@@ -33,9 +47,28 @@ const NewAdForm: React.FC = () => {
     }
   };
 
+  const validateForm = () => {
+    const newErrors: FormErrors = { contact: '', category: '' };
+    let isValid = true;
+
+    if (!formData.contact) {
+      newErrors.contact = 'Please add contact information';
+      isValid = false;
+    }
+    if (!formData.category) {
+      newErrors.category = 'Please choose a category';
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(formData); // Replace with your form submission logic
+    if (validateForm()) {
+      console.log(formData); // Here, you would handle the form submission, like sending data to a server
+    }
   };
 
   return (
@@ -64,6 +97,7 @@ const NewAdForm: React.FC = () => {
               variant="outlined"
             />
             <TextField
+              error={Boolean(errors.contact)}
               fullWidth
               label="Contact"
               name="contact"
@@ -71,8 +105,9 @@ const NewAdForm: React.FC = () => {
               onChange={handleInputChange}
               margin="normal"
               variant="outlined"
+              helperText={errors.contact}
             />
-            <FormControl fullWidth margin="normal">
+            <FormControl fullWidth margin="normal" error={Boolean(errors.category)}>
               <InputLabel>Category</InputLabel>
               <Select
                 name="category"
@@ -87,6 +122,7 @@ const NewAdForm: React.FC = () => {
                   <MenuItem key={category.id} value={category.title}>{category.title}</MenuItem>
                 ))}
               </Select>
+              <FormHelperText>{errors.category}</FormHelperText>
             </FormControl>
             {subCategories.length > 0 && (
               <FormControl fullWidth margin="normal">
