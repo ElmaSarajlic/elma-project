@@ -1,7 +1,6 @@
 import React from 'react';
 import CategoryCard from '../CategoryCard/CategoryCard';
 import { Category } from '../../utils/types';
-import { SubCategory } from '../../utils/types';
 
 interface CategoryListProps {
   categories: Category[];

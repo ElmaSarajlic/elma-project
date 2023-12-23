@@ -1,8 +1,10 @@
 export type Ad =  {
     id: string;
     title: string;
-    category: string;
+    subcategory: string;
     description: string;
+    contact:string;
+    imgUrl:string;
 }
 
 export type User ={

@@ -2,23 +2,36 @@ import { Ad } from './utils/types'; // Make sure to import the Ad type or adjust
 import{User} from './utils/types';
 import { Category } from './utils/types' ; 
 
+
 export const adList: Ad[] = [{
     id:"1",
     title: 'reklama1',
     description: 'reklamni proizvod itd',
-    category: 'selling',
-    },
+    subcategory: 'selling',
+    contact:'email.com',
+    imgUrl : 'https://media.architecturaldigest.com/photos/63079fc7b4858efb76814bd2/16:9/w_4000,h_2250,c_limit/9.%20DeLorean-Alpha-5%20%5BDeLorean%5D.jpg'
+
+  },
+
     {
     id:"2",
     title: 'reklama2',
     description: 'reklamni proizvod itd',
-    category: 'selling',
+    subcategory: 'selling',
+    contact:'email.com',
+    imgUrl:'https://media.architecturaldigest.com/photos/63079fc7b4858efb76814bd2/16:9/w_4000,h_2250,c_limit/9.%20DeLorean-Alpha-5%20%5BDeLorean%5D.jpg'
+
+
     },
     {
     id:"3",
     title: 'reklama3',
     description: 'reklamni proizvod itd',
-    category: 'selling',
+    subcategory: 'selling',
+    contact:'email.com',
+    imgUrl:'https://media.architecturaldigest.com/photos/63079fc7b4858efb76814bd2/16:9/w_4000,h_2250,c_limit/9.%20DeLorean-Alpha-5%20%5BDeLorean%5D.jpg'
+
+
     }]
 
     export const user: User = {

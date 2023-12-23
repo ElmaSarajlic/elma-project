@@ -1,4 +1,5 @@
 import './App.css'
+import AdList from './components/AdList'
 import CategoryCard from './components/CategoryCard'
 import CategoryList from './components/CategoryList'
 import NavBar from './components/NavBar'
@@ -14,9 +15,9 @@ function App() {
       {/*<Login/> */ }
       {/*<Register/> */ }
       <div className="app">
-      <h1>Categories</h1>
-      <CategoryList categories={categoryList} />
-    </div>      {/*<CategoryList category={categoryList} /> */ }
+      <h1>ads</h1>
+      <AdList />
+    </div>   
 
 
     </>
