@@ -1,14 +1,12 @@
-import AdList from './components/AdList'
+import './App.css'
+import Login from './components/login'
 
-type Props = {}
-
-const Home = (props: Props) => {
-    return (
-        <>
-            <h2 className="m-2">Start Searching</h2>
-            <AdList />
-        </>
-    )
+function App() {
+  return (
+    <>
+      {<Login /> }
+    </>
+  )
 }
 
-export default Home
+export default App
