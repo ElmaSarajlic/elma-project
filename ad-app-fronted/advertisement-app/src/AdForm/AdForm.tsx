@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { categoryList } from '../constants'; // Adjust the import path as necessary
 import { Category, SubCategory } from '../utils/types'; // Adjust this import path as necessary
+import { Container, Card, CardContent, TextField, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 interface AdFormData {
   imageUrl: string;
@@ -20,104 +21,104 @@ const NewAdForm: React.FC = () => {
   });
   const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string | undefined; value: unknown }>) => {
+    const name = e.target.name as keyof AdFormData;
+    const value = e.target.value as string;
+    setFormData({ ...formData, [name]: value });
 
-    // If a category is selected, find its subcategories
     if (name === 'category') {
       const selectedCategory = categoryList.find(category => category.title === value);
       setSubCategories(selectedCategory?.subCategories || []);
-      // Reset subCategory when category changes
-      setFormData(prevFormData => ({
-        ...prevFormData,
-        subCategory: ''
-      }));
+      setFormData(prevFormData => ({ ...prevFormData, subCategory: '' }));
     }
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle the form submission, such as sending the formData to a server
-    console.log(formData);
+    console.log(formData); // Replace with your form submission logic
   };
 
   return (
-    <form onSubmit={handleSubmit} className="container mt-4">
-      <div className="mb-3">
-        <label htmlFor="imageUpload" className="form-label">Image URL</label>
-        <input 
-          type="text"
-          className="form-control"
-          id="imageUpload"
-          name="imageUrl"
-          value={formData.imageUrl}
-          onChange={handleInputChange}
-          placeholder="http://example.com/image.jpg"
-        />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="descriptionInput" className="form-label">Description</label>
-        <textarea 
-          className="form-control"
-          id="descriptionInput"
-          name="description"
-          rows={3}
-          value={formData.description}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="contactInput" className="form-label">Contact</label>
-        <input 
-          type="text"
-          className="form-control"
-          id="contactInput"
-          name="contact"
-          value={formData.contact}
-          onChange={handleInputChange}
-          placeholder="Contact Information"
-        />
-      </div>
-      <div className="mb-3">
-        <label htmlFor="categorySelect" className="form-label">Category</label>
-        <select 
-          className="form-select"
-          id="categorySelect"
-          name="category"
-          value={formData.category}
-          onChange={handleInputChange}
-        >
-          <option value="">Select a Category</option>
-          {categoryList.map((category: Category) => (
-            <option key={category.id} value={category.title}>{category.title}</option>
-          ))}
-        </select>
-      </div>
-      {subCategories.length > 0 && (
-        <div className="mb-3">
-          <label htmlFor="subCategorySelect" className="form-label">Subcategory</label>
-          <select 
-            className="form-select"
-            id="subCategorySelect"
-            name="subCategory"
-            value={formData.subCategory}
-            onChange={handleInputChange}
-          >
-            <option value="">Select a Subcategory</option>
-            {subCategories.map((subCategory: SubCategory) => (
-              <option key={subCategory.id} value={subCategory.title}>{subCategory.title}</option>
-            ))}
-          </select>
-        </div>
-      )}
-      <div className="d-grid gap-2">
-        <button type="submit" className="btn btn-primary">Add Ad</button>
-      </div>
-    </form>
+    <Container maxWidth="sm" style={{ marginTop: '2rem' }}>
+      <Card variant="outlined">
+        <CardContent>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              label="Image URL"
+              name="imageUrl"
+              value={formData.imageUrl}
+              onChange={handleInputChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              label="Description"
+              name="description"
+              multiline
+              rows={4}
+              value={formData.description}
+              onChange={handleInputChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              label="Contact"
+              name="contact"
+              value={formData.contact}
+              onChange={handleInputChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <FormControl fullWidth margin="normal">
+              <InputLabel>Category</InputLabel>
+              <Select
+                name="category"
+                value={formData.category}
+                onChange={handleInputChange}
+                label="Category"
+              >
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {categoryList.map((category: Category) => (
+                  <MenuItem key={category.id} value={category.title}>{category.title}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            {subCategories.length > 0 && (
+              <FormControl fullWidth margin="normal">
+                <InputLabel>Subcategory</InputLabel>
+                <Select
+                  name="subCategory"
+                  value={formData.subCategory}
+                  onChange={handleInputChange}
+                  label="Subcategory"
+                >
+                  <MenuItem value="">
+                    <em>None</em>
+                  </MenuItem>
+                  {subCategories.map((subCategory: SubCategory) => (
+                    <MenuItem key={subCategory.id} value={subCategory.title}>{subCategory.title}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+            <Button
+              type="submit"
+              color="primary"
+              variant="contained"
+              fullWidth
+              style={{ marginTop: '1rem' }}
+            >
+              Add Ad
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+    </Container>
   );
 };
 
