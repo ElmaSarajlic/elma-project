@@ -14,10 +14,14 @@ function App() {
     <>
       {/*<Login/> */ }
       {/*<Register/> */ }
+      {/*<div className="app">
+      <h1>Available ads</h1>
+      <NavBar />
       <div className="app">
-      <h1>ads</h1>
       <AdList />
-    </div>   
+    </div>
+  </div>   */}
+  {/*<CategoryList categories={categoryList} />*/}
 
 
     </>

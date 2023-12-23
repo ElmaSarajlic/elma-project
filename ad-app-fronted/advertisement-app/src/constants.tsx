@@ -50,6 +50,8 @@ export const adList: Ad[] = [{
           subCategories: [
             { id: 'sub1', title: 'Subcategory 1-1' },
             { id: 'sub2', title: 'Subcategory 1-2' },
+            { id: 'sub2', title: 'Subcategory 1-2' },
+            { id: 'sub2', title: 'Subcategory 1-2' }
             
           ],
         },
