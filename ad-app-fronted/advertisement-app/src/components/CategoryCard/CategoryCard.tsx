@@ -5,6 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import IconButton from '@mui/material/IconButton';
@@ -17,6 +18,11 @@ interface CategoryCardProps {
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ title, subCategories }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleSubCategoryClick = (subCategory: SubCategory) => {
+    // Implement your logic for when a subcategory is clicked
+    console.log("Subcategory clicked:", subCategory.title);
+  };
 
   return (
     <Card sx={{ marginBottom: '1rem', boxShadow: 2 }}>
@@ -41,9 +47,14 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ title, subCategories }) => 
             {subCategories.map((subCategory) => (
               <ListItem 
                 key={subCategory.id} 
-                sx={{ padding: '0.25rem 0', borderBottom: 1, borderColor: 'divider', fontSize: '1rem' }}
+                disablePadding
+                sx={{ borderBottom: 1, borderColor: 'divider' }}
               >
-                {subCategory.title}
+                <ListItemButton onClick={() => handleSubCategoryClick(subCategory)}>
+                  <Typography sx={{ fontSize: '1rem' }}>
+                    {subCategory.title}
+                  </Typography>
+                </ListItemButton>
               </ListItem>
             ))}
           </List>
