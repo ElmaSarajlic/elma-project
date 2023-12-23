@@ -1,10 +1,7 @@
 import React from 'react';
 import CategoryCard from '../CategoryCard/CategoryCard';
-
-interface Category {
-  title: string;
-  subCategories: { name: string }[];
-}
+import { Category } from '../../utils/types';
+import { SubCategory } from '../../utils/types';
 
 interface CategoryListProps {
   categories: Category[];
@@ -13,8 +10,8 @@ interface CategoryListProps {
 const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
   return (
     <div className="category-list">
-      {categories.map((category, index) => (
-        <CategoryCard key={index} title={category.title} subCategories={category.subCategories} />
+      {categories.map((category) => (
+        <CategoryCard id={category.id} title={category.title} subCategories={category.subCategories} />
       ))}
     </div>
   );

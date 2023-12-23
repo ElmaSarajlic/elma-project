@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-interface SubCategory {
-  name: string;
-}
+import { SubCategory } from '../../utils/types';
 
 interface CategoryCardProps {
+  id: string; 
   title: string;
   subCategories: SubCategory[];
 }
@@ -19,9 +18,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ title, subCategories }) => 
       </div>
       {isOpen && (
         <ul className="subcategory-list">
-          {subCategories.map((subCategory, index) => (
-            <li key={index} className="subcategory-item">
-              {subCategory.name}
+          {subCategories.map((subCategory) => (
+            <li key={subCategory.id} className="subcategory-item">
+              {subCategory.title}
             </li>
           ))}
         </ul>
