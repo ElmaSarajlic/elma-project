@@ -23,9 +23,8 @@ function App() {
       <AdList />
     </div>
   </div>   */}
-  {/*<CategoryList categories={categoryList} />*/}
+  {<CategoryList categories={categoryList} />}
   {/*<AdForm/> */ }
-  {<AdList />}
 
 
     </>
