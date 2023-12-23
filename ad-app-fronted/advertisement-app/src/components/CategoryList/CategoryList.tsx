@@ -1,21 +1,21 @@
 import React from 'react';
-import { Category } from '../../utils/types';
-import { categoryList } from '../../constants';
+import CategoryCard from '../CategoryCard/CategoryCard';
 
-// Define a type for the component's props
-type CategoryListProps = {
-  category: Category[];
-};
+interface Category {
+  title: string;
+  subCategories: { name: string }[];
+}
 
-const CategoryList: React.FC<CategoryListProps> = ({ category }) => {
+interface CategoryListProps {
+  categories: Category[];
+}
+
+const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
   return (
-    <div>
-      <h3>Categories</h3>
-      <ul>
-        {category.map((categoryItem) => (
-          <li key={categoryItem.id}>{categoryItem.title}</li>
-        ))}
-      </ul>
+    <div className="category-list">
+      {categories.map((category, index) => (
+        <CategoryCard key={index} title={category.title} subCategories={category.subCategories} />
+      ))}
     </div>
   );
 };

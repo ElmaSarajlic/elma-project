@@ -13,8 +13,14 @@ export type User ={
     password : string;
     
 }
-
-export type Category={
+export type SubCategory = {
     id: string;
-    title:string
-}
+    title: string;
+  };
+  
+  export type Category = {
+    id: string;
+    title: string;
+    subCategories: SubCategory[];
+  };
+  

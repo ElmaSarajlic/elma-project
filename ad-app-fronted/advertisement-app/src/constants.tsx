@@ -30,15 +30,34 @@ export const adList: Ad[] = [{
       }
 
 
-  export const categoryList: Category[] =[{
-    id : "1",
-    title : "category1"
-  },
-  {
-    id : "1",
-    title : "category2"
-  },
-  {
-    id : "1",
-    title : "category3"
-  }]
+     export const categoryList: Category[] = [
+        {
+          id: '1',
+          title: 'Category 1',
+          subCategories: [
+            { id: 'sub1', title: 'Subcategory 1-1' },
+            { id: 'sub2', title: 'Subcategory 1-2' },
+            
+          ],
+        },
+        {
+          id: '2',
+          title: 'Category 2',
+          subCategories: [
+            { id: 'sub1', title: 'Subcategory 1-1' },
+            { id: 'sub2', title: 'Subcategory 1-2' },
+            
+          ],
+        },
+        {
+          id: '3',
+          title: 'Category 3',
+          subCategories: [
+            { id: 'sub1', title: 'Subcategory 1-1' },
+            { id: 'sub2', title: 'Subcategory 1-2' },
+            
+          ],
+        }
+        // ... more categories
+      ];
+      
