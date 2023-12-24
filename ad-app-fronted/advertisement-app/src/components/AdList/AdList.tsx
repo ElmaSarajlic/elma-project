@@ -6,9 +6,8 @@ import Grid from '@mui/material/Grid';
 type Props = {};
 
 const AdList = (props: Props) => {
-  const [ads, setAds] = useState(adList);
+  const [ads] = useState(adList);
 
-  // Uncomment and use this function for search functionality
   // const search = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const filteredAds = adList.filter(ad => 
   //     ad.title.toLowerCase().includes(e.target.value.toLowerCase())

@@ -12,7 +12,6 @@ type Props = {
 const UserInfo = ({ user }: Props) => {
   return (
     <Container maxWidth="sm" sx={{ backgroundColor: 'primary', textAlign: 'center', padding: '20px' }}>
-      {/* Avatar for user picture */}
       <Avatar
         sx={{ width: 80, height: 80, margin: '0 auto' }}
         alt={user.username}

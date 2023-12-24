@@ -39,7 +39,7 @@ function App() {
     </div>
   </div>   */}
   {/*<CategoryList categories={categoryList} />*/}
-  {/*<AdForm/>*/  }
+  {<AdForm/>  }
   {/*<UserInfo user={user}/>*/}
   {/*<ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} />*/}
     {/*<DeleteBtn onDelete={() => console.log("Delete action")}/> */ }

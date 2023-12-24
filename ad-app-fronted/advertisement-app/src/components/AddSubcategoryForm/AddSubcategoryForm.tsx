@@ -1,6 +1,5 @@
-// AddSubcategoryForm.tsx
 import React, { useState } from 'react';
-import { categoryList } from '../../constants'; // import your constants
+import { categoryList } from '../../constants'; 
 import { Button, TextField, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import { Category } from '../../utils/types';
 
@@ -12,16 +11,13 @@ const AddSubcategoryForm: React.FC = () => {
 
 
   const handleAdd = () => {
-    // Add logic to handle adding the subcategory
     console.log(`Adding Subcategory: ${subcategory} to Category: ${category || newCategory}`);
-    // Reset form
     setCategory('');
     setNewCategory('');
     setSubcategory('');
   };
 
   const handleCancel = () => {
-    // Logic to handle cancellation
     setCategory('');
     setNewCategory('');
     setSubcategory('');

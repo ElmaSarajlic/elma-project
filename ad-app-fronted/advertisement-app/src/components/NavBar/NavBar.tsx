@@ -1,8 +1,7 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { AppBar } from '@mui/material'; // Import the AppBar component
-
+import { AppBar } from '@mui/material'; 
 const AppNavbar: React.FC = () => {
   return (
     <AppBar position="static" sx={{ width: '100%', maxWidth: '100%', position: 'absolute', top: 0, left: 0 }}>

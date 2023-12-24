@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { categoryList } from '../../constants'; // Adjust the import path as necessary
-import { Category, SubCategory } from '../../utils/types'; // Adjust this import path as necessary
+import { categoryList } from '../../constants';
+import { Category, SubCategory } from '../../utils/types'; 
 import { Container, Card, CardContent, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
 
 interface AdFormData {
@@ -35,7 +35,6 @@ const NewAdForm: React.FC = () => {
     const value = e.target.value as string;
     setFormData({ ...formData, [name]: value });
 
-    // Clear errors when the user starts to correct them
     if (name === 'contact' || name === 'category') {
       setErrors({ ...errors, [name]: '' });
     }
@@ -67,7 +66,7 @@ const NewAdForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log(formData); // Here, you would handle the form submission, like sending data to a server
+      console.log(formData); 
     }
   };
 

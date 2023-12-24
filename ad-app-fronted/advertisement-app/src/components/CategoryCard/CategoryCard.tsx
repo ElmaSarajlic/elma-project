@@ -20,7 +20,6 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ title, subCategories }) => 
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSubCategoryClick = (subCategory: SubCategory) => {
-    // Implement your logic for when a subcategory is clicked
     console.log("Subcategory clicked:", subCategory.title);
   };
 
