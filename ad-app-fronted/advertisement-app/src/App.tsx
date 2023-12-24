@@ -9,6 +9,8 @@ import Register from './components/register'
 import { categoryList } from './constants'
 import { Category } from './utils/types'
 import AdCard from './components/AdCard'
+import UserInfo from './components/UserInfo'
+import {user} from './constants'
 
 
 function App() {
@@ -24,7 +26,8 @@ function App() {
     </div>
   </div>   */}
   {/*<CategoryList categories={categoryList} />*/}
-  {<AdForm/>  }
+  {/*<AdForm/>*/  }
+  {<UserInfo user={user}/>}
 
 
     </>

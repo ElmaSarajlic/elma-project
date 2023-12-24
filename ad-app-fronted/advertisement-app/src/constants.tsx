@@ -35,10 +35,10 @@ export const adList: Ad[] = [{
     }]
 
     export const user: User = {
-        id: "user_123",
-        username: "Doe",
+        id: "user123",
+        username: "Elma Sarajlic",
         userType: "admin",
-        email: 'johndoe@gmail.com',
+        email: 'elma@gmail.com',
         password: 'password'
       }
 
