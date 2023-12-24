@@ -14,6 +14,7 @@ import {user} from './constants'
 import ChangeUserInfoCard from './components/ChangeUserInfoCard'
 import DeleteBtn from './components/DeleteBtn'
 import AddSubcategoryForm from './components/AddSubcategoryForm'
+import EditButton from './components/EditButton'
 
 
 
@@ -27,10 +28,15 @@ function App() {
     console.log('Changes canceled');
   };*/
 
+  const handleButtonClick = () => {
+    console.log('Button clicked!');
+  };
+
+
   return (
     <>
-      {/*<Login/> */ }
-      {/*<Register/> */ }
+      {/*<Login/> */}
+      {/*<Register/> */}
       {/*<div className="app">
       <h1>Available ads</h1>
       <NavBar />
@@ -39,11 +45,12 @@ function App() {
     </div>
   </div>   */}
   {/*<CategoryList categories={categoryList} />*/}
-  {<AdForm/>  }
+  {/*<AdForm/>*/}
   {/*<UserInfo user={user}/>*/}
   {/*<ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} />*/}
     {/*<DeleteBtn onDelete={() => console.log("Delete action")}/> */ }
       {/*<AddSubcategoryForm/>*/}
+      {<EditButton handleClick={handleButtonClick} />}
 
 
     </>
