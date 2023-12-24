@@ -12,15 +12,40 @@ import { User } from '../../utils/types';
 
 interface ChangeUserInfoCardProps {
   user: User;
-  onSave: () => void;
+  onSave: (editedUser: User) => void;
   onCancel: () => void;
 }
 
 const ChangeUserInfoCard: React.FC<ChangeUserInfoCardProps> = ({ user, onSave, onCancel }) => {
+  const [editedUser, setEditedUser] = useState(user);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [showPassword, setShowPassword] = useState(false);
 
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+    if (!editedUser.email) {
+      newErrors.email = 'Email is required';
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setEditedUser({ ...editedUser, [name]: value });
+  };
   const handlePasswordVisibilityToggle = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleSave = () => {
+    if (validateForm()) {
+      onSave(editedUser);
+    }
+  };
+
+  const handleCancel = () => {
+    onCancel();
   };
 
   return (
@@ -33,7 +58,8 @@ const ChangeUserInfoCard: React.FC<ChangeUserInfoCardProps> = ({ user, onSave, o
           fullWidth
           label="Image URL"
           name="imageUrl"
-          value={user.imageURL}
+          value={editedUser.imageURL}
+          onChange={handleChange}
           margin="normal"
           variant="outlined"
         />
@@ -42,7 +68,8 @@ const ChangeUserInfoCard: React.FC<ChangeUserInfoCardProps> = ({ user, onSave, o
           label="Password"
           name="password"
           type={showPassword ? 'text' : 'password'}
-          value={user.password}
+          value={editedUser.password}
+          onChange={handleChange}
           margin="normal"
           variant="outlined"
           InputProps={{
@@ -60,22 +87,26 @@ const ChangeUserInfoCard: React.FC<ChangeUserInfoCardProps> = ({ user, onSave, o
           label="Email"
           name="email"
           type="email"
-          value={user.email}
+          value={editedUser.email}
+          onChange={handleChange}
           margin="normal"
           variant="outlined"
+          error={!!errors.email}
+          helperText={errors.email}
         />
         <TextField
           fullWidth
           label="Username"
           name="username"
-          value={user.username}
+          value={editedUser.username}
+          onChange={handleChange}
           margin="normal"
           variant="outlined"
         />
-        <Button onClick={onSave} variant="contained" color="primary" style={{ marginTop: '1rem' }}>
+        <Button onClick={handleSave} variant="contained" color="primary" style={{ marginTop: '1rem' }}>
           Save
         </Button>
-        <Button onClick={onCancel} color="secondary" style={{ marginTop: '1rem', marginLeft: '1rem' }}>
+        <Button onClick={handleCancel} color="secondary" style={{ marginTop: '1rem', marginLeft: '1rem' }}>
           Cancel
         </Button>
       </CardContent>
