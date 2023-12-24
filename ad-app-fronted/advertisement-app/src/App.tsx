@@ -13,6 +13,7 @@ import UserInfo from './components/UserInfo'
 import {user} from './constants'
 import ChangeUserInfoCard from './components/ChangeUserInfoCard'
 import AdminCategoryActions from './components/AdminCategoryActions'
+import DeleteBtn from './components/DeleteBtn'
 
 
 
@@ -41,7 +42,7 @@ function App() {
   {/*<AdForm/>*/  }
   {/*<UserInfo user={user}/>*/}
   {/*<ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} />*/}
-    {<AdminCategoryActions/>  }
+    {/*<DeleteBtn onDelete={() => console.log("Delete action")}/> */ }
 
     </>
   );
