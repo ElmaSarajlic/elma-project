@@ -12,6 +12,7 @@ import AdCard from './components/AdCard'
 import UserInfo from './components/UserInfo'
 import {user} from './constants'
 import ChangeUserInfoCard from './components/ChangeUserInfoCard'
+import AdminCategoryActions from './components/AdminCategoryActions'
 
 
 
@@ -40,6 +41,8 @@ function App() {
   {/*<AdForm/>*/  }
   {/*<UserInfo user={user}/>*/}
   {/*<ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} />*/}
+    {<AdminCategoryActions/>  }
+
     </>
   );
 }
