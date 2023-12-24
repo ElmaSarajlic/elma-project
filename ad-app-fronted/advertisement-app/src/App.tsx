@@ -12,14 +12,18 @@ import AdCard from './components/AdCard'
 import UserInfo from './components/UserInfo'
 import {user} from './constants'
 import ChangeUserInfoCard from './components/ChangeUserInfoCard'
+
+
+
 function App() {
-  const onSave = () => {
+
+  /*const onSave = () => {
     console.log('Changes saved');
   };
 
   const onCancel = () => {
     console.log('Changes canceled');
-  };
+  };*/
 
   return (
     <>
@@ -35,7 +39,7 @@ function App() {
   {/*<CategoryList categories={categoryList} />*/}
   {/*<AdForm/>*/  }
   {/*<UserInfo user={user}/>*/}
-  {<ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} />}
+  {/*<ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} />*/}
     </>
   );
 }
