@@ -25,7 +25,7 @@ public class AdController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/")
     @PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
-    public ResponseEntity<AdDTO> createAd(@RequestBody AdRequestDTO adRequestDTO) {
+    public ResponseEntity<AdDTO> createAd(@RequestBody AdRequestDTO adRequestDTO) throws Exception {
         AdDTO createdAd = adService.createAd(adRequestDTO);
         return new ResponseEntity<>(createdAd, HttpStatus.CREATED);
     }
