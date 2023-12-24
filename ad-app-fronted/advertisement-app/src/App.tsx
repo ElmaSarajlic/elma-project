@@ -15,6 +15,7 @@ import ChangeUserInfoCard from './components/ChangeUserInfoCard'
 import DeleteBtn from './components/DeleteBtn'
 import AddSubcategoryForm from './components/AddSubcategoryForm'
 import EditButton from './components/EditButton'
+import SuccessCard from './components/SuccessCard'
 
 
 
@@ -28,9 +29,9 @@ function App() {
     console.log('Changes canceled');
   };*/
 
-  const handleButtonClick = () => {
+  /*const handleButtonClick = () => {
     console.log('Button clicked!');
-  };
+  };*/
 
 
   return (
@@ -50,7 +51,8 @@ function App() {
   {/*<ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} />*/}
     {/*<DeleteBtn onDelete={() => console.log("Delete action")}/> */ }
       {/*<AddSubcategoryForm/>*/}
-      {<EditButton handleClick={handleButtonClick} />}
+      {/*<EditButton handleClick={handleButtonClick} />*/}
+      {<SuccessCard/>}
 
 
     </>
