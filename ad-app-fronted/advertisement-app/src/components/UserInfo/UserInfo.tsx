@@ -16,7 +16,7 @@ const UserInfo = ({ user }: Props) => {
       <Avatar
         sx={{ width: 80, height: 80, margin: '0 auto' }}
         alt={user.username}
-        src="/path/to/user-image.jpg" // Replace with user's image path
+        src="https://musicart.xboxlive.com/7/4d4d6500-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080" 
       />
       <Typography variant="h5" sx={{ marginTop: '20px' }}>
         {user.username}
