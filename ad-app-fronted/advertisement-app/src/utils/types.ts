@@ -13,6 +13,7 @@ export type User ={
     userType: string;
     email : string;
     password : string;
+    imageURL : string;
     
 }
 export type SubCategory = {

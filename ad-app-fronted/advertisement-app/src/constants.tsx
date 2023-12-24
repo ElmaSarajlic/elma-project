@@ -39,7 +39,8 @@ export const adList: Ad[] = [{
         username: "Elma Sarajlic",
         userType: "admin",
         email: 'elma@gmail.com',
-        password: 'password'
+        password: 'password',
+        imageURL:'https://musicart.xboxlive.com/7/4d4d6500-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080'
       }
 
 
