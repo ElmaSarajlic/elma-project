@@ -12,8 +12,8 @@ import AdCard from './components/AdCard'
 import UserInfo from './components/UserInfo'
 import {user} from './constants'
 import ChangeUserInfoCard from './components/ChangeUserInfoCard'
-import AdminCategoryActions from './components/AdminCategoryActions'
 import DeleteBtn from './components/DeleteBtn'
+import AddSubcategoryForm from './components/AddSubcategoryForm'
 
 
 
@@ -43,6 +43,8 @@ function App() {
   {/*<UserInfo user={user}/>*/}
   {/*<ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} />*/}
     {/*<DeleteBtn onDelete={() => console.log("Delete action")}/> */ }
+      {/*<AddSubcategoryForm/>*/}
+
 
     </>
   );
