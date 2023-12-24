@@ -2,7 +2,6 @@ import { IconButton, SxProps } from "@mui/material";
 import { MouseEvent } from "react";
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
-type Props = {}
 
 type EditButtonProps = {
   color?: "inherit" | "primary" | "secondary" | "action" | "error" | "disabled" | "success";
