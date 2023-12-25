@@ -21,7 +21,7 @@ import SuccessCard from './components/SuccessCard'
 
 function App() {
 
-  /*const onSave = () => {
+ /* const onSave = () => {
     console.log('Changes saved');
   };
 
@@ -44,7 +44,7 @@ function App() {
       <div className="app">
       <AdList />
     </div>
-  </div>   */}
+  </div>  */ }
   {/*<CategoryList categories={categoryList} />*/}
   {/*<AdForm/>*/}
   {/*<UserInfo user={user}/>*/}
@@ -52,7 +52,7 @@ function App() {
     {/*<DeleteBtn onDelete={() => console.log("Delete action")}/> */ }
       {/*<AddSubcategoryForm/>*/}
       {/*<EditButton handleClick={handleButtonClick} />*/}
-      {<SuccessCard/>}
+      {/*<SuccessCard/>*/}
 
 
     </>
