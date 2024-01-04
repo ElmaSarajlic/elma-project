@@ -38,13 +38,13 @@ function App() {
     <>
       {/*<Login/> */}
       {/*<Register/> */}
-      {/*<div className="app">
+      {<div className="app">
       <h1>Available ads</h1>
       <NavBar />
       <div className="app">
       <AdList />
     </div>
-  </div>  */ }
+  </div>   }
   {/*<CategoryList categories={categoryList} />*/}
   {/*<AdForm/>*/}
   {/*<UserInfo user={user}/>*/}
