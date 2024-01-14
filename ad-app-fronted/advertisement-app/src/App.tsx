@@ -61,20 +61,26 @@ function App() {
 
 /*export default App;*/
 
-import React from 'react';
-import NavBar from './components/NavBar'; 
-import AdList from './components/AdList'; 
-import Container from '@mui/material/Container';
+import { Route, Routes } from "react-router-dom"
+import { Home, Login, Register, UserInfo, Categories } from "./pages"
+import NavBar from "./components/NavBar"
+//import ProtectedRoute from "./utils/ProtectedRoute"
 
-const HomePage: React.FC = () => {
+function App() {
+
   return (
-    <div>
+    <>
       <NavBar />
-      <Container maxWidth="lg" style={{ marginTop: '100px' }}>
-        <AdList />
-      </Container>
-    </div>
-  );
-};
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/categories" element={<Categories />} />
+          <Route path="/userinfo" element={<UserInfo />} />
+      </Routes>
+    </>
+  )
+}
 
-export default HomePage;
+export default App

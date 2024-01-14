@@ -1,12 +1,20 @@
 import React from 'react';
-import Register from '../components/register'; // Assuming the component is named 'Register' with a capital 'L'
+import NavBar from '../components/NavBar';
+import RegisterForm from '../components/register/Register';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
-const RegisterPage = () => {
-    return (
-        <>
-            <Register />
-        </>
-    );
+const RegisterPage: React.FC = () => {
+  return (
+    <div>
+      <NavBar />
+      <Container maxWidth="sm" style={{ marginTop: '120px' }}>
+        <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">
+          <RegisterForm />
+        </Box>
+      </Container>
+    </div>
+  );
 };
 
 export default RegisterPage;

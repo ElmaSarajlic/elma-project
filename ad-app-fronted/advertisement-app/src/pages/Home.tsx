@@ -1,17 +1,17 @@
-import AdList from '../components/AdList'
-import NavBar from '../components/NavBar'
+import React from 'react';
+import NavBar from '../components/NavBar'; 
+import AdList from '../components/AdList'; 
+import Container from '@mui/material/Container';
 
-type Props = {}
+const HomePage: React.FC = () => {
+  return (
+    <div>
+      <NavBar />
+      <Container maxWidth="lg" style={{ marginTop: '100px' }}>
+        <AdList />
+      </Container>
+    </div>
+  );
+};
 
-const Home = (props: Props) => {
-    return (
-        <>
-              {<NavBar />}
-
-            <h2 className="m-2">Find an ad...</h2>
-            <AdList />
-        </>
-    )
-}
-
-export default Home
+export default HomePage;

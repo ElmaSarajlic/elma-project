@@ -1,17 +1,20 @@
-import UserInfo from '../components/UserInfo';
+import React from 'react';
 import NavBar from '../components/NavBar';
+import UserInfo from '../components/UserInfo';
+import Container from '@mui/material/Container';
 import { user } from '../constants';
 
 
 
-const UserInfoPage = () => {
-    return (
-        <>
-            <NavBar />
-            <div style={{ marginTop: '20px' }}>
-            <UserInfo user={user}/>            </div>
-        </>
-    );
+const UserProfilePage: React.FC = () => {
+  return (
+    <div>
+      <NavBar />
+      <Container maxWidth="md" style={{ marginTop: '100px' }}>
+        <UserInfo user={user} />
+      </Container>
+    </div>
+  );
 };
 
-export default UserInfoPage;
+export default UserProfilePage;
