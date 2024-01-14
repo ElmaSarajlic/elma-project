@@ -1,4 +1,4 @@
-import './App.css'
+/*import './App.css'
 import AdForm from './components/AdForm'
 import AdList from './components/AdList'
 import CategoryCard from './components/CategoryCard'
@@ -34,29 +34,47 @@ function App() {
   };*/
 
 
-  return (
+  /*return (
     <>
-      {/*<Login/> */}
-      {/*<Register/> */}
-      {<div className="app">
+      {/*<Login/> */ /*}
+     /* {/*<Register/> */ /*}
+     /* {<div className="app">
       <h1>Available ads</h1>
       <NavBar />
       <div className="app">
       <AdList />
     </div>
   </div>   }
-  {/*<CategoryList categories={categoryList} />*/}
-  {/*<AdForm/>*/}
-  {/*<UserInfo user={user}/>*/}
-  {/*<ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} />*/}
-    {/*<DeleteBtn onDelete={() => console.log("Delete action")}/> */ }
-      {/*<AddSubcategoryForm/>*/}
-      {/*<EditButton handleClick={handleButtonClick} />*/}
-      {/*<SuccessCard/>*/}
+  {/*<CategoryList categories={categoryList} />*//*}
+  /*{/*<AdForm/>*//*}
+  /*{/*<UserInfo user={user}/>*//*}
+  {/*<ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} />*/ /*}
+    /*{/*<DeleteBtn onDelete={() => console.log("Delete action")}/> */  /*}
+       /*{/*<AddSubcategoryForm/>*/ /*}
+       /*{/*<EditButton handleClick={handleButtonClick} />*/ /*}
+       /*{/*<SuccessCard/>*/ /*}
 
 
-    </>
+   /*  </>
   );
 }
 
-export default App;
+/*export default App;*/
+
+import React from 'react';
+import NavBar from './components/NavBar'; 
+import AdList from './components/AdList'; 
+import Container from '@mui/material/Container';
+
+const HomePage: React.FC = () => {
+  return (
+    <div>
+      <NavBar />
+      <Container maxWidth="lg" style={{ marginTop: '100px' }}>
+        <AdList />
+      </Container>
+    </div>
+  );
+};
+
+export default HomePage;
