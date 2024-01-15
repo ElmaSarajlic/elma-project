@@ -62,7 +62,7 @@ function App() {
 /*export default App;*/
 
 import { Route, Routes } from "react-router-dom"
-import { Home, Login, Register, UserInfo, Categories } from "./pages"
+import { Home, Login, Register, UserInfo, Categories, AdForm, EditUser } from "./pages"
 import NavBar from "./components/NavBar"
 //import ProtectedRoute from "./utils/ProtectedRoute"
 
@@ -77,7 +77,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/categories" element={<Categories />} />
-          <Route path="/userinfo" element={<UserInfo />} />
+        <Route path="/userinfo" element={<UserInfo />} />
+        <Route path="/AdForm" element={<AdForm />} />
+        <Route path="/EditUser" element={<EditUser />} />
+
+
       </Routes>
     </>
   )

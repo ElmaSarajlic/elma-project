@@ -54,7 +54,7 @@ const LoginForm = () => {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="/Register" variant="body2">
                                 Don't have an account? Register
                             </Link>
                         </Grid>

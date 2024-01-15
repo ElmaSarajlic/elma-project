@@ -4,7 +4,7 @@ import ChangeUserInfoCard from '../components/ChangeUserInfoCard';
 
 
 
-const UserInfoPage = () => {
+const EditUserInfoPage = () => {
 
     const onSave = () => {
         console.log('Changes saved');
@@ -22,4 +22,4 @@ const UserInfoPage = () => {
     );
 };
 
-export default UserInfoPage;
+export default EditUserInfoPage;
