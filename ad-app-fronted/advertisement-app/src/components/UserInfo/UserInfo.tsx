@@ -4,12 +4,21 @@ import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
+import { useNavigate } from 'react-router-dom';
+
 
 type Props = {
   user: User;
 };
 
 const UserInfo = ({ user }: Props) => {
+
+  const navigate = useNavigate();
+
+const handleEditClick = () => {
+  navigate('/EditUser');
+};
+
   return (
     <Container maxWidth="sm" sx={{ backgroundColor: 'primary', textAlign: 'center', padding: '20px' }}>
       <Avatar
@@ -23,7 +32,7 @@ const UserInfo = ({ user }: Props) => {
       <Typography variant="body2"> 
         {user.email} 
       </Typography>
-      <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }}>
+      <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleEditClick}> 
         Edit personal information
       </Button>
     </Container>

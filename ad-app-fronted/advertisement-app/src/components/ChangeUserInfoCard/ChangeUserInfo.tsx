@@ -9,12 +9,16 @@ import IconButton from '@mui/material/IconButton';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { User } from '../../utils/types';
+import { useNavigate } from 'react-router-dom';
+
+
 
 interface ChangeUserInfoCardProps {
   user: User;
   onSave: (editedUser: User) => void;
   onCancel: () => void;
 }
+
 
 const ChangeUserInfoCard: React.FC<ChangeUserInfoCardProps> = ({ user, onSave, onCancel }) => {
   const [editedUser, setEditedUser] = useState(user);
@@ -43,9 +47,11 @@ const ChangeUserInfoCard: React.FC<ChangeUserInfoCardProps> = ({ user, onSave, o
       onSave(editedUser);
     }
   };
+  const navigate = useNavigate();
+
 
   const handleCancel = () => {
-    onCancel();
+    navigate('/UserInfo'); 
   };
 
   return (

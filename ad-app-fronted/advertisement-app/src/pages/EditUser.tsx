@@ -4,7 +4,7 @@ import ChangeUserInfoCard from '../components/ChangeUserInfoCard';
 
 
 
-const EditUserInfoPage = () => {
+const EditUserInfoPage : React.FC = () => {
 
     const onSave = () => {
         console.log('Changes saved');

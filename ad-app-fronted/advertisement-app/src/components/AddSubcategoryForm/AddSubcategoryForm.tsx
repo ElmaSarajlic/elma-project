@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { categoryList } from '../../constants'; 
 import { Button, TextField, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import { Category } from '../../utils/types';
+import { useNavigate } from 'react-router-dom';
 
 const AddSubcategoryForm: React.FC = () => {
   const [category, setCategory] = useState('');
@@ -16,8 +17,10 @@ const AddSubcategoryForm: React.FC = () => {
     setNewCategory('');
     setSubcategory('');
   };
+  const navigate = useNavigate();
 
   const handleCancel = () => {
+    navigate('/Home');
     setCategory('');
     setNewCategory('');
     setSubcategory('');
