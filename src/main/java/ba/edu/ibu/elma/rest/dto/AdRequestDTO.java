@@ -6,14 +6,16 @@ import java.util.Date;
 public class AdRequestDTO {
     private String title;
     private String description;
-    private String category;
+    private String subcategory;
+    private String contact;
 
     public AdRequestDTO() { }
 
     public AdRequestDTO(Ad ad) {
         this.title = ad.getTitle();
         this.description = ad.getDescription();
-        this.category = ad.getCategory();
+        this.subcategory = ad.getSubcategory();
+        this.contact = ad.getContact();
     }
 
     public Ad toEntity() {
@@ -21,7 +23,8 @@ public class AdRequestDTO {
         ad.setTitle(title);
         ad.setDescription(description);
         ad.setCreationDate(new Date());
-        ad.setCategory(category);
+        ad.setSubcategory(subcategory);
+        ad.setContact(contact);
         return ad;
     }
 
@@ -41,11 +44,17 @@ public class AdRequestDTO {
         this.description = description;
     }
 
-    public String getCategory() {
-        return category;
+    public String getSubcategory() {
+        return subcategory;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setSubcategory(String subcategory) {
+        this.subcategory = subcategory;
+    }
+    public String getContact(){
+        return contact;
+    }
+    public void setContact(String contact){
+        this.contact = contact;
     }
 }

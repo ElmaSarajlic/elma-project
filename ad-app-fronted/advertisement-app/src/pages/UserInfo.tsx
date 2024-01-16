@@ -3,6 +3,8 @@ import NavBar from '../components/NavBar';
 import UserInfo from '../components/UserInfo';
 import Container from '@mui/material/Container';
 import { user } from '../constants';
+import '../App.css'
+
 
 
 

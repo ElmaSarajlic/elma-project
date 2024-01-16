@@ -1,6 +1,8 @@
 import NavBar from '../components/NavBar';
 import { user } from '../constants';
 import ChangeUserInfoCard from '../components/ChangeUserInfoCard';
+import '../App.css'
+
 
 
 

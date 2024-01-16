@@ -3,10 +3,12 @@ import NavBar from '../components/NavBar';
 import LoginForm from '../components/login/Login'; 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import '../App.css'
+
 
 const LoginPage: React.FC = () => {
   return (
-    <div>
+    <div className="homepage-background" >
       <NavBar />
       <Container maxWidth="sm" style={{ marginTop: '120px' }}>
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="80vh">

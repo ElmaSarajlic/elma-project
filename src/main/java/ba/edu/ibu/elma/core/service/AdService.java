@@ -64,11 +64,11 @@ public class AdService {
         ad.ifPresent(adRepository::delete);
     }
 
-    public List<AdDTO> getAdsByCategory(String adCategory) {
-        List<Ad> ads = adRepository.findByCategory(adCategory);
+    public List<AdDTO> getAdsBySubcategory(String adSubcategory) {
+        List<Ad> ads = adRepository.findBySubcategory(adSubcategory);
 
         if (ads.isEmpty()) {
-            throw new ResourceNotFoundException("Ads with the given category do not exist.");
+            throw new ResourceNotFoundException("Ads with the given subcategory do not exist.");
         }
 
         // Convert the list of Ad objects to a list of AdDTO objects

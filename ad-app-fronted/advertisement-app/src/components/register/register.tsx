@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
@@ -7,9 +6,14 @@ import Link from '@mui/material/Link';
 import { Grid, Paper, IconButton, InputAdornment } from '@mui/material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterForm = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const [success] = useState(false);
+    const [userToken] = useState(null);
+    const navigate = useNavigate();
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);
@@ -18,6 +22,11 @@ const RegisterForm = () => {
     const handleMouseDownPassword = (event:any) => {
         event.preventDefault();
     };
+
+    useEffect(() => {
+        if (success) navigate('/login');
+        if (userToken) navigate('/home');
+    }, [navigate, userToken, success]);
 
     return (
         <Paper elevation={3} sx={{ maxWidth: "360px", padding: 3, mx: "auto" }}>
@@ -94,7 +103,7 @@ const RegisterForm = () => {
                     </Button>
                     <Grid container justifyContent="space-between">
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href="/Login" variant="body2">
                                 Already have an account? Login
                             </Link>
                         </Grid>

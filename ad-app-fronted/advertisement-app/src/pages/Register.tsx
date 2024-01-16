@@ -3,8 +3,12 @@ import NavBar from '../components/NavBar';
 import RegisterForm from '../components/register/Register';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import '../App.css'
+
+
 
 const RegisterPage: React.FC = () => {
+
   return (
     <div>
       <NavBar />

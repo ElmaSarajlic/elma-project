@@ -77,3 +77,4 @@ export const adList: Ad[] = [{
         // ... more categories
       ];
       
+      export const BASE_URL = 'http://localhost:8080/api'

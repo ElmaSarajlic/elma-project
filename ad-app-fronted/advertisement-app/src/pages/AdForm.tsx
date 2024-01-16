@@ -2,6 +2,8 @@ import React from 'react';
 import NavBar from '../components/NavBar'; 
 import AdForm from '../components/AdForm';
 import Container from '@mui/material/Container';
+import '../App.css'
+
 
 const AdFormPage: React.FC = () => {
 
