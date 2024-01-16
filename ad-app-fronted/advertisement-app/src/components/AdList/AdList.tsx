@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import AdCard from '../AdCard/AdCard';
 import { Ad } from '../../utils/types';
 import { AdService } from '../../services';
+import { Grid } from '@mui/material';
 
 type Props = {};
 
@@ -39,13 +40,13 @@ const AdList = (props: Props) => {
           <p className="mb-0">Something went wrong, please try again.</p>
         </div>
       ) : (
-        <div>
-          {ads.map((ad: Ad, index: number) => (
-            <div key={index}>
-              <AdCard ad={ad} />
-            </div>
-          ))}
-        </div>
+        <Grid container spacing={2}>
+      {ads.map((ad, index) => (
+        <Grid item xs={12} key={index}>
+          <AdCard ad={ad} />
+        </Grid>
+      ))}
+    </Grid>
       )}
     </div>
   );
