@@ -8,6 +8,7 @@ public class AdRequestDTO {
     private String description;
     private String subcategory;
     private String contact;
+    private String imgUrl;
 
     public AdRequestDTO() { }
 
@@ -16,6 +17,7 @@ public class AdRequestDTO {
         this.description = ad.getDescription();
         this.subcategory = ad.getSubcategory();
         this.contact = ad.getContact();
+        this.imgUrl = ad.getImgUrl();
     }
 
     public Ad toEntity() {
@@ -25,6 +27,7 @@ public class AdRequestDTO {
         ad.setCreationDate(new Date());
         ad.setSubcategory(subcategory);
         ad.setContact(contact);
+        ad.setImgUrl(imgUrl);
         return ad;
     }
 
@@ -56,5 +59,13 @@ public class AdRequestDTO {
     }
     public void setContact(String contact){
         this.contact = contact;
+    }
+
+    public String getImgUrl(){
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl){
+        this.imgUrl = imgUrl;
     }
 }

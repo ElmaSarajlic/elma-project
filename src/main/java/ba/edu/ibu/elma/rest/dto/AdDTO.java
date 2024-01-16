@@ -11,6 +11,7 @@ public class AdDTO {
     private Date creationDate;
     private String subcategory;
     private String contact;
+    private String imgUrl;
 
     public AdDTO(Ad ad) {
         this.id = ad.getId();
@@ -19,6 +20,7 @@ public class AdDTO {
         this.contact = ad.getContact();
         this.creationDate = ad.getCreationDate();
         this.subcategory = ad.getSubcategory();
+        this.imgUrl = ad.getImgUrl();
     }
 
     public String getId() {
@@ -64,6 +66,14 @@ public class AdDTO {
     }
     public void setContact(String contact){
         this.contact = contact;
+    }
+
+    public String getImgUrl(){
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl){
+        this.imgUrl = imgUrl;
     }
 }
 
