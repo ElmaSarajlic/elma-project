@@ -1,5 +1,8 @@
 package ba.edu.ibu.elma.rest.dto;
 import ba.edu.ibu.elma.core.model.Category;
+import ba.edu.ibu.elma.core.model.Subcategory;
+
+import java.util.List;
 
 public class CategoryRequestDTO {
     private String id;
@@ -10,6 +13,7 @@ public class CategoryRequestDTO {
     public CategoryRequestDTO(Category category) {
         this.id = category.getId();
         this.name = category.getName();
+
     }
 
     public Category toEntity() {
@@ -34,4 +38,6 @@ public class CategoryRequestDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }
