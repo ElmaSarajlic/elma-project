@@ -7,16 +7,15 @@ public class Subcategory {
     @Id
     private String id;
     private String name;
-    private String categoryId; // This will store the ID of the Category
-
+    private String categoryId;
 
 
     public Subcategory(){}
 
-    public Subcategory(String id, String name) {
+    public Subcategory(String id, String name, String categoryId) {
         this.id = id;
         this.name = name;
-        this.categoryId = categoryId; // Set the categoryId when creating a Subcategory
+        this.categoryId = categoryId;
     }
 
     public String getId() {
@@ -35,12 +34,6 @@ public class Subcategory {
         this.name = name;
 
     }
-    public String getCategoryId() {
-        return categoryId;
-    }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
-    }
 
 }

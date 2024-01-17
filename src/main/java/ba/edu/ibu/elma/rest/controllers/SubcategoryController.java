@@ -24,12 +24,8 @@ public class SubcategoryController { // Changed
         this.subcategoryService = subcategoryService;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<SubcategoryDTO> createSubcategory(@RequestBody SubcategoryRequestDTO subcategoryRequestDTO) { // Changed
-        SubcategoryDTO createdSubcategory = subcategoryService.createSubcategory(subcategoryRequestDTO); // Changed
-        return new ResponseEntity<>(createdSubcategory, HttpStatus.CREATED);
-    }
+
+
 
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<SubcategoryDTO>> getAllSubcategories() { // Changed
@@ -48,6 +44,13 @@ public class SubcategoryController { // Changed
         }
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<SubcategoryDTO> createSubcategory(@RequestBody SubcategoryRequestDTO subcategoryRequestDTO) { // Changed
+        SubcategoryDTO createdSubcategory = subcategoryService.createSubcategory(subcategoryRequestDTO); // Changed
+        return new ResponseEntity<>(createdSubcategory, HttpStatus.CREATED);
+    }
+
     @RequestMapping(value = "/{subcategoryId}", method = RequestMethod.PUT) // Changed
     @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SubcategoryDTO> updateSubcategory(@PathVariable String subcategoryId, @RequestBody SubcategoryRequestDTO subcategoryRequestDTO) { // Changed
@@ -64,5 +67,14 @@ public class SubcategoryController { // Changed
     public ResponseEntity<Void> deleteSubcategory(@PathVariable String subcategoryId) { // Changed
         subcategoryService.deleteSubcategory(subcategoryId); // Changed
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/by-category/{categoryId}")
+    public ResponseEntity<List<SubcategoryDTO>> getAllSubcategoriesByCategoryId(@PathVariable String categoryId) {
+        List<SubcategoryDTO> subcategories = subcategoryService.getAllSubcategoriesByCategoryId(categoryId);
+        if (subcategories.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(subcategories);
     }
 }

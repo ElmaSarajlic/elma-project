@@ -1,5 +1,7 @@
 package ba.edu.ibu.elma.rest.controllers;
 
+import ba.edu.ibu.elma.core.model.Category;
+import ba.edu.ibu.elma.core.model.Subcategory;
 import ba.edu.ibu.elma.core.service.CategoryService;
 import ba.edu.ibu.elma.rest.dto.CategoryDTO;
 import ba.edu.ibu.elma.rest.dto.CategoryRequestDTO;
@@ -35,8 +37,12 @@ public class CategoryController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<CategoryDTO>> getAllCategories() {
         List<CategoryDTO> categories = categoryService.getAllCategories();
+        if (categories.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN', 'REGISTERED')")
@@ -65,6 +71,25 @@ public class CategoryController {
     public ResponseEntity<Void> deleteCategory(@PathVariable String categoryId) {
         categoryService.deleteCategory(categoryId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+    @RequestMapping(value = "/{categoryId}/subcategories", method = RequestMethod.POST)
+    public ResponseEntity<Category> addSubcategory(
+            @PathVariable String categoryId,
+            @RequestBody Subcategory subcategory) {
+        Category updatedCategory = categoryService.addSubcategoryToCategory(categoryId, subcategory);
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedCategory);
+    }
+
+    @RequestMapping(value ="/{categoryId}/subcategories/{subcategoryId}", method = RequestMethod.DELETE)
+    public ResponseEntity<String> deleteSubcategoryFromCategory(@PathVariable String categoryId, @PathVariable String subcategoryId) {
+        try {
+            categoryService.deleteSubcategoryFromCategory(categoryId, subcategoryId);
+            return ResponseEntity.ok("Subcategory deleted successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }
 

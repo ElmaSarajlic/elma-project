@@ -8,6 +8,7 @@ public class CategoryRequestDTO {
     private String id;
     private String name;
 
+
     public CategoryRequestDTO() { }
 
     public CategoryRequestDTO(Category category) {

@@ -1,7 +1,9 @@
 package ba.edu.ibu.elma.core.service;
 
 import ba.edu.ibu.elma.core.exceptions.repository.ResourceNotFoundException;
+import ba.edu.ibu.elma.core.model.Category;
 import ba.edu.ibu.elma.core.model.Subcategory;
+import ba.edu.ibu.elma.core.repository.CategoryRepository;
 import ba.edu.ibu.elma.core.repository.SubcategoryRepository;
 import ba.edu.ibu.elma.rest.dto.SubcategoryDTO;
 import ba.edu.ibu.elma.rest.dto.SubcategoryRequestDTO;
@@ -15,9 +17,11 @@ import java.util.stream.Collectors;
 public class SubcategoryService {
 
     private final SubcategoryRepository subcategoryRepository;
+    private final CategoryRepository categoryRepository;
 
-    public SubcategoryService(SubcategoryRepository subcategoryRepository) {
+    public SubcategoryService(SubcategoryRepository subcategoryRepository, CategoryRepository categoryRepository ) {
         this.subcategoryRepository = subcategoryRepository;
+        this.categoryRepository = categoryRepository;
     }
 
     public List<SubcategoryDTO> getAllSubcategories() {
@@ -57,5 +61,16 @@ public class SubcategoryService {
             throw new ResourceNotFoundException("The subcategory with the given ID does not exist."); // Changed
         }
         subcategoryRepository.delete(subcategory.get()); // Changed
+    }
+
+
+    public List<SubcategoryDTO> getAllSubcategoriesByCategoryId(String categoryId) {
+        List<Subcategory> subcategories = subcategoryRepository.findByCategoryId(categoryId);
+        return subcategories.stream()
+                .map(this::convertToSubcategoryDTO)
+                .collect(Collectors.toList());
+    }
+    private SubcategoryDTO convertToSubcategoryDTO(Subcategory subcategory) {
+        return new SubcategoryDTO(subcategory);
     }
 }

@@ -5,9 +5,11 @@ public class SubcategoryDTO {
     private String id;
     private String name;
 
+
     public SubcategoryDTO(Subcategory subcategory) {
         this.id = subcategory.getId();
         this.name = subcategory.getName();
+
     }
 
     public String getId() {
@@ -25,5 +27,7 @@ public class SubcategoryDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }
 
