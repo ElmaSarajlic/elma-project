@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { categoryList } from '../../constants';
-import { Category, SubCategory } from '../../utils/types'; 
+import { Category, Subcategory } from '../../utils/types'; 
 import { Container, Card, CardContent, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
 
 interface AdFormData {
@@ -28,7 +28,7 @@ const NewAdForm: React.FC = () => {
     contact: '',
     category: ''
   });
-  const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+  const [subCategories, setSubCategories] = useState<Subcategory[]>([]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string | undefined; value: unknown }>) => {
     const name = e.target.name as keyof AdFormData;
@@ -41,7 +41,7 @@ const NewAdForm: React.FC = () => {
 
     if (name === 'category') {
       const selectedCategory = categoryList.find(category => category.title === value);
-      setSubCategories(selectedCategory?.subCategories || []);
+      setSubCategories(selectedCategory?.subcategories || []);
       setFormData(prevFormData => ({ ...prevFormData, subCategory: '' }));
     }
   };
@@ -135,7 +135,7 @@ const NewAdForm: React.FC = () => {
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {subCategories.map((subCategory: SubCategory) => (
+                  {subCategories.map((subCategory: Subcategory) => (
                     <MenuItem key={subCategory.id} value={subCategory.title}>{subCategory.title}</MenuItem>
                   ))}
                 </Select>

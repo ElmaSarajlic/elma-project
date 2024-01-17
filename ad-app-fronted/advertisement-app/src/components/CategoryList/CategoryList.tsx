@@ -12,7 +12,7 @@ const CategoryList: React.FC<CategoryListProps> = ({ categories }) => {
     <Grid container spacing={2}>
       {categories.map((category) => (
         <Grid item xs={12} key={category.id}>
-          <CategoryCard id={category.id} title={category.title} subCategories={category.subCategories} />
+          <CategoryCard id={category.id} title={category.title} subCategories={category.subcategories} />
         </Grid>
       ))}
     </Grid>

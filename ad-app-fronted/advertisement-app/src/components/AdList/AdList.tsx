@@ -1,52 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import AdCard from '../AdCard/AdCard';
-import { Ad } from '../../utils/types';
-import { AdService } from '../../services';
 import { Grid } from '@mui/material';
+import { useAds } from '../../hooks';
 
 type Props = {};
 
 const AdList = (props: Props) => {
-  const [ads, setAds] = useState<Ad[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setLoading(true);
-    setError(null);
-
-    AdService()
-      .then((data) => {
-        setAds(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-  }, []);
+  const { data: ads, isLoading, error } = useAds();
 
   return (
     <div>
-      {loading ? (
+      {isLoading ? (
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
       ) : error ? (
         <div className="alert alert-danger" role="alert">
           <h4 className="alert-heading">Unable to render data!</h4>
-          <p>{error}</p>
+          <p>{error.message}</p>
           <hr />
           <p className="mb-0">Something went wrong, please try again.</p>
         </div>
-      ) : (
+      ) : ads && (
         <Grid container spacing={2}>
-      {ads.map((ad, index) => (
-        <Grid item xs={12} key={index}>
-          <AdCard ad={ad} />
+          {ads.map((ad, index) => (
+            <Grid item xs={12} key={index}>
+              <AdCard ad={ad} />
+            </Grid>
+          ))}
         </Grid>
-      ))}
-    </Grid>
       )}
     </div>
   );

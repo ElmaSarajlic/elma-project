@@ -16,7 +16,7 @@ export type User ={
     imageURL : string;
     
 }
-export type SubCategory = {
+export type Subcategory = {
     id: string;
     title: string;
   };
@@ -24,6 +24,6 @@ export type SubCategory = {
   export type Category = {
     id: string;
     title: string;
-    subCategories: SubCategory[];
+    subcategories: Subcategory[];
   };
   

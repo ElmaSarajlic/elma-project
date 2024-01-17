@@ -8,6 +8,7 @@ import ba.edu.ibu.elma.core.repository.SubcategoryRepository;
 import ba.edu.ibu.elma.rest.dto.CategoryDTO;
 import ba.edu.ibu.elma.rest.dto.CategoryRequestDTO;
 import ba.edu.ibu.elma.rest.dto.SubcategoryDTO;
+import ba.edu.ibu.elma.rest.dto.SubcategoryRequestDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -20,10 +21,12 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
     private final SubcategoryRepository subcategoryRepository;
+    private final SubcategoryService subcategoryService;
 
-    public CategoryService(CategoryRepository categoryRepository, SubcategoryRepository subcategoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository, SubcategoryRepository subcategoryRepository, SubcategoryService subcategoryService) {
         this.categoryRepository = categoryRepository;
         this.subcategoryRepository = subcategoryRepository;
+        this.subcategoryService = subcategoryService;
     }
 
     public List<CategoryDTO> getAllCategories() {
@@ -84,6 +87,10 @@ public class CategoryService {
             category.setSubcategories(new ArrayList<>());
         }
         category.getSubcategories().add(subcategory);
+        String name = subcategory.getName();
+        SubcategoryRequestDTO subcategoryRequestDTO = new SubcategoryRequestDTO();
+        subcategoryRequestDTO.setName(name);
+        subcategoryService.createSubcategory(subcategoryRequestDTO);
 
         return categoryRepository.save(category);
     }

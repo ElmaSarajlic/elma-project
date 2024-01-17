@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { categoryList } from '../../constants'; 
 import { Button, TextField, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import { Category } from '../../utils/types';
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +34,7 @@ const AddSubcategoryForm: React.FC = () => {
           onChange={(e) => setCategory(e.target.value as string)}
           displayEmpty
         >
-          {categoryList.map((cat: Category) => (
+          {category.map((cat: Category) => (
             <MenuItem key={cat.id} value={cat.title}>{cat.title}</MenuItem>
           ))}
           <MenuItem value="">Add New Category</MenuItem>

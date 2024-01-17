@@ -1,4 +1,3 @@
-import { Ad } from './utils/types'; // Make sure to import the Ad type or adjust the import path
 import{User} from './utils/types';
 import { Category } from './utils/types' ; 
 
@@ -18,7 +17,7 @@ import { Category } from './utils/types' ;
         {
           id: '1',
           title: 'Category 1',
-          subCategories: [
+          subcategories: [
             { id: 'sub1', title: 'Subcategory 1-1' },
             { id: 'sub2', title: 'Subcategory 1-2' },
             { id: 'sub2', title: 'Subcategory 1-2' },
@@ -29,7 +28,7 @@ import { Category } from './utils/types' ;
         {
           id: '2',
           title: 'Category 2',
-          subCategories: [
+          subcategories: [
             { id: 'sub1', title: 'Subcategory 1-1' },
             { id: 'sub2', title: 'Subcategory 1-2' },
             
@@ -38,13 +37,12 @@ import { Category } from './utils/types' ;
         {
           id: '3',
           title: 'Category 3',
-          subCategories: [
+          subcategories: [
             { id: 'sub1', title: 'Subcategory 1-1' },
             { id: 'sub2', title: 'Subcategory 1-2' },
             
           ],
         }
-        // ... more categories
       ];
       
       export const BASE_URL = 'http://localhost:8080/api'

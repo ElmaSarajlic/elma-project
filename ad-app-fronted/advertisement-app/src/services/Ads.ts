@@ -12,4 +12,15 @@ const getallAds = async (): Promise<Ad[]> => {
         });
 }
 
-export default getallAds
+const AddAd = async (ad:Ad): Promise<Ad> => {
+    try {
+        const response = await appAxios.post(`/ads/`, ad);
+        console.log(response.data);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+}
+
+export default {getallAds, AddAd}

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SubCategory } from '../../utils/types';
+import { Subcategory } from '../../utils/types';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -13,13 +13,13 @@ import IconButton from '@mui/material/IconButton';
 interface CategoryCardProps {
   id: string;
   title: string;
-  subCategories: SubCategory[];
+  subCategories: Subcategory[];
 }
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ title, subCategories }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSubCategoryClick = (subCategory: SubCategory) => {
+  const handleSubCategoryClick = (subCategory: Subcategory) => {
     console.log("Subcategory clicked:", subCategory.title);
   };
 
