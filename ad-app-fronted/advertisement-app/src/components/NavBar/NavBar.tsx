@@ -1,9 +1,19 @@
 import React from 'react';
 import { Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { AppBar } from '@mui/material';
+import { AppBar, IconButton } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../store'; // Adjust the import path as necessary
+import { logout } from '../../store/authSlice';
 
 const AppNavbar: React.FC = () => {
+  const { userToken } = useSelector((state: RootState) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleUserInfoClick = () => {
+    navigate('/UserInfo');
+  };
+
   return (
     <AppBar position="static" sx={{ width: '100%', position: 'absolute', top: 0, left: 0, bgcolor: "#7c4e79" }}>
       <Navbar expand="lg" variant="dark" style={{ backgroundColor: 'yourColorHere' }}> {/* Replace yourColorHere with your desired color */}
@@ -16,7 +26,28 @@ const AppNavbar: React.FC = () => {
             <Nav.Link href="/Categories" style={{ color: 'white' }}>Categories</Nav.Link>
           </Nav>
           <Nav>
-            <Nav.Link href="/login" style={{ color: 'white' }}>Log In</Nav.Link>
+          {!userToken ? (
+              <>
+                <Nav.Link href="/login" style={{ color: 'white' }}>Log In</Nav.Link>
+                <Nav.Link href="/register" style={{ color: 'white' }}>Register</Nav.Link>
+              </>
+            ) : (
+              <>
+                <IconButton
+                  color="inherit"
+                  onClick={handleUserInfoClick}
+                  style={{ color: 'white', marginRight: '15px' }}
+                >
+                  <AccountCircleIcon />
+                </IconButton>
+                <Nav.Link
+                  style={{ color: 'white', cursor: 'pointer' }}
+                  onClick={() => dispatch(logout())}
+                >
+                  Logout
+                </Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
