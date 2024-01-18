@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/users")
-@SecurityRequirement(name = "JWT Security")
+@RequestMapping("/api/users")
+//@SecurityRequirement(name = "JWT Security")
 public class UserController {
 
     private final UserService userService;
@@ -33,7 +33,7 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    @PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
     public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }

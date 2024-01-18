@@ -3,7 +3,7 @@ import appAxios from "./AppAxios";
 
 
 const getAllCategories = async (): Promise<Category[]> => {
-    return appAxios.get(`/categories/`).then(
+    return appAxios.get(`/categories`).then(
         (response) => {
             const data = response.data;
             console.log(data); 
@@ -12,4 +12,4 @@ const getAllCategories = async (): Promise<Category[]> => {
         });
 }
 
-export default getAllCategories
+export default {getAllCategories}

@@ -5,10 +5,15 @@ import { AppBar, IconButton } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../store'; // Adjust the import path as necessary
 import { logout } from '../../store/authSlice';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom';
+
 
 const AppNavbar: React.FC = () => {
   const { userToken } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const handleUserInfoClick = () => {
     navigate('/UserInfo');

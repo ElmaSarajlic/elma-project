@@ -12,7 +12,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 @Service
 public class AuthService {
     private final UserRepository userRepository;
@@ -22,6 +21,7 @@ public class AuthService {
 
     @Autowired
     private JwtService jwtService;
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -31,8 +31,7 @@ public class AuthService {
 
     public UserDTO signUp(UserRequestDTO userRequestDTO) {
         userRequestDTO.setPassword(
-                passwordEncoder.encode(userRequestDTO.getPassword())
-        );
+                passwordEncoder.encode(userRequestDTO.getPassword()));
         User user = userRepository.save(userRequestDTO.toEntity());
 
         return new UserDTO(user);
@@ -44,7 +43,8 @@ public class AuthService {
         );
         User user = userRepository.findByEmail(loginRequestDTO.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("This user does not exist."));
-        String jwt = jwtService.generateToken(user);
+
+        String jwt = jwtService.generateToken(user, user.getId()); // passing the user ID
 
         return new LoginDTO(jwt);
     }
