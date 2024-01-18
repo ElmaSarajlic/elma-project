@@ -1,6 +1,7 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { AdService } from "../services";
 import { Ad } from "../utils/types";
+import appAxios from "../services/AppAxios";
 
 // because ts couldn't infer the type of the error
 interface ApiError {
@@ -11,8 +12,8 @@ interface ApiError {
 const useAds = () => {
     return useQuery<Ad[], ApiError>('ad',
         () => AdService.getallAds(),
-        { refetchOnWindowFocus: false }
     );
 }
+
 
 export default useAds

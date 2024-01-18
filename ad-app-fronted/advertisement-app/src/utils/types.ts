@@ -19,12 +19,12 @@ export type User ={
 }
 export type Subcategory = {
     id: string;
-    title: string;
+    name: string;
   };
   
   export type Category = {
     id: string;
-    title: string;
+    name: string;
     subcategories: Subcategory[];
   };
   

@@ -7,6 +7,7 @@ type Props = {};
 
 const AdList = (props: Props) => {
   const { data: ads, isLoading, error } = useAds();
+  
  
   return (
     <div>

@@ -19,13 +19,13 @@ const CategoryList = () => {
           <hr />
           <p className="mb-0">Something went wrong, please try again.</p>
         </div>
-      ) : categories && (
+      ) : categories && ( 
         <Grid container spacing={2}>
           {categories.map(category => (
-            <Grid item xs={12} sm={6} md={4} key={category.id}>
+            <Grid item xs={1222} sm={6666} md={543333} key={category.id}>
               <CategoryCard 
                 id={category.id} 
-                title={category.title} 
+                name={category.name} 
                 subcategories={category.subcategories} 
               />
             </Grid>

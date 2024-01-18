@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
-import { categoryList } from '../../constants';
-import { Category, Subcategory } from '../../utils/types'; 
+import React, { useState, useEffect } from 'react';
 import { Container, Card, CardContent, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
+import appAxios from '../../services/AppAxios';
+import { Category, Subcategory } from '../../utils/types';
+import useCreateAd from '../../hooks/useCreateAd';
 
 interface AdFormData {
-  imageUrl: string;
+  id: string;
+  title: string;
+  imgUrl: string;
   description: string;
   contact: string;
   category: string;
-  subCategory: string;
+  subcategory: string;
 }
 
 interface FormErrors {
@@ -18,17 +21,37 @@ interface FormErrors {
 
 const NewAdForm: React.FC = () => {
   const [formData, setFormData] = useState<AdFormData>({
-    imageUrl: '',
+    id: '',
+    title : '',
+    imgUrl: '',
     description: '',
     contact: '',
     category: '',
-    subCategory: ''
+    subcategory: ''
   });
+
   const [errors, setErrors] = useState<FormErrors>({
     contact: '',
     category: ''
   });
-  const [subCategories, setSubCategories] = useState<Subcategory[]>([]);
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
+
+  const { mutate: createAd, isLoading: isAdLoading, isError: isAdError } = useCreateAd(); // Assuming createAd is provided by useCreateAd
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await appAxios.get('/categories');
+        setCategories(response.data);
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string | undefined; value: unknown }>) => {
     const name = e.target.name as keyof AdFormData;
@@ -40,9 +63,9 @@ const NewAdForm: React.FC = () => {
     }
 
     if (name === 'category') {
-      const selectedCategory = categoryList.find(category => category.title === value);
-      setSubCategories(selectedCategory?.subcategories || []);
-      setFormData(prevFormData => ({ ...prevFormData, subCategory: '' }));
+      const selectedCategory = categories.find(category => category.name === value);
+      setSubcategories(selectedCategory?.subcategories || []);
+      setFormData(prevFormData => ({ ...prevFormData, subcategory: '' }));
     }
   };
 
@@ -63,10 +86,16 @@ const NewAdForm: React.FC = () => {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log(formData); 
+      try {
+        await createAd(formData); // Call the createAd function from useCreateAd
+        // Optionally: Reset form or show success message
+      } catch (error) {
+        console.error('Error creating ad:', error);
+        // Optionally: Show error message
+      }
     }
   };
 
@@ -75,15 +104,17 @@ const NewAdForm: React.FC = () => {
       <Card variant="outlined">
         <CardContent>
           <form onSubmit={handleSubmit}>
+            {/* Image URL Field */}
             <TextField
               fullWidth
               label="Image URL"
-              name="imageUrl"
-              value={formData.imageUrl}
+              name="imgUrl"
+              value={formData.imgUrl}
               onChange={handleInputChange}
               margin="normal"
               variant="outlined"
             />
+            {/* Description Field */}
             <TextField
               fullWidth
               label="Description"
@@ -95,6 +126,7 @@ const NewAdForm: React.FC = () => {
               margin="normal"
               variant="outlined"
             />
+            {/* Contact Field */}
             <TextField
               error={Boolean(errors.contact)}
               fullWidth
@@ -106,6 +138,7 @@ const NewAdForm: React.FC = () => {
               variant="outlined"
               helperText={errors.contact}
             />
+            {/* Category Selection */}
             <FormControl fullWidth margin="normal" error={Boolean(errors.category)}>
               <InputLabel>Category</InputLabel>
               <Select
@@ -117,30 +150,32 @@ const NewAdForm: React.FC = () => {
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {categoryList.map((category: Category) => (
-                  <MenuItem key={category.id} value={category.title}>{category.title}</MenuItem>
+                {categories.map((category) => (
+                  <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>
                 ))}
               </Select>
               <FormHelperText>{errors.category}</FormHelperText>
             </FormControl>
-            {subCategories.length > 0 && (
+            {/* Subcategory Selection */}
+            {subcategories.length > 0 && (
               <FormControl fullWidth margin="normal">
                 <InputLabel>Subcategory</InputLabel>
                 <Select
-                  name="subCategory"
-                  value={formData.subCategory}
+                  name="subcategory"
+                  value={formData.subcategory}
                   onChange={handleInputChange}
                   label="Subcategory"
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {subCategories.map((subCategory: Subcategory) => (
-                    <MenuItem key={subCategory.id} value={subCategory.title}>{subCategory.title}</MenuItem>
+                  {subcategories.map((subcategory) => (
+                    <MenuItem key={subcategory.id} value={subcategory.name}>{subcategory.name}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
             )}
+            {/* Submit Button */}
             <Button
               type="submit"
               color="primary"

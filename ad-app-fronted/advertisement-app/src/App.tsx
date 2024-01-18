@@ -82,8 +82,6 @@ function App() {
         <Route path="/EditUser" element={<EditUser />} />
         <Route path="/AdSubcategory" element={<AdSubcategory />} />
 
-
-
       </Routes>
     </>
   )
