@@ -18,6 +18,7 @@ export type User ={
     
 }
 export type Subcategory = {
+    subcategories: SetStateAction<Subcategory[]>;
     id: string;
     name: string;
   };

@@ -5,4 +5,9 @@ export {default as useCreateAd} from './useCreateAd'
 export {default as usegetAds} from './usegetAds'
 export {default as useDeleteAd} from './useDeleteAd'
 export {default as useUpdateAd} from './useUpdateAd'
+export {default as useCreateCategory} from './useCreateCategory'
+export {default as useCreateSubcategory} from './useCreateSubcategory'
+
+
+
 

@@ -121,6 +121,16 @@ const NewAdForm: React.FC = () => {
               margin="normal"
               variant="outlined"
             />
+            {/* title Field */}
+            <TextField
+              fullWidth
+              label="Title"
+              name="title"
+              value={formData.title}
+              onChange={handleInputChange}
+              margin="normal"
+              variant="outlined"
+            />
             {/* Description Field */}
             <TextField
               fullWidth

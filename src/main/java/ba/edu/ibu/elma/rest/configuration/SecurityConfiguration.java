@@ -39,7 +39,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.GET, "/api/categories/**").permitAll()
                         .requestMatchers("/api/ads/**").permitAll()
                         //.requestMatchers("/api/ads/**").authenticated()
-                        .requestMatchers("/api/categories/**").authenticated()
+                        .requestMatchers("/api/categories").permitAll()
                         .requestMatchers("/api/users/**").permitAll()
 
                         .anyRequest().permitAll()

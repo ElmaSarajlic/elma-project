@@ -64,6 +64,7 @@ function App() {
 import { Route, Routes } from "react-router-dom"
 import { Home, Login, Register, UserInfo, Categories, AdForm, EditUser, AdSubcategory } from "./pages"
 import NavBar from "./components/NavBar"
+import UpdateAdForm from "./pages/UpdateAdForm"
 //import ProtectedRoute from "./utils/ProtectedRoute"
 
 function App() {
@@ -82,7 +83,7 @@ function App() {
         <Route path="/EditUser" element={<EditUser />} />
         <Route path="/AdSubcategory" element={<AdSubcategory />} />
         <Route path="/subcategory/:subcategoryName" element={<Home />} />
-
+        <Route path="/edit/:adId" element = {<UpdateAdForm />} />
 
       </Routes>
     </>

@@ -1,11 +1,15 @@
 import { useMutation } from 'react-query';
-import { AdService } from '../services';
+import appAxios from '../services/AppAxios';
 import { Ad } from '../utils/types';
 
-const useUpdateAd = () => {
-  return useMutation<Ad, Error, { id: string; adData: Ad }>(
-    ({ id, adData }) => AdService.updateAd(id, adData)
-  );
+// Define a type for the response if needed, here it's assumed to be AdDTO
+export const useUpdateAd = () => {
+  return useMutation(async (adData: Ad) => {
+    const { id, ...adRequestDTO } = adData; // Destructure to separate id from the rest of the data
+    const response = await appAxios.put(`/ads/${id}`, adRequestDTO);
+    return response.data;
+  });
 };
+
 
 export default useUpdateAd;

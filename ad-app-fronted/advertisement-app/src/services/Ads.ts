@@ -49,7 +49,7 @@ const updateAd = async (id: string, adData: Ad): Promise<Ad> => {
        .catch((error) => {
           console.error('Error updating ad:', error);
             throw error;
-          });
+          }); 
       }
   
 

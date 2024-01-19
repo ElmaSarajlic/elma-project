@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import DeleteButton from '../DeleteBtn';
 import useDeleteAd from '../../hooks/useDeleteAd';
 import EditButton from '../EditButton';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   ad: Ad;
@@ -34,10 +35,12 @@ const AdCard = ({ ad }: Props) => {
     });
   };
 
+  const navigate = useNavigate();
+
+
   
   function onEdit(): void {
-    throw new Error('Function not implemented.');
-  }
+     navigate ('/edit/:adId')  }
 
   return (
     <Card sx={{ marginBottom: 3 }}>
