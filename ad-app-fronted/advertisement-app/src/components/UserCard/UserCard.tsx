@@ -14,7 +14,7 @@ const UserCard = ({ user }: Props) => {
       <Card sx={{ marginBottom: 2, width: '100%' }}> 
         <CardHeader
           avatar={<Avatar src={user.imgUrl} alt={user.username} />}
-          title={user.username}
+          title={user.username  DeleteButton onDelete={onDelete} } 
           subheader={user.email}
         />
       </Card>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
@@ -42,6 +42,10 @@ const UserInfo = () => {
     navigate('/Home');
   };
 
+  const handleUsersClick = () => {
+    navigate('/userList');
+  };
+
   if (!userId) {
     return <div>No user ID found</div>;
   }
@@ -75,6 +79,9 @@ const UserInfo = () => {
           <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleLogout}>
             Log out
           </Button>
+          <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleUsersClick}>
+        Users
+      </Button>
         </>
       )}
     </Container>

@@ -35,6 +35,19 @@ const getUsers = async (): Promise<User[]> => {
             return data;
         });
 }
+
+const deleteUser = async (id: string): Promise<void> => {
+    console.log(`Deleting user with ID: ${id}`);
+    
+    return appAxios.delete(`/users/${id}`).then(() => {
+      console.log('user deleted successfully');
+    }).catch((error) => {
+      console.error('Error deleting user:', error);
+      throw error; 
+    });
+
+};
+
  
 
-export default { getUserById , updateUser, getUsers};
+export default { getUserById , updateUser, getUsers, deleteUser};
