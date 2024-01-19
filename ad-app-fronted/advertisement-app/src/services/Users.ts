@@ -25,6 +25,17 @@ const updateUser = async (id: string, user: User): Promise<User> => {
             return data;
         });
 }
+
+
+const getAllUsers = async (): Promise<User[]> => {
+    return appAxios.get(`/users/`).then(
+        (response) => {
+            const data = response.data;
+            console.log(data);
+
+            return data;
+        });
+}
  
 
-export default { getUserById , updateUser};
+export default { getUserById , updateUser, getAllUsers};
