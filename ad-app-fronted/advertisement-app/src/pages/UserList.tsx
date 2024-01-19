@@ -7,7 +7,7 @@ import { Container } from 'react-bootstrap';
 const UserListPage: React.FC = () => {
     return (
         <><NavBar /><Container style={{ marginTop: '100px' }}>
-            <UserCardList users={[]} />
+            <UserCardList />
         </Container></>
     );
   };

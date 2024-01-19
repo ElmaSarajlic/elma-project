@@ -1,13 +1,22 @@
 import React from 'react';
 import { Grid } from '@mui/material';
-import { User } from '../../utils/types';
-import UserCard from '../UserCard';
+import UserCard from '../UserCard/UserCard'; 
+import useGetUsers from '../../hooks/useGetUsers';
 
-interface UserCardListProps {
-  users: User[]; // An array of User objects
-}
+type Props = {};
 
-const UserCardList: React.FC<UserCardListProps> = ({ users }) => {
+
+const UserList: React.FC = () => {
+  const { data: users, error } = useGetUsers();
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!users) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <Grid container spacing={2}>
       {users.map((user, index) => (
@@ -19,4 +28,4 @@ const UserCardList: React.FC<UserCardListProps> = ({ users }) => {
   );
 };
 
-export default UserCardList;
+export default UserList;

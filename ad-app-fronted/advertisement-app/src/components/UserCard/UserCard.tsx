@@ -1,17 +1,20 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, Avatar, Typography } from '@mui/material';
+import useGetUsers from '../../hooks/useGetUsers';
 import { User } from '../../utils/types';
 
 type Props = {
-  user: User;
-};
+    user: User;
+  
+  };
+
 
 const UserCard = ({ user }: Props) => {
   return (
     <Card>
       <CardHeader
-        avatar={<Avatar src={user.avatarUrl} alt={user.username} />} // Fixed 'Avatar' to 'user.username'
-        title={user.username} // Changed 'username' to 'title' to display the user's name
+        avatar={<Avatar src={user.avatarUrl} alt={user.username} />} 
+        title={user.username} 
         subheader={user.email}
       />
       <CardContent>
@@ -23,4 +26,24 @@ const UserCard = ({ user }: Props) => {
   );
 };
 
-export default UserCard;
+const UserList: React.FC = () => {
+  const { data: users, error } = useGetUsers();
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!users) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      {users.map((user, index) => (
+        <UserCard key={index} user={user} />
+      ))}
+    </div>
+  );
+};
+
+export default UserList;

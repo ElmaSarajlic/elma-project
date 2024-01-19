@@ -11,7 +11,6 @@ const getUserById = async (id: string): Promise<User> => {
         return data;
     }).catch((error) => {
         console.log('Error fetching user (Users.ts):', error);
-        // throw error; // Re-throw the error for further handling
     });
 };
 
