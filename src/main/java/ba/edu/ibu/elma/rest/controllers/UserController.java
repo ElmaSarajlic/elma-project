@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-@SecurityRequirement(name = "JWT Security")
+//@SecurityRequirement(name = "JWT Security")
 public class UserController {
 
     private final UserService userService;

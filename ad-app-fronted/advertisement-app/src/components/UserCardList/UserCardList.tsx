@@ -2,11 +2,12 @@ import React from 'react';
 import { Grid } from '@mui/material';
 import UserCard from '../UserCard/UserCard'; 
 import useGetUsers from '../../hooks/useGetUsers';
+import { User } from '../../utils/types';
 
 type Props = {};
 
 
-const UserList: React.FC = () => {
+const UserList: React.FC< User > = () => {
     const { data: users, error } = useGetUsers();
   
     if (error) {
@@ -18,19 +19,14 @@ const UserList: React.FC = () => {
     }
   
     return (
-      <Grid container spacing={2}>
-        {users.length > 0 ? (
-          users.map((user, index) => (
-            <Grid item key={index} xs={12} sm={6} md={4}>
-              <UserCard user={user} />
-            </Grid>
-          ))
-        ) : (
-          <div>No users found.</div>
-        )}
+      <Grid container spacing={2} direction="column" alignItems="stretch"> 
+        {users.map((user, index) => (
+          <Grid item key={user.id} xs={12}> 
+            <UserCard user={user} />
+          </Grid>
+        ))}
       </Grid>
     );
   };
   
   export default UserList;
-  

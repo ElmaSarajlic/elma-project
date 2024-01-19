@@ -11,39 +11,15 @@ type Props = {
 
 const UserCard = ({ user }: Props) => {
   return (
-    <Card>
-      <CardHeader
-        avatar={<Avatar src={user.imgUrl} alt={user.username} />} 
-        title={user.username} 
-        subheader={user.email}
-      />
-      <CardContent>
-        <Typography variant="body2">
-          Additional user information can go here if needed.
-        </Typography>
-      </CardContent>
-    </Card>
-  );
-};
+      <Card sx={{ marginBottom: 2, width: '100%' }}> 
+        <CardHeader
+          avatar={<Avatar src={user.imgUrl} alt={user.username} />}
+          title={user.username}
+          subheader={user.email}
+        />
+      </Card>
+    );
+  };
 
-const UserList: React.FC = () => {
-  const { data: users, error } = useGetUsers();
+  export default UserCard;
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
-  if (!users) {
-    return <div>Loading...</div>;
-  }
-
-  return (
-    <div>
-      {users.map((user, index) => (
-        <UserCard key={index} user={user} />
-      ))}
-    </div>
-  );
-};
-
-export default UserList;
