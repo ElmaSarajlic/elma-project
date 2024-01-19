@@ -16,7 +16,7 @@ type Props = {
 
 const AdCard = ({ ad }: Props) => {
 
-  const { mutate: deleteAd, isLoading, isError, error } = useDeleteAd();
+  const { mutate: deleteAd } = useDeleteAd();
 
 
   const onDelete = () => {
@@ -28,7 +28,7 @@ const AdCard = ({ ad }: Props) => {
         window.location.reload();
         
       },
-      onError: (error) => {
+      onError: (error) => { 
         // Handle the deletion error
         console.error('Error deleting the ad:', error);
       },

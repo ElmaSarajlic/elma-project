@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
 import AdCard from '../AdCard/AdCard';
 import { Grid } from '@mui/material';
 import { useAds } from '../../hooks';
 import useGetAdsBySubcategory from '../../hooks/usegetAds';
-import { string } from 'yup';
 import { useParams } from 'react-router-dom';
 
 type Props = {};
