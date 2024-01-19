@@ -13,7 +13,7 @@ const UserCard = ({ user }: Props) => {
   return (
     <Card>
       <CardHeader
-        avatar={<Avatar src={user.avatarUrl} alt={user.username} />} 
+        avatar={<Avatar src={user.imgUrl} alt={user.username} />} 
         title={user.username} 
         subheader={user.email}
       />

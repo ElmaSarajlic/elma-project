@@ -10,7 +10,6 @@ export type Ad =  {
 }
 
 export type User ={
-    avatarUrl: string;
     id: string;
     username: string;
     userType: string;

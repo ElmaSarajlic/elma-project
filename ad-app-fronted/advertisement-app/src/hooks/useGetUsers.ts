@@ -8,7 +8,7 @@ interface ApiError {
 
 const useGetUsers = () => {
     return useQuery<User[], ApiError>('user',
-        () => UserService.getAllUsers(),
+        () => UserService.getUsers(),
     );
 }
 

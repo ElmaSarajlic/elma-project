@@ -25,7 +25,7 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    @PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
     public ResponseEntity<List<UserDTO>> getUsers() {
         return ResponseEntity.ok(userService.getUsers());
     }
