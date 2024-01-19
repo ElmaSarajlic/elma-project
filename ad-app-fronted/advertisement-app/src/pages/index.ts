@@ -8,3 +8,5 @@ export {default as EditUser} from './EditUser'
 export {default as AdSubcategory} from './AdSubcategoryForm'
 export {default as UpdateAd} from './UpdateAdForm'
 export {default as CreateCategory} from './CreateCategory'
+export {default as UserList} from './UserList'
+
