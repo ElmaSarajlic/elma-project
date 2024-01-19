@@ -101,15 +101,22 @@ public class CategoryService {
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
         // Check if category has subcategories and remove the one with the given ID
-        boolean removed = category.getSubcategories().removeIf(subcategory -> subcategory.getId().equals(subcategoryId));
+        Optional<Subcategory> subcategoryOptional = category.getSubcategories().stream()
+                .filter(subcategory -> subcategory.getId().equals(subcategoryId))
+                .findFirst();
 
-        // If a subcategory was removed, save the updated category
-        if (removed) {
+        if (subcategoryOptional.isPresent()) {
+            // Remove subcategory from category's subcategory list
+            category.getSubcategories().remove(subcategoryOptional.get());
             categoryRepository.save(category);
+
+            // Now delete the subcategory from the subcategory table
+            subcategoryService.deleteSubcategory(subcategoryId);
         } else {
             throw new RuntimeException("Subcategory not found in category");
         }
     }
+
 }
 
 
