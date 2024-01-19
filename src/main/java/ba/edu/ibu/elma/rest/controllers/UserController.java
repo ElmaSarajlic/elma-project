@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-//@SecurityRequirement(name = "JWT Security")
+@SecurityRequirement(name = "JWT Security")
 public class UserController {
 
     private final UserService userService;
@@ -38,8 +38,8 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
+    //@PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody UserRequestDTO user) {
         return ResponseEntity.ok(userService.updateUser(id, user));
     }

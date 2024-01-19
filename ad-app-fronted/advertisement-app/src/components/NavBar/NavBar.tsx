@@ -45,12 +45,7 @@ const AppNavbar: React.FC = () => {
                 >
                   <AccountCircleIcon />
                 </IconButton>
-                <Nav.Link
-                  style={{ color: 'white', cursor: 'pointer' }}
-                  onClick={() => dispatch(logout())}
-                >
-                  Logout
-                </Nav.Link>
+              
               </>
             )}
           </Nav>

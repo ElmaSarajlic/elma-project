@@ -39,6 +39,7 @@ const UserInfo = () => {
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate('/Home');
   };
 
   if (!userId) {
@@ -60,7 +61,7 @@ const UserInfo = () => {
           <Avatar
             sx={{ width: 80, height: 80, margin: '0 auto' }}
             alt={user.username}
-            src={user.avatarUrl || 'default-avatar-url.jpg'}
+            src={user.imgUrl}
           />
           <Typography variant="h5" sx={{ marginTop: '20px' }}>
             {user.username}

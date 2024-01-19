@@ -15,4 +15,16 @@ const getUserById = async (id: string): Promise<User> => {
     });
 };
 
-export default { getUserById };
+
+const updateUser = async (id: string, user: User): Promise<User> => {
+    return appAxios.put(`/users/${id}`, user).then(
+        (response) => {
+            const data = response.data;
+            console.log(data);
+ 
+            return data;
+        });
+}
+ 
+
+export default { getUserById , updateUser};

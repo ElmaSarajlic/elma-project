@@ -24,9 +24,35 @@ const CreateAd = async (ad: Ad): Promise<Ad[]> => {
  }
 
  const getAdsBySubcategory = async (subcategoryName: string): Promise<Ad[]> => {
-    const response = await appAxios.get(`/ads/subcategory/name/${subcategoryName}`);
-    return response.data;
-}
+    return appAxios.get(`/ads/subcategory/${subcategoryName}`).then(
+        (response) => response.data
+    );
+};
+
+const deleteAd = async (id: string): Promise<void> => {
+    console.log(`Deleting ad with ID: ${id}`);
+    
+    return appAxios.delete(`/ads/${id}`).then(() => {
+      console.log('Ad deleted successfully');
+    }).catch((error) => {
+      console.error('Error deleting ad:', error);
+      throw error; // Re-throw the error for further handling if needed
+    });
+
+};
 
 
-export default {getallAds, CreateAd, getAdsBySubcategory}
+
+const updateAd = async (id: string, adData: Ad): Promise<Ad> => {
+     return appAxios.put(`/ads/${id}`, adData)
+       .then((response) => response.data)
+       .catch((error) => {
+          console.error('Error updating ad:', error);
+            throw error;
+          });
+      }
+  
+
+
+
+export default {getallAds, CreateAd, getAdsBySubcategory, deleteAd, updateAd}

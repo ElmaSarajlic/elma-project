@@ -14,7 +14,7 @@ export type User ={
     userType: string;
     email : string;
     password : string;
-    imageURL : string;
+    imgUrl : string;
     
 }
 export type Subcategory = {

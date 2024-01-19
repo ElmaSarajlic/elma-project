@@ -81,6 +81,8 @@ function App() {
         <Route path="/AdForm" element={<AdForm />} />
         <Route path="/EditUser" element={<EditUser />} />
         <Route path="/AdSubcategory" element={<AdSubcategory />} />
+        <Route path="/subcategory/:subcategoryName" element={<Home />} />
+
 
       </Routes>
     </>

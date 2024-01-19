@@ -11,6 +11,7 @@ public class UserDTO {
     private UserType userType;
     private String email;
     private Date creationDate;
+    private String imgUrl;
 
     public UserDTO(User user) {
         this.id = user.getId();
@@ -18,6 +19,7 @@ public class UserDTO {
         this.userType = user.getUserType();
         this.email = user.getEmail();
         this.creationDate = user.getCreationDate();
+        this.imgUrl = user.getImgUrl();
     }
 
     public String getId() {
@@ -56,5 +58,13 @@ public class UserDTO {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getImgUrl(){
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl){
+        this.imgUrl = imgUrl;
     }
 }

@@ -2,11 +2,17 @@ import React, { useEffect, useState } from 'react';
 import AdCard from '../AdCard/AdCard';
 import { Grid } from '@mui/material';
 import { useAds } from '../../hooks';
+import useGetAdsBySubcategory from '../../hooks/usegetAds';
+import { string } from 'yup';
+import { useParams } from 'react-router-dom';
 
 type Props = {};
 
-const AdList = (props: Props) => {
-  const { data: ads, isLoading, error } = useAds();
+const AdList = () => {
+  const { subcategoryName } = useParams<{ subcategoryName?: string }>();
+  const { data: ads, isLoading, error } = subcategoryName 
+    ? useGetAdsBySubcategory(subcategoryName) 
+    : useAds();
   
  
   return (

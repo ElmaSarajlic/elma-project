@@ -3,6 +3,7 @@ import { Container, Card, CardContent, TextField, Button, FormControl, InputLabe
 import appAxios from '../../services/AppAxios';
 import { Category, Subcategory } from '../../utils/types';
 import useCreateAd from '../../hooks/useCreateAd';
+import { useNavigate } from 'react-router-dom';
 
 interface AdFormData {
   id: string;
@@ -38,7 +39,8 @@ const NewAdForm: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
 
-  const { mutate: createAd, isLoading: isAdLoading, isError: isAdError } = useCreateAd(); // Assuming createAd is provided by useCreateAd
+  const { mutate: createAd, isError: isAdError } = useCreateAd(); // Assuming createAd is provided by useCreateAd
+
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -85,12 +87,17 @@ const NewAdForm: React.FC = () => {
     setErrors(newErrors);
     return isValid;
   };
+  const navigate = useNavigate();
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        await createAd(formData); // Call the createAd function from useCreateAd
+        await createAd(formData); 
+        navigate('/Home');// Call the createAd function from useCreateAd
+
+        window.location.reload();
         // Optionally: Reset form or show success message
       } catch (error) {
         console.error('Error creating ad:', error);
@@ -174,7 +181,7 @@ const NewAdForm: React.FC = () => {
                   ))}
                 </Select>
               </FormControl>
-            )}
+              )}
             {/* Submit Button */}
             <Button
               type="submit"

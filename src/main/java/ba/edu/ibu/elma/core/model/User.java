@@ -20,6 +20,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private Date creationDate;
+    private String imgUrl;
 
     public String getId() {
         return id;
@@ -92,5 +93,13 @@ public class User implements UserDetails {
 
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public String getImgUrl(){
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl){
+        this.imgUrl = imgUrl;
     }
 }

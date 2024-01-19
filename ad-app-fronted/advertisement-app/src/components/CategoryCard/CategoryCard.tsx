@@ -25,10 +25,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ name, subcategories }) => {
   const navigate = useNavigate();
 
   const handleSubCategoryClick = (subcategory: Subcategory) => {
-    console.log("Subcategory clicked:", subcategory.name);
-    // Navigate to the AdsBySubcategory page with the selected subcategory
-    navigate(`/subcategory/${subcategory.id}`); // Replace with your desired URL
-  };
+    navigate(`/subcategory/${subcategory.name}`); // Ensure subcategory.name is correct
+};
+  
 
   return (
     <Card sx={{ 

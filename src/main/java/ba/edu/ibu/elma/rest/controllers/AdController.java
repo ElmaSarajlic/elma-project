@@ -48,7 +48,7 @@ public class AdController {
     }
 
     @RequestMapping(value = "/{adId}", method = RequestMethod.PUT)
-    @PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
     public ResponseEntity<AdDTO> updateAd(@PathVariable String adId, @RequestBody AdRequestDTO adRequestDTO) {
         AdDTO updatedAd = adService.updateAd(adId, adRequestDTO);
         if (updatedAd != null) {
@@ -59,7 +59,7 @@ public class AdController {
     }
 
     @RequestMapping(value = "/{adId}", method = RequestMethod.DELETE)
-    @PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
     public ResponseEntity<Void> deleteAd(@PathVariable String adId) {
         adService.deleteAd(adId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

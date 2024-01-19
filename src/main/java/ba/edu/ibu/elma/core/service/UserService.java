@@ -67,9 +67,11 @@ public class UserService {
 
     public UserDTO updateUser(String id, UserRequestDTO payload) {
         Optional<User> user = userRepository.findById(id);
+
         if (user.isEmpty()) {
-            throw new ResourceNotFoundException("The user with the given ID does not exist.");
+            throw new ResourceNotFoundException("User with the given ID does not exist.");
         }
+
         User updatedUser = payload.toEntity();
         updatedUser.setId(user.get().getId());
         updatedUser = userRepository.save(updatedUser);
