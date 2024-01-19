@@ -1,3 +1,5 @@
+import { SetStateAction } from "react";
+
 export type Ad =  {
     id: string;
     title: string;
@@ -19,12 +21,12 @@ export type User ={
 }
 export type Subcategory = {
     subcategories: SetStateAction<Subcategory[]>;
-    id: string;
+    id?: string;
     name: string;
   };
   
   export type Category = {
-    id: string;
+    id?: string
     name: string;
     subcategories: Subcategory[];
   };

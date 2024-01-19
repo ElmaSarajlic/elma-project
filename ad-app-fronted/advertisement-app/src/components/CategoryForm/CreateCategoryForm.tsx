@@ -5,18 +5,21 @@ import useCreateCategory from '../../hooks/useCreateCategory';
 import { Category } from '../../utils/types';
 
 const AddCategoryForm: React.FC = () => {
-  const [name, setname] = useState<string>('');
+  const [name, setName] = useState<string>('');
   const navigate = useNavigate();
   const { mutate: createCategory } = useCreateCategory();
 
   const handleAdd = async () => {
     if (name) {
       try {
-      
+        const category: Category = {
+          name: name,
+          subcategories: []
+        };
 
         await createCategory(category);
         console.log(`Category: ${name} added successfully`);
-        navigate('/AddSubcategory'); // Make sure this route is correctly defined in your routing setup
+        navigate('/AdSubcategory'); // Adjust the route as needed
       } catch (error) {
         console.error('Error adding category:', error);
       }
@@ -24,7 +27,7 @@ const AddCategoryForm: React.FC = () => {
   };
 
   const handleCancel = () => {
-    navigate('/Home'); // Replace with the appropriate route for your application
+    navigate('/Home'); // Adjust the route as needed
   };
 
   return (
@@ -32,7 +35,7 @@ const AddCategoryForm: React.FC = () => {
       <TextField
         label="Category"
         value={name}
-        onChange={(e) => setname(e.target.value)}
+        onChange={(e) => setName(e.target.value)}
         fullWidth
         margin="normal"
       />

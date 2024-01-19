@@ -24,7 +24,6 @@ const AddSubcategoryForm: React.FC = () => {
         await createSubcategory({ categoryId: selectedCategory, subcategory: {
           name: subcategory,
           subcategories: undefined,
-          id: ''
         } });
         console.log(`Subcategory: ${subcategory} added to Category ID: ${selectedCategory}`);
       } catch (error) {

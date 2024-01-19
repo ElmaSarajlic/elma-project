@@ -13,7 +13,7 @@ const getAllCategories = async (): Promise<Category[]> => {
 }
 
 const createCategory = async (category: Category): Promise<Category[]> => {
-    return appAxios.post('/categories/', category).then(
+    return appAxios.post('/categories', category).then(
         (response) => { 
             const data = response.data;
             console.log(response);
