@@ -13,6 +13,6 @@ const useCreateCategory = () => {
             queryClient.invalidateQueries('categories');
         },
     });
- };
+ }; 
 
 export default useCreateCategory;

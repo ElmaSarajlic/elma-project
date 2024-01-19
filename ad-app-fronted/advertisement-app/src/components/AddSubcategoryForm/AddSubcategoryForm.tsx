@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, TextField, MenuItem, Select, FormControl, InputLabel } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { Category, Subcategory } from '../../utils/types';
+import { Category } from '../../utils/types';
 import useCreateSubcategory from '../../hooks/useCreateSubcategory';
 import useCategories from '../../hooks/useCategories';
 
