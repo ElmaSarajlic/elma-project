@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
