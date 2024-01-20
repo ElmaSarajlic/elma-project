@@ -18,8 +18,8 @@ const UserInfo = () => {
   }, [userId]);
 
   if (!userId) {
-    return null;
-  } 
+    return <div>No user ID found</div>;
+  }
 
   const { data: user, isLoading, isError, error } = useUser(userId);
   const navigate = useNavigate();
@@ -46,9 +46,9 @@ const UserInfo = () => {
     navigate('/userList');
   };
 
-  if (!userId) {
-    return <div>No user ID found</div>;
-  }
+  const handleSubcategoryClick = () => {
+    navigate('/AdSubcategory');
+  };
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -59,7 +59,7 @@ const UserInfo = () => {
   }
 
   return (
-    <Container maxWidth="sm" sx={{ backgroundColor: 'primary', textAlign: 'center', padding: '20px' }}>
+    <Container maxWidth="sm" sx={{  textAlign: 'center', padding: '20px' }}>
       {user && (
         <>
           <Avatar
@@ -80,8 +80,11 @@ const UserInfo = () => {
             Log out
           </Button>
           <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleUsersClick}>
-        Users
-      </Button>
+            Users
+          </Button>
+          <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleSubcategoryClick}>
+            Add new Subcategory
+          </Button>
         </>
       )}
     </Container>

@@ -25,7 +25,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ name, subcategories }) => {
   const navigate = useNavigate();
 
   const handleSubCategoryClick = (subcategory: Subcategory) => {
-    navigate(`/subcategory/${subcategory.name}`); // Ensure subcategory.name is correct
+    navigate(`/subcategory/${subcategory.name}`); 
 };
   
 
@@ -38,7 +38,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ name, subcategories }) => {
         boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
       },
       overflow: 'visible',
-      borderRadius: '10px', // rounded corners
+      borderRadius: '10px', 
     }}>
       <CardContent sx={{
         padding: '16px', 
@@ -58,7 +58,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ name, subcategories }) => {
           <IconButton 
             onClick={() => setIsOpen(!isOpen)} 
             size="small" 
-            sx={{ marginRight: '0.5rem', color: isOpen ? '#7c4e79' : 'inherit' }} // Change color when open
+            sx={{ marginRight: '0.5rem', color: isOpen ? '#7c4e79' : 'inherit' }} 
           >
             {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
@@ -70,7 +70,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ name, subcategories }) => {
               <ListItem 
                 key={subcategory.id} 
                 disablePadding
-                sx={{ borderBottom: 1, borderColor: 'divider', '&:hover': { backgroundColor: 'action.hover' } }} // hover effect for list items
+                sx={{ borderBottom: 1, borderColor: 'divider', '&:hover': { backgroundColor: 'action.hover' } }} 
               >
                 <ListItemButton onClick={() => handleSubCategoryClick(subcategory)}>
                   <Typography sx={{ fontSize: '1rem', color:'black' }}>

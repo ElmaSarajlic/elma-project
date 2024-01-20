@@ -19,7 +19,9 @@ const AddSubcategoryForm: React.FC = () => {
   }, [isError]);
 
   const handleAdd = async () => {
-    if (selectedCategory && subcategory) {
+    if (selectedCategory && subcategory)
+    navigate ('/Home')
+    {
       try {
         await createSubcategory({ categoryId: selectedCategory, subcategory: {
           name: subcategory,

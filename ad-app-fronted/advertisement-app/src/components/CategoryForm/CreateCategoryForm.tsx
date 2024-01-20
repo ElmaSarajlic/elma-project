@@ -19,7 +19,7 @@ const AddCategoryForm: React.FC = () => {
 
         await createCategory(category);
         console.log(`Category: ${name} added successfully`);
-        navigate('/AdSubcategory'); // Adjust the route as needed
+        navigate('/AdSubcategory'); 
       } catch (error) {
         console.error('Error adding category:', error);
       }
@@ -27,7 +27,7 @@ const AddCategoryForm: React.FC = () => {
   };
 
   const handleCancel = () => {
-    navigate('/Home'); // Adjust the route as needed
+    navigate('/Home'); 
   };
 
   return (
