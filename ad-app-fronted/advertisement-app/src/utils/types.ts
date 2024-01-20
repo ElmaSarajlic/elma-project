@@ -4,10 +4,11 @@ export type Ad =  {
     id: string;
     title: string;
     subcategory: string;
+    category: string;
     description: string;
     contact:string;
     imgUrl:string;
-    creationDate: Date;
+    creationDate?: Date;
 
 }
 

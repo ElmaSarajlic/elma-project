@@ -43,8 +43,8 @@ const deleteAd = async (id: string): Promise<void> => {
 
 
 
-const updateAd = async (id: string, adData: Ad): Promise<Ad> => {
-     return appAxios.put(`/ads/${id}`, adData)
+const updateAd = async (id: string, ad: Ad): Promise<Ad> => {
+     return appAxios.put(`/ads/${id}`, ad)
        .then((response) => response.data)
        .catch((error) => {
           console.error('Error updating ad:', error);

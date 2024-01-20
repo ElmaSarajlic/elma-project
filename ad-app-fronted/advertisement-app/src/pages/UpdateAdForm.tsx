@@ -1,110 +1,97 @@
-import React, { useState, useEffect } from 'react';
-import {
-  Container, Card, CardContent, TextField, Button,
-  FormControl, InputLabel, Select, MenuItem, FormHelperText,
-} from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Category, Subcategory, Ad } from '../utils/types';
-import useUpdateAd from '../hooks/useUpdateAd';
+/*import React, { useState, useEffect } from 'react';
+import { Container, Card, CardContent, TextField, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { Ad, Category, Subcategory } from '../utils/types';
+import { useUpdateAd } from '../hooks';
 import appAxios from '../services/AppAxios';
+import { UpdateAd } from '.';
 
-interface AdFormData extends Omit<Ad, 'subcategory'> {
-  category: string;
-  subcategory: string;
+interface NewAdFormProps {
+  ad: Ad;
+  handleClose: () => void;
 }
 
 interface FormErrors {
-  title?: string;
-  imgUrl?: string;
-  contact?: string;
-  category?: string;
-  subcategory?: string;
+  contact: string;
+  category: string;
 }
 
-const NewAdForm: React.FC = () => {
+const NewAdForm: React.FC<NewAdFormProps> = ({ ad, handleClose }) => {
   const navigate = useNavigate();
-  const { adId } = useParams<{ id: string }>();
-  const { mutate: updateAd } = useUpdateAd();
-  const [formData, setFormData] = useState<AdFormData>({
-    id: '',
-    title: '',
-    imgUrl: '',
-    description: '',
+  const updateAdMutation = useUpdateAd();
+
+  const [imgUrl, setImgUrl] = useState(ad.imgUrl);
+  const [title, setTitle] = useState(ad.title);
+  const [description, setDescription] = useState(ad.description);
+  const [contact, setContact] = useState(ad.contact);
+  const [category, setCategory] = useState(ad.category || '');
+  const [subcategory, setSubcategory] = useState(ad.subcategory || '');
+
+  const [errors, setErrors] = useState<FormErrors>({
     contact: '',
-    category: '',
-    subcategory: '',
+    category: ''
   });
-  const [errors, setErrors] = useState<FormErrors>({});
+
   const [categories, setCategories] = useState<Category[]>([]);
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchCategories = async () => {
       try {
-        const categoriesResponse = await appAxios.get<Category[]>('/categories');
-        setCategories(categoriesResponse.data);
-
-        if (adId) {
-          const adResponse = await appAxios.get<Ad>(`/ads/${adId}`);
-          const currentAd = adResponse.data;
-          const categoryOfAd = categoriesResponse.data.find(
-            category => category.subcategories.some(subcat => subcat.id === currentAd.subcategory)
-          );
-
-          setFormData({
-            id: currentAd.id,
-            title: currentAd.title,
-            imgUrl: currentAd.imgUrl,
-            description: currentAd.description,
-            contact: currentAd.contact,
-            category: categoryOfAd ? categoryOfAd.id : '',
-            subcategory: currentAd.subcategory,
-          });
+        const response = await appAxios.get('/categories');
+        setCategories(response.data);
+        const initialCategory = response.data.find((c: { name: string; }) => c.name === ad.category);
+        if (initialCategory) {
+          setSubcategories(initialCategory.subcategories);
         }
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      } catch (err) {
+        console.error('Error fetching categories:', err);
       }
     };
 
-    fetchData();
-  }, [adId]);
+    fetchCategories();
+  }, [ad.category]);
 
-  const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }>
-  ) => {
-    const name = e.target.name as keyof AdFormData;
-    const value = e.target.value as string;
-    setFormData({ ...formData, [name]: value });
-
-    if (name === 'category') {
-      const selectedCategory = categories.find(c => c.id === value);
-      setSubcategories(selectedCategory?.subcategories || []);
-      setFormData(prevFormData => ({ ...prevFormData, subcategory: '' }));
+  const handleInputChange = (name: string, value: string) => {
+    switch (name) {
+      case 'imgUrl':
+        setImgUrl(value);
+        break;
+      case 'title':
+        setTitle(value);
+        break;
+      case 'description':
+        setDescription(value);
+        break;
+      case 'contact':
+        setContact(value);
+        setErrors({ ...errors, contact: '' });
+        break;
+      case 'category':
+        setCategory(value);
+        setErrors({ ...errors, category: '' });
+        const selectedCategory = categories.find(c => c.name === value);
+        setSubcategories(selectedCategory?.subcategories || []);
+        setSubcategory('');
+        break;
+      case 'subcategory':
+        setSubcategory(value);
+        break;
+      default:
+        break;
     }
   };
 
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
+  const validateForm = () => {
     let isValid = true;
+    const newErrors = { contact: '', category: '' };
 
-    if (!formData.title) {
-      newErrors.title = 'Title is required';
+    if (!contact) {
+      newErrors.contact = 'Please add contact information';
       isValid = false;
     }
-    if (!formData.imgUrl) {
-      newErrors.imgUrl = 'Image URL is required';
-      isValid = false;
-    }
-    if (!formData.contact) {
-      newErrors.contact = 'Contact information is required';
-      isValid = false;
-    }
-    if (!formData.category) {
-      newErrors.category = 'Category is required';
-      isValid = false;
-    }
-    if (!formData.subcategory) {
-      newErrors.subcategory = 'Subcategory is required';
+    if (!category) {
+      newErrors.category = 'Please choose a category';
       isValid = false;
     }
 
@@ -112,108 +99,130 @@ const NewAdForm: React.FC = () => {
     return isValid;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validateForm()) return;
-
-    updateAd(formData, {
-      onSuccess: () => navigate('/'),
-      onError: (error) => console.error('Error updating ad:', error),
-    });
+    if (validateForm()) {
+      try {
+        const updatedAd = {
+          ad: {
+            id: ad.id,
+            imgUrl,
+            title,
+            description,
+            contact,
+            category,
+            subcategory
+          }
+        };
+        updateAdMutation.mutate(updatedAd, {
+          onSuccess: () => {
+            handleClose();
+            navigate('/Home');
+          },
+          onError: (error) => {
+            console.error('Error updating ad:', error);
+          }
+        });
+      } catch (error) {
+        console.error('Error submitting ad:', error);
+      }
+    }
   };
 
   return (
     <Container maxWidth="sm" style={{ marginTop: '2rem' }}>
-      <Card variant="outlined">
-        <CardContent>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              fullWidth
-              label="Image URL"
-              name="imgUrl"
-              value={formData.imgUrl}
-              onChange={handleInputChange}
-              margin="normal"
-              variant="outlined"
-              error={!!errors.imgUrl}
-              helperText={errors.imgUrl}
-            />
-            <TextField
-              fullWidth
-              label="Description"
-              name="description"
-              multiline
-              rows={4}
-              value={formData.description}
-              onChange={handleInputChange}
-              margin="normal"
-              variant="outlined"
-            />
-            <TextField
-              error={!!errors.contact}
-              fullWidth
-              label="Contact"
-              name="contact"
-              value={formData.contact}
-              onChange={handleInputChange}
-              margin="normal"
-              variant="outlined"
-              helperText={errors.contact}
-            />
-            <TextField
-              fullWidth
-              label="Title"
-              name="title"
-              value={formData.title}
-              onChange={handleInputChange}
-              margin="normal"
-              variant="outlined"
-              error={!!errors.title}
-              helperText={errors.title}
-            />
-            <FormControl fullWidth margin="normal" error={!!errors.category}>
-              <InputLabel id="category-label">Category</InputLabel>
+    <Card variant="outlined">
+      <CardContent>
+        <form onSubmit={handleSubmit}>
+          <TextField
+            fullWidth
+            label="Image URL"
+            name="imgUrl"
+            value={imgUrl}
+            onChange={(e) => handleInputChange('imgUrl', e.target.value)}
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            fullWidth
+            label="Title"
+            name="title"
+            value={title}
+            onChange={(e) => handleInputChange('title', e.target.value)}
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            fullWidth
+            label="Description"
+            name="description"
+            multiline
+            rows={4}
+            value={description}
+            onChange={(e) => handleInputChange('description', e.target.value)}
+            margin="normal"
+            variant="outlined"
+          />
+          <TextField
+            error={Boolean(errors.contact)}
+            fullWidth
+            label="Contact"
+            name="contact"
+            value={contact}
+            onChange={(e) => handleInputChange('contact', e.target.value)}
+            margin="normal"
+            variant="outlined"
+            helperText={errors.contact}
+          />
+          <FormControl fullWidth margin="normal" error={Boolean(errors.category)}>
+            <InputLabel>Category</InputLabel>
+            <Select
+              name="category"
+              value={category}
+              onChange={(e) => handleInputChange('category', e.target.value)}
+              label="Category"
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {categories.map((category) => (
+                <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>
+              ))}
+            </Select>
+            <FormHelperText>{errors.category}</FormHelperText>
+          </FormControl>
+          {subcategories.length > 0 && (
+            <FormControl fullWidth margin="normal">
+              <InputLabel>Subcategory</InputLabel>
               <Select
-                labelId="category-label"
-                name="category"
-                value={formData.category}
-                onChange={handleInputChange}
-                label="Category"
-              >
-                {categories.map(category => (
-                  <MenuItem key={category.id} value={category.id}>{category.name}</MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>{errors.category}</FormHelperText>
-            </FormControl>
-            <FormControl fullWidth margin="normal" error={!!errors.subcategory}>
-              <InputLabel id="subcategory-label">Subcategory</InputLabel>
-              <Select
-                labelId="subcategory-label"
                 name="subcategory"
-                value={formData.subcategory}
-                onChange={handleInputChange}
+                value={subcategory}
+                onChange={(e) => handleInputChange('subcategory', e.target.value)}
                 label="Subcategory"
               >
-                {subcategories.map(subcategory => (
-                  <MenuItem key={subcategory.id} value={subcategory.id}>{subcategory.name}</MenuItem>
+                <MenuItem value="">
+                  <em>None</em>
+                </MenuItem>
+                {subcategories.map((sub) => (
+                  <MenuItem key={sub.id} value={sub.name}>{sub.name}</MenuItem>
                 ))}
               </Select>
-              <FormHelperText>{errors.subcategory}</FormHelperText>
             </FormControl>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '1rem' }}>
-              <Button variant="outlined" color="secondary" onClick={() => navigate('/')}>
-                Cancel
-              </Button>
-              <Button type="submit" color="primary" variant="contained">
-                Save Changes
-              </Button>
-            </div>
-          </form>
-        </CardContent>
-      </Card>
-    </Container>
+          )}
+          <Button
+            type="submit"
+            color="primary"
+            variant="contained"
+            fullWidth
+            style={{ marginTop: '1rem' }}
+          >
+            Update Ad
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
+  </Container>
   );
 };
 
-export default NewAdForm;
+export default NewAdForm;*/

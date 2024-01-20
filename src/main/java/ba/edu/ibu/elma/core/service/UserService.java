@@ -78,6 +78,9 @@ public class UserService {
         if (payload.getUsername() != null) {
             existingUser.setUsername(payload.getUsername());
         }
+        if (payload.getImgUrl() != null) {
+            existingUser.setImgUrl(payload.getImgUrl());
+        }
 
         // save the updated user
         User updatedUser = userRepository.save(existingUser);

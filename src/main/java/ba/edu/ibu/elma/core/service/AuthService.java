@@ -30,6 +30,14 @@ public class AuthService {
     }
 
     public UserDTO signUp(UserRequestDTO userRequestDTO) {
+        // check if user already exists with the given email
+        userRepository.findByEmail(userRequestDTO.getEmail())
+                .ifPresent(u -> {
+                    throw new IllegalStateException("Email already in use");
+                });
+
+        // create new user if not
+
         userRequestDTO.setPassword(
                 passwordEncoder.encode(userRequestDTO.getPassword()));
         User user = userRepository.save(userRequestDTO.toEntity());
