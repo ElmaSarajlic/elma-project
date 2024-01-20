@@ -42,11 +42,5 @@ public class Category {
 
     public void setSubcategories(List<Subcategory> subcategories) {
         this.subcategories = subcategories;
-
-        if (subcategories != null) {
-            subcategories.forEach(subcategory -> {
-                // Process each subcategory here
-            });
-        }
     }
 }

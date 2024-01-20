@@ -10,7 +10,6 @@ public class SubcategoryRequestDTO {
     public SubcategoryRequestDTO() { }
 
     public SubcategoryRequestDTO(Subcategory subcategory) {
-        this.id = subcategory.getId();
         this.name = subcategory.getName();
 
     }

@@ -88,7 +88,9 @@ public class CategoryService {
         }
         category.getSubcategories().add(subcategory);
         String name = subcategory.getName();
+        String id = subcategory.getId();
         SubcategoryRequestDTO subcategoryRequestDTO = new SubcategoryRequestDTO();
+        subcategoryRequestDTO.setId(id);
         subcategoryRequestDTO.setName(name);
         subcategoryService.createSubcategory(subcategoryRequestDTO);
 
@@ -102,7 +104,7 @@ public class CategoryService {
 
         // Check if category has subcategories and remove the one with the given ID
         Optional<Subcategory> subcategoryOptional = category.getSubcategories().stream()
-                .filter(subcategory -> subcategory.getId().equals(subcategoryId))
+                .filter(subcategory -> subcategory.getId() != null && subcategory.getId().equals(subcategoryId))
                 .findFirst();
 
         if (subcategoryOptional.isPresent()) {
