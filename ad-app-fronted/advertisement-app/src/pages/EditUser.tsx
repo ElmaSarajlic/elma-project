@@ -1,4 +1,3 @@
-// EditUserInfoPage.js
 import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import ChangeUserInfoCard from '../components/ChangeUserInfoCard';
@@ -11,24 +10,20 @@ import '../App.css';
 
 const EditUserInfoPage: React.FC = () => {
   const navigate = useNavigate();
-  const userId = useSelector((state: RootState) => state.auth.userId);
+  const id = useSelector((state: RootState) => state.auth.id);
   const { mutate: updateUser, isError, error } = useUpdateUser();
-  const [user, setUser] = useState<User | null>(null);
+  const [user, UpdateUser] = useState<User | null>(null);
 
   useEffect(() => {
-    // Fetch the user information here and set it to state
-    // For example:
-    // setUser(fetchedUser);
-
-    // TODO: Replace with real user fetching logic
-  }, [userId]);
+    
+  }, [id]);
 
   const onSave = (editedUser: User) => {
-    if (userId && editedUser) {
-      updateUser({ id: userId, user: editedUser }, {
+    if (id && editedUser) {
+      updateUser({ id: id, user: editedUser }, {
         onSuccess: () => {
           console.log('Changes saved');
-          navigate('/UserInfo'); // Navigate to the user info page or wherever appropriate
+          navigate('/UserInfo'); 
         },
         onError: (updateError) => {
           console.error('Error updating user:', updateError);
@@ -38,16 +33,14 @@ const EditUserInfoPage: React.FC = () => {
   };
 
   const onCancel = () => {
-    navigate('/UserInfo'); // Navigate to the user info page or wherever appropriate
+    navigate('/UserInfo'); 
   };
 
   if (isError) {
     console.error('Update error:', error);
-    // Here you can return an error component or a message to the user
   }
 
   if (!user) {
-    // Show loading or fetch the user
     return <div>Loading user information...</div>;
   }
 

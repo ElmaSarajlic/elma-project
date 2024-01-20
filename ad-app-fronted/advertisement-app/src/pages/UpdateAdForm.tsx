@@ -23,7 +23,7 @@ interface FormErrors {
 
 const NewAdForm: React.FC = () => {
   const navigate = useNavigate();
-  const { id } = useParams<{ id: string }>();
+  const { adId } = useParams<{ id: string }>();
   const { mutate: updateAd } = useUpdateAd();
   const [formData, setFormData] = useState<AdFormData>({
     id: '',
@@ -44,8 +44,8 @@ const NewAdForm: React.FC = () => {
         const categoriesResponse = await appAxios.get<Category[]>('/categories');
         setCategories(categoriesResponse.data);
 
-        if (id) {
-          const adResponse = await appAxios.get<Ad>(`/ads/${id}`);
+        if (adId) {
+          const adResponse = await appAxios.get<Ad>(`/ads/${adId}`);
           const currentAd = adResponse.data;
           const categoryOfAd = categoriesResponse.data.find(
             category => category.subcategories.some(subcat => subcat.id === currentAd.subcategory)
@@ -67,7 +67,7 @@ const NewAdForm: React.FC = () => {
     };
 
     fetchData();
-  }, [id]);
+  }, [adId]);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string; value: unknown }>

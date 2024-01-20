@@ -36,8 +36,8 @@ const AdList = () => {
 
   return (
     <div>
-      <FormControl fullWidth>
-        <InputLabel id="sort-select-label">Sort By</InputLabel>
+      <FormControl fullWidth sx={{ marginBottom: 5}}>
+        <InputLabel id="sort-select-label" sx={{ color: 'white' }} >Sort By</InputLabel>
         <Select
           labelId="sort-select-label"
           value={sortMethod}
@@ -60,7 +60,7 @@ const AdList = () => {
           <p className="mb-0">Something went wrong, please try again.</p>
         </div>
       ) : ads && (
-          <Grid container spacing={2} justifyContent="center">
+          <Grid container spacing={4} justifyContent="center">
             {sortedAds.map((ad) => (
               <Grid item xs={12} sm={6} key={ad.id}>
                 <AdCard ad={ad} />
