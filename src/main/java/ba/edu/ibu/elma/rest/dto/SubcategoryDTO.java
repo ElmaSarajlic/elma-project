@@ -4,11 +4,13 @@ import ba.edu.ibu.elma.core.model.Subcategory;
 public class SubcategoryDTO {
     private String id;
     private String name;
+    private String categoryId;
 
 
     public SubcategoryDTO(Subcategory subcategory) {
         this.id = subcategory.getId();
         this.name = subcategory.getName();
+        this.categoryId = subcategory.getCategoryId();
 
     }
 
@@ -27,6 +29,15 @@ public class SubcategoryDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getCategoryId(){
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId){
+        this.categoryId = categoryId;
+    }
+
 
 
 }

@@ -92,6 +92,7 @@ public class CategoryService {
         SubcategoryRequestDTO subcategoryRequestDTO = new SubcategoryRequestDTO();
         subcategoryRequestDTO.setId(id);
         subcategoryRequestDTO.setName(name);
+        subcategoryRequestDTO.setCategoryId(categoryId);
         subcategoryService.createSubcategory(subcategoryRequestDTO);
 
         return categoryRepository.save(category);

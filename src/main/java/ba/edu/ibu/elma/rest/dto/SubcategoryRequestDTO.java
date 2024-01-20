@@ -5,12 +5,14 @@ import ba.edu.ibu.elma.core.model.Subcategory;
 public class SubcategoryRequestDTO {
     private String id;
     private String name;
+    private String categoryId;
 
 
     public SubcategoryRequestDTO() { }
 
     public SubcategoryRequestDTO(Subcategory subcategory) {
         this.name = subcategory.getName();
+        this.categoryId = subcategory.getCategoryId();
 
     }
 
@@ -18,6 +20,7 @@ public class SubcategoryRequestDTO {
         Subcategory subcategory = new Subcategory();
         subcategory.setId(id);
         subcategory.setName(name);
+        subcategory.setCategoryId(categoryId);
         return subcategory;
     }
 
@@ -36,6 +39,15 @@ public class SubcategoryRequestDTO {
     public void setName(String name) {
         this.name = name;
     }
+
+    public String getCategoryId(){
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId){
+        this.categoryId = categoryId;
+    }
+
 
 
 }
