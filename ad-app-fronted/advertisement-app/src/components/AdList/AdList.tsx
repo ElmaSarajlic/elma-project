@@ -1,8 +1,9 @@
 import AdCard from '../AdCard/AdCard';
-import { Grid } from '@mui/material';
+import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
 import { useAds } from '../../hooks';
 import useGetAdsBySubcategory from '../../hooks/usegetAds';
 import { useParams } from 'react-router-dom';
+import { SetStateAction, useState } from 'react';
 
 type Props = {};
 
@@ -12,12 +13,41 @@ const AdList = () => {
     ? useGetAdsBySubcategory(subcategoryName) 
     : useAds();
 
-    const sortedAds = ads?.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime());
+    const [sortMethod, setSortMethod] = useState('newest');
 
+    const handleSortChange = (event: { target: { value: SetStateAction<string>; }; }) => {
+      setSortMethod(event.target.value);
+    };
   
- 
+    const getSortedAds = () => {
+      if (!ads) return [];
+  
+      switch (sortMethod) {
+        case 'newest':
+          return [...ads].sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime());
+        case 'oldest':
+          return [...ads].sort((a, b) => new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime());
+        default:
+          return ads;
+      }
+    };
+  
+    const sortedAds = getSortedAds();
+
   return (
     <div>
+      <FormControl fullWidth>
+        <InputLabel id="sort-select-label">Sort By</InputLabel>
+        <Select
+          labelId="sort-select-label"
+          value={sortMethod}
+          label="Sort By"
+          onChange={handleSortChange}
+        >
+          <MenuItem value="newest">Newest First</MenuItem>
+          <MenuItem value="oldest">Oldest First</MenuItem>
+        </Select>
+      </FormControl>
       {isLoading ? (
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -30,14 +60,14 @@ const AdList = () => {
           <p className="mb-0">Something went wrong, please try again.</p>
         </div>
       ) : ads && (
-        <Grid container spacing={2} justifyContent="center">
-          {ads.map((ad) => (
-            <Grid item xs={12} sm={6} key={ad.id}>
-              <AdCard ad={ad} />
-            </Grid>
-          ))}
-        </Grid>
-      )}
+          <Grid container spacing={2} justifyContent="center">
+            {sortedAds.map((ad) => (
+              <Grid item xs={12} sm={6} key={ad.id}>
+                <AdCard ad={ad} />
+              </Grid>
+            ))}
+          </Grid>
+        )}
     </div>
   );
 };
