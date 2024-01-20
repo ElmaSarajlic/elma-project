@@ -3,7 +3,7 @@ import { Category } from './utils/types' ;
 
 
 
-    export const user: User = {
+  /*  export const user: User = {
       id: "user123",
       username: "Elma Sarajlic",
       userType: "admin",
@@ -11,10 +11,10 @@ import { Category } from './utils/types' ;
       password: 'password',
       imageURL: 'https://musicart.xboxlive.com/7/4d4d6500-0000-0000-0000-000000000002/504/image.jpg?w=1920&h=1080',
       avatarUrl: ''
-    }
+    }*/
 
 
-     export const categoryList: Category[] = [
+    /* export const categoryList: Category[] = [
         {
           id: '1',
           title: 'Category 1',
@@ -44,6 +44,6 @@ import { Category } from './utils/types' ;
             
           ],
         }
-      ];
+      ];*/
       
       export const BASE_URL = 'http://localhost:8080/api'

@@ -6,7 +6,7 @@ import '../App.css'
 
 const HomePage: React.FC = () => {
   return (
-    <div className="homepage-background" >
+    <div >
       <NavBar />
       <Container style={{ marginTop: '100px' }}>
         <AdList />

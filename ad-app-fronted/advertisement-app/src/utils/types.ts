@@ -7,6 +7,8 @@ export type Ad =  {
     description: string;
     contact:string;
     imgUrl:string;
+    creationDate: Date;
+
 }
 
 export type User ={

@@ -11,6 +11,9 @@ const AdList = () => {
   const { data: ads, isLoading, error } = subcategoryName 
     ? useGetAdsBySubcategory(subcategoryName) 
     : useAds();
+
+    const sortedAds = ads?.sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime());
+
   
  
   return (
@@ -27,9 +30,9 @@ const AdList = () => {
           <p className="mb-0">Something went wrong, please try again.</p>
         </div>
       ) : ads && (
-        <Grid container spacing={2}>
-          {ads.map((ad, index) => (
-            <Grid item xs={12} key={index}>
+        <Grid container spacing={2} justifyContent="center">
+          {ads.map((ad) => (
+            <Grid item xs={12} sm={6} key={ad.id}>
               <AdCard ad={ad} />
             </Grid>
           ))}

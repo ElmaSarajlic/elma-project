@@ -16,7 +16,7 @@ const AppNavbar: React.FC = () => {
 
 
   const handleUserInfoClick = () => {
-    navigate('/UserInfo');
+    navigate('/Userinfo');
   };
 
   return (
