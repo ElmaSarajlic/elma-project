@@ -95,13 +95,16 @@ public class CategoryService {
         subcategoryRequestDTO.setCategoryId(categoryId);
         subcategoryService.createSubcategory(subcategoryRequestDTO);
 
+
         return categoryRepository.save(category);
     }
 
+
+
     public void deleteSubcategoryFromCategory(String categoryId, String subcategoryId) {
-        // Find the category containing the subcategory
+
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+                .orElseThrow(() -> new RuntimeException("Category with ID: " + categoryId + " not found"));
 
         // Check if category has subcategories and remove the one with the given ID
         Optional<Subcategory> subcategoryOptional = category.getSubcategories().stream()

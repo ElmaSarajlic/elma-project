@@ -30,6 +30,20 @@ const createCategory = async (category: Category): Promise<Category[]> => {
       return data;
     });
   };
+
+
+
+  const deleteSubcategory = async (categoryId: string, subcategoryId: string): Promise<void> => {
+    console.log(`Deleting subcategory with ID: ${subcategoryId}`);
+    
+    return appAxios.delete(`/categories/${categoryId}/subcategories/${subcategoryId}`).then(() => {
+      console.log('subcategory deleted successfully');
+    }).catch((error) => {
+      console.error('Error deleting subcategory:', error);
+      throw error; 
+    });
+
+};
   
 
-export default {getAllCategories, createCategory, createSubcategory}
+export default {getAllCategories, createCategory, createSubcategory, deleteSubcategory}
