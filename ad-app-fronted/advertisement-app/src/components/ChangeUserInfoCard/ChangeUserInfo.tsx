@@ -19,12 +19,13 @@ const ChangeUserInfoCard = ({
   user,
   setUser,
 }: ChangeUserInfoCardProps) => {
-  const [username, setUsername] = useState(user.username);
   const [imgUrl, setImgUrl] = useState(user.imgUrl);
+
+  const [username, setUsername] = useState(user.username);
 
   const updateUserMutation = useUpdateUser(); 
   const handleSave = () => {
-    const updatedUser = { ...user, username, imgUrl };
+    const updatedUser = { ...user, imgUrl, username };
     updateUserMutation.mutate({ id: user.id, user: updatedUser }, {
       onSuccess: () => {
         setUser(updatedUser);
@@ -32,6 +33,9 @@ const ChangeUserInfoCard = ({
       }
     });
   };
+
+  console.log(imgUrl);
+
   
   return (
     <Card variant="outlined">
