@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/ads")
-//@SecurityRequirement(name = "JWT Security")
+@SecurityRequirement(name = "JWT Security")
 public class AdController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class AdController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path = "/")
-    //@PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
     public ResponseEntity<AdDTO> createAd(@RequestBody AdRequestDTO adRequestDTO) throws Exception {
         AdDTO createdAd = adService.createAd(adRequestDTO);
         return new ResponseEntity<>(createdAd, HttpStatus.CREATED);
@@ -48,7 +48,7 @@ public class AdController {
     }
 
     @RequestMapping(value = "/{adId}", method = RequestMethod.PUT)
-    //@PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
     public ResponseEntity<AdDTO> updateAd(@PathVariable String adId, @RequestBody AdRequestDTO adRequestDTO) {
         AdDTO updatedAd = adService.updateAd(adId, adRequestDTO);
         if (updatedAd != null) {
@@ -59,7 +59,7 @@ public class AdController {
     }
 
     @RequestMapping(value = "/{adId}", method = RequestMethod.DELETE)
-    //@PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
     public ResponseEntity<Void> deleteAd(@PathVariable String adId) {
         adService.deleteAd(adId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -21,4 +21,19 @@ appAxios.interceptors.response.use(response => {
     return Promise.reject(error);
 });
 
+appAxios.interceptors.request.use((config) => {
+    const token = localStorage.getItem('userToken');
+  
+    if (token) {
+        config.headers['Authorization']=`Bearer ${ token }`;
+        console.log(config.headers.Authorization);
+        console.log(config);
+    }
+  
+    return config;
+  
+  }, (error) => {
+    return Promise.reject(error);
+  });
+
 export default appAxios;

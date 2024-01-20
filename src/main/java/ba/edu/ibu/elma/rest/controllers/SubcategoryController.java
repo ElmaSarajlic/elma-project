@@ -63,7 +63,7 @@ public class SubcategoryController { // Changed
     }
 
     @RequestMapping(value = "/{subcategoryId}", method = RequestMethod.DELETE) // Changed
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteSubcategory(@PathVariable String subcategoryId) { // Changed
         subcategoryService.deleteSubcategory(subcategoryId); // Changed
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

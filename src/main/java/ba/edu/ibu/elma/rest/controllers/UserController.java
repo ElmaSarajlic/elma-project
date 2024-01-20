@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
-//@SecurityRequirement(name = "JWT Security")
+@SecurityRequirement(name = "JWT Security")
 public class UserController {
 
     private final UserService userService;
@@ -25,7 +25,7 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/")
-    //@PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
     public ResponseEntity<List<UserDTO>> getUsers() {
         return ResponseEntity.ok(userService.getUsers());
     }
@@ -33,19 +33,19 @@ public class UserController {
 
 
     @RequestMapping(method = RequestMethod.GET, path = "/{id}")
-    //@PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
+    @PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
     public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody UserRequestDTO user) {
         return ResponseEntity.ok(userService.updateUser(id, user));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, path = "/{id}")
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

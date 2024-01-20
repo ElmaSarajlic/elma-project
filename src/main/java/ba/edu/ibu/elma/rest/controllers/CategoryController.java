@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/categories")
-//@SecurityRequirement(name = "JWT Security")
+@SecurityRequirement(name = "JWT Security")
 public class CategoryController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class CategoryController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryRequestDTO categoryRequestDTO) {
         CategoryDTO createdCategory = categoryService.createCategory(categoryRequestDTO);
 
