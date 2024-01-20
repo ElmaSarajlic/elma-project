@@ -1,4 +1,3 @@
-// useDeleteAd.ts
 import { useMutation } from "react-query";
 import { AdService } from "../services";
 
