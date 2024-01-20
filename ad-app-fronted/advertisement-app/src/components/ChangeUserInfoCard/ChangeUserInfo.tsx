@@ -1,44 +1,38 @@
-// ChangeUserInfoCard.js
 import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { User } from '../../utils/types';
+import useUpdateUser from '../../hooks/useUpdateUser';
 
 interface ChangeUserInfoCardProps {
+  open: boolean;
+  handleClose: () => void;
   user: User;
-  onSave: (editedUser: User) => void;
-  onCancel: () => void;
+  setUser: any;
 }
 
-const ChangeUserInfoCard: React.FC<ChangeUserInfoCardProps> = ({
+const ChangeUserInfoCard = ({
+  handleClose,
   user,
-  onSave,
-  onCancel,
-}) => {
-  const [editedUser, setEditedUser] = useState<User>({...user});
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [showPassword, setShowPassword] = useState(false);
+  setUser,
+}: ChangeUserInfoCardProps) => {
+  const [username, setUsername] = useState(user.username);
+  const [imgUrl, setImgUrl] = useState(user.imgUrl);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    setEditedUser({ ...editedUser, [name]: value });
-  };
-
+  const updateUserMutation = useUpdateUser(); 
   const handleSave = () => {
-    onSave(editedUser);
+    const updatedUser = { ...user, username, imgUrl };
+    updateUserMutation.mutate({ id: user.id, user: updatedUser }, {
+      onSuccess: () => {
+        setUser(updatedUser);
+        handleClose();
+      }
+    });
   };
-
-  const handlePasswordVisibilityToggle = () => {
-    setShowPassword(!showPassword);
-  };
-
+  
   return (
     <Card variant="outlined">
       <CardContent>
@@ -46,59 +40,29 @@ const ChangeUserInfoCard: React.FC<ChangeUserInfoCardProps> = ({
           Edit User Information
         </Typography>
         <TextField
+          margin="dense"
+          fullWidth
+          label="Image Url"
+          value={imgUrl}
+          onChange={(e) => setImgUrl(e.target.value)}
+        />
+        <TextField
+          margin="dense"
           fullWidth
           label="Username"
-          name="username"
-          value={editedUser.username}
-          onChange={handleChange}
-          margin="normal"
-          variant="outlined"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <TextField
-          fullWidth
-          label="Email"
-          name="email"
-          type="email"
-          value={editedUser.email}
-          onChange={handleChange}
-          margin="normal"
-          variant="outlined"
-          error={!!errors.email}
-          helperText={errors.email}
-        />
-        <TextField
-          fullWidth
-          label="Password"
-          name="password"
-          type={showPassword ? 'text' : 'password'}
-          value={editedUser.password}
-          onChange={handleChange}
-          margin="normal"
-          variant="outlined"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={handlePasswordVisibilityToggle} edge="end">
-                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          fullWidth
-          label="Image URL"
-          name="imgUrl"
-          value={editedUser.imgUrl}
-          onChange={handleChange}
-          margin="normal"
-          variant="outlined"
-        />
-        <div style={{ marginTop: '1rem' }}>
-          <Button onClick={handleSave} variant="contained" color="primary">
-            Save
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
+          <Button
+            variant="contained"
+            onClick={handleSave}
+            color="primary"
+            style={{ marginRight: '8px' }}
+          >
+            Save Changes
           </Button>
-          <Button onClick={onCancel} color="secondary" style={{ marginLeft: '1rem' }}>
+          <Button onClick={handleClose} color="secondary">
             Cancel
           </Button>
         </div>

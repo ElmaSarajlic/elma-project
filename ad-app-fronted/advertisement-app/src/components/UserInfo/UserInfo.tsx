@@ -34,7 +34,7 @@ const UserInfo = () => {
   }, [user, isError, error]);
 
   const handleEditClick = () => {
-    navigate('/EditUser');
+    navigate('/EditUser', { state: { user } });
   };
 
   const handleLogout = () => {

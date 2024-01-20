@@ -1,57 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import NavBar from '../components/NavBar';
-import ChangeUserInfoCard from '../components/ChangeUserInfoCard';
+import React, { useState } from 'react';
+import NavBar from '../components/NavBar'; 
+import Container from '@mui/material/Container';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import useUpdateUser from '../hooks/useUpdateUser';
 import { RootState } from '../store';
-import { User } from '../utils/types';
-import '../App.css';
+import '../App.css'
+import ChangeUserInfoCard from '../components/ChangeUserInfoCard';
+import { useNavigate } from 'react-router-dom';
 
-const EditUserInfoPage: React.FC = () => {
-  const navigate = useNavigate();
-  const id = useSelector((state: RootState) => state.auth.id);
-  const { mutate: updateUser, isError, error } = useUpdateUser();
-  const [user, UpdateUser] = useState<User | null>(null);
+const EditUserPage: React.FC = () => {
+  const userId = useSelector((state: RootState) => state.auth.userId);
+  const navigate = useNavigate(); 
 
-  useEffect(() => {
-    
-  }, [id]);
 
-  const onSave = (editedUser: User) => {
-    if (id && editedUser) {
-      updateUser({ id: id, user: editedUser }, {
-        onSuccess: () => {
-          console.log('Changes saved');
-          navigate('/UserInfo'); 
-        },
-        onError: (updateError) => {
-          console.error('Error updating user:', updateError);
-        },
-      });
-    }
-  };
+  const [user, setUser] = useState({
+    id: userId,
+    imgUrl :'',
+    username: ''
+  });
 
-  const onCancel = () => {
-    navigate('/UserInfo'); 
-  };
-
-  if (isError) {
-    console.error('Update error:', error);
-  }
-
-  if (!user) {
-    return <div>Loading user information...</div>;
-  }
 
   return (
-    <>
+    <div>
       <NavBar />
-      <div style={{ marginTop: '20px' }}>
-        <ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} />
-      </div>
-    </>
+      <Container style={{ marginTop: '100px' }}>
+        <ChangeUserInfoCard
+          open={false}
+          handleClose={() => {
+            navigate('/UserInfo');
+          }}
+          user={user}
+          setUser={setUser} 
+        />
+      </Container>
+    </div>
   );
 };
 
-export default EditUserInfoPage;
+export default EditUserPage;

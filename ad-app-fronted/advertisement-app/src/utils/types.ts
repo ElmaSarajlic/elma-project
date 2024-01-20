@@ -13,11 +13,11 @@ export type Ad =  {
 
 export type User ={
     id: string;
-    username: string;
-    userType: string;
-    email : string;
-    password : string;
-    imgUrl : string;
+    username?: string;
+    userType?: string;
+    email?: string;
+    password?: string;
+    imgUrl? : string;
     
 }
 export type Subcategory = {
