@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,10 +86,14 @@ public class CategoryService {
     public Category addSubcategoryToCategory(String categoryId, Subcategory subcategory) {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
+        String subcategoryId = generateUniqueSubcategoryId();
+
 
         if (category.getSubcategories() == null) {
             category.setSubcategories(new ArrayList<>());
         }
+        subcategory.setId(subcategoryId);
+
         category.getSubcategories().add(subcategory);
         String name = subcategory.getName();
         String id = subcategory.getId();
@@ -100,6 +105,11 @@ public class CategoryService {
 
 
         return categoryRepository.save(category);
+    }
+    private String generateUniqueSubcategoryId() {
+        // You can implement your logic here to generate a unique ID, e.g., UUID.randomUUID().toString()
+        // Ensure that the generated ID is unique within your application.
+        return UUID.randomUUID().toString();
     }
 
 

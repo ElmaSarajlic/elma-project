@@ -1,9 +1,12 @@
 package ba.edu.ibu.elma.rest.dto;
 
+import ba.edu.ibu.elma.core.model.Ad;
 import ba.edu.ibu.elma.core.model.User;
 import ba.edu.ibu.elma.core.model.enums.UserType;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class UserDTO {
     private String id;
@@ -13,6 +16,7 @@ public class UserDTO {
     private Date creationDate;
     private String imgUrl;
 
+
     public UserDTO(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
@@ -20,6 +24,7 @@ public class UserDTO {
         this.email = user.getEmail();
         this.creationDate = user.getCreationDate();
         this.imgUrl = user.getImgUrl();
+
     }
 
     public String getId() {
@@ -67,4 +72,6 @@ public class UserDTO {
     public void setImgUrl(String imgUrl){
         this.imgUrl = imgUrl;
     }
+
+
 }

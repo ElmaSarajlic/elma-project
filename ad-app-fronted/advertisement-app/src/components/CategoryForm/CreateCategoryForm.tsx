@@ -14,8 +14,7 @@ const AddCategoryForm: React.FC = () => {
       try {
         const category: Category = {
           name: name,
-          subcategories: [],
-          id: ''
+          subcategories: []
         };
 
         await createCategory(category);

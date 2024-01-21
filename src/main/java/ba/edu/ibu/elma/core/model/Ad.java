@@ -13,9 +13,10 @@ public class Ad {
     private String description;
     private Date creationDate;
     private String subcategory;
-    private String category;
+
     private String contact;
     private String imgUrl;
+
 
     public Ad(){}
 
@@ -23,11 +24,11 @@ public class Ad {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.category = category;
         this.subcategory = subcategory;
         this.contact = contact;
         this.creationDate = creationDate;
         this.imgUrl = imgUrl;
+
     }
 
     public String getId() {

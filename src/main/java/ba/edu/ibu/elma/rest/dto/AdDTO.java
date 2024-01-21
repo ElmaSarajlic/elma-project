@@ -13,6 +13,7 @@ public class AdDTO {
     private String contact;
     private String imgUrl;
 
+
     public AdDTO(Ad ad) {
         this.id = ad.getId();
         this.title = ad.getTitle();
@@ -75,5 +76,7 @@ public class AdDTO {
     public void setImgUrl(String imgUrl){
         this.imgUrl = imgUrl;
     }
+
+
 }
 
