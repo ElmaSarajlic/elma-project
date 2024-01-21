@@ -5,11 +5,8 @@ import ba.edu.ibu.elma.core.model.Ad;
 import ba.edu.ibu.elma.core.repository.AdRepository;
 import ba.edu.ibu.elma.rest.dto.AdDTO;
 import ba.edu.ibu.elma.rest.dto.AdRequestDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,9 +15,11 @@ import java.util.stream.Collectors;
 public class AdService {
 
     private final AdRepository adRepository;
+    private final NotificationService notificationService;
 
-    public AdService(AdRepository adRepository) {
+    public AdService(AdRepository adRepository, NotificationService notificationService) {
         this.adRepository = adRepository;
+        this.notificationService = notificationService;
     }
 
     public List<AdDTO> getAllAds() {
@@ -38,8 +37,14 @@ public class AdService {
         return new AdDTO(ad.get());
     }
 
-    public AdDTO createAd(AdRequestDTO adRequestDTO) {
+    public AdDTO createAd(AdRequestDTO adRequestDTO) throws Exception {
         Ad ad = adRepository.save(adRequestDTO.toEntity());
+        try {
+            notificationService.broadcastMessage("New add added: " + ad.getTitle());
+        } catch (Exception e) {
+            throw new Exception("Failed to broadcast message for new ad", e);
+        }
+
         return new AdDTO(ad);
     }
 
@@ -59,11 +64,11 @@ public class AdService {
         ad.ifPresent(adRepository::delete);
     }
 
-    public List<AdDTO> getAdsByCategory(String adCategory) {
-        List<Ad> ads = adRepository.findByCategory(adCategory);
+    public List<AdDTO> getAdsBySubcategory(String adSubcategory) {
+        List<Ad> ads = adRepository.findBySubcategory(adSubcategory);
 
         if (ads.isEmpty()) {
-            throw new ResourceNotFoundException("Ads with the given category do not exist.");
+            throw new ResourceNotFoundException("Ads with the given subcategory do not exist.");
         }
 
         // Convert the list of Ad objects to a list of AdDTO objects

@@ -25,7 +25,7 @@ public class AdController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/")
     @PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
-    public ResponseEntity<AdDTO> createAd(@RequestBody AdRequestDTO adRequestDTO) {
+    public ResponseEntity<AdDTO> createAd(@RequestBody AdRequestDTO adRequestDTO) throws Exception {
         AdDTO createdAd = adService.createAd(adRequestDTO);
         return new ResponseEntity<>(createdAd, HttpStatus.CREATED);
     }
@@ -65,9 +65,9 @@ public class AdController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @RequestMapping(value = "/category/{adCategory}", method = RequestMethod.GET)
-    public ResponseEntity<List<AdDTO>> getAdsByCategory(@PathVariable String adCategory) {
-        List<AdDTO> ads = adService.getAdsByCategory(adCategory);
+    @RequestMapping(value = "/subcategory/{adSubcategory}", method = RequestMethod.GET)
+    public ResponseEntity<List<AdDTO>> getAdsBySubcategory(@PathVariable String adSubcategory) {
+        List<AdDTO> ads = adService.getAdsBySubcategory(adSubcategory);
         if (!ads.isEmpty()) {
             return new ResponseEntity<>(ads, HttpStatus.OK);
         } else {

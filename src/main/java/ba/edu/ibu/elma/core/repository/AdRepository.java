@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface AdRepository extends MongoRepository<Ad,String> {
-    List<Ad> findByCategory(String category);
+    List<Ad> findBySubcategory(String category);
 
 }

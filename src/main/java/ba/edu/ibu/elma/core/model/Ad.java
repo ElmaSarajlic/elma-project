@@ -12,15 +12,17 @@ public class Ad {
     private String title;
     private String description;
     private Date creationDate;
-    private String category;
+    private String subcategory;
+    private String contact;
 
     public Ad(){}
 
-    public Ad(String id, String title, String category, String description, Date creationDate) {
+    public Ad(String id, String title, String subcategory, String contact,  String description, Date creationDate) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.category = category;
+        this.subcategory = subcategory;
+        this.contact = contact;
         this.creationDate = creationDate;
     }
 
@@ -58,11 +60,22 @@ public class Ad {
         this.creationDate = creationDate;
     }
 
-    public String getCategory(){
-        return category;
+    public String getSubcategory(){
+        return subcategory;
     }
 
-    public void setCategory(String category){
-        this.category = category;
+    public void setSubcategory(String subcategory){
+        this.subcategory = subcategory;
     }
+
+    public String getContact(){
+        return contact;
+    }
+
+    public void setContact(String contact){
+        this.contact = contact;
+    }
+
+
+
 }

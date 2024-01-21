@@ -9,14 +9,16 @@ public class AdDTO {
     private String title;
     private String description;
     private Date creationDate;
-    private String category;
+    private String subcategory;
+    private String contact;
 
     public AdDTO(Ad ad) {
         this.id = ad.getId();
         this.title = ad.getTitle();
         this.description = ad.getDescription();
+        this.contact = ad.getContact();
         this.creationDate = ad.getCreationDate();
-        this.category = ad.getCategory();
+        this.subcategory = ad.getSubcategory();
     }
 
     public String getId() {
@@ -50,11 +52,18 @@ public class AdDTO {
         this.creationDate = creationDate;
     }
 
-    public String getCategory(){
-        return category;
+    public String getSubcategory(){
+        return subcategory;
     }
-    public void setCategory(String category){
-        this.category = category;
+    public void setSubcategory(String subcategory){
+        this.subcategory = subcategory;
+    }
+
+    public String getContact(){
+        return contact;
+    }
+    public void setContact(String contact){
+        this.contact = contact;
     }
 }
 
