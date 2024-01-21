@@ -10,11 +10,11 @@ type Props = {
 
 
 const UserCard = ({ user }: Props) => {
-    const { mutate: deleteAd } = useDeleteUser();
+    const { mutate: deleteUser } = useDeleteUser();
 
 
   const onDelete = () => {
-    deleteAd(user.id, {
+    deleteUser(user.id, {
       onSuccess: () => {
         console.log(`User with ID ${user.id} was deleted.`);
         window.location.reload();

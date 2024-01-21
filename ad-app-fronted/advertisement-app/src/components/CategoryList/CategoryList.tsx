@@ -27,7 +27,7 @@ const CategoryList = () => {
                 name={category.name} 
                 subcategories={category.subcategories} 
               />
-            </Grid>
+            </Grid> 
           ))}
         </Grid>
       )}

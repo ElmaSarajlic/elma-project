@@ -12,6 +12,7 @@ import { Box, Card } from '@mui/material';
 
 const UserInfo = () => {
   const userId = useSelector((state: RootState) => state.auth.userId);
+  const userType = useSelector((state: RootState) => state.auth.userType);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -91,18 +92,24 @@ const UserInfo = () => {
             <Button size="medium" variant="outlined" onClick={handleEditClick}>
               Edit personal information
             </Button>
-            <Button size="medium" variant="outlined" onClick={handleCategoryClick}>
-              Add new Category
-            </Button>
-            <Button size="medium" variant="outlined" onClick={handleSubcategoryClick}>
-              Add new Subcategory
-            </Button>
-            <Button size="medium" variant="outlined" onClick={handleUsersClick}>
-              Users
-            </Button>
-            <Button size="medium" variant="outlined" onClick={handlePasswordClick}>
-              Change Password
-            </Button>
+            {/* Conditional rendering based on userType */}
+            {userType === 'ADMIN' && (
+                <>
+                  <Button size="medium" variant="outlined" onClick={handleCategoryClick}>
+                    Add new Category
+                  </Button>
+                  <Button size="medium" variant="outlined" onClick={handleSubcategoryClick}>
+                    Add new Subcategory
+                  </Button>
+                  <Button size="medium" variant="outlined" onClick={handleUsersClick}>
+                    Users
+                  </Button>
+                </>
+              )}
+              
+              <Button size="medium" variant="outlined" onClick={handlePasswordClick}>
+                Change Password
+              </Button>
           </Box>
         </>
       )}

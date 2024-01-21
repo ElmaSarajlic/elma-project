@@ -3,7 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { AppBar, IconButton } from '@mui/material';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../store'; // Adjust the import path as necessary
+import { RootState } from '../../store'; 
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,7 +19,7 @@ const AppNavbar: React.FC = () => {
 
   return (
     <AppBar position="static" sx={{ width: '100%', position: 'absolute', top: 0, left: 0, bgcolor: "black" }}>
-      <Navbar expand="lg" variant="dark" style={{ backgroundColor: 'yourColorHere' }}> {/* Replace yourColorHere with your desired color */}
+      <Navbar expand="lg" variant="dark" style={{ backgroundColor: 'yourColorHere' }}> 
         <Navbar.Brand href="/home" style={{ color: 'white' }}>AdMe</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

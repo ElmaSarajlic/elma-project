@@ -1,7 +1,7 @@
 import { SetStateAction } from "react";
 
 export type Ad =  {
-    id: string;
+    id?: string;
     title: string;
     subcategory: string;
     category: string;
@@ -13,7 +13,7 @@ export type Ad =  {
 }
 
 export type User ={
-    id?: string;
+    id: string;
     username?: string;
     userType?: string;
     email?: string;
@@ -23,7 +23,7 @@ export type User ={
 }
 export type Subcategory = {
     subcategories?: SetStateAction<Subcategory[]>;
-    id?: string;
+    id: string;
     name: string;
   };
   

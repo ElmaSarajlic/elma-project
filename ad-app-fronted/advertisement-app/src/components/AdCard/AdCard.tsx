@@ -5,6 +5,8 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import DeleteButton from '../DeleteBtn';
 import useDeleteAd from '../../hooks/useDeleteAd';
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
 
 type Props = {
   ad: Ad;
@@ -14,9 +16,15 @@ type Props = {
 const AdCard = ({ ad }: Props) => {
 
   const { mutate: deleteAd } = useDeleteAd();
+  const userType = useSelector((state: RootState) => state.auth.userType);
+
 
 
   const onDelete = () => {
+    if (!ad.id) {
+      console.error('Cannot delete ad with null or undefined ID');
+      return;
+    }
     deleteAd(ad.id, {
       onSuccess: () => {
         console.log(`Ad with ID ${ad.id} was deleted.`);
@@ -52,8 +60,9 @@ const AdCard = ({ ad }: Props) => {
         <Typography variant="body2" color="text.secondary">
           {ad.subcategory}
         </Typography>
+        {userType === 'ADMIN' && (
         <DeleteButton onDelete={onDelete} /> 
-
+        )}
       </CardContent>
     </Card>
   );

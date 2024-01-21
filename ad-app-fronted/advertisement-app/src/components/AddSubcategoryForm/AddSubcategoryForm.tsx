@@ -13,7 +13,7 @@ const AddSubcategoryForm: React.FC = () => {
   const { data: categories, isLoading, isError } = useCategories();
 
   useEffect(() => {
-    if (isError) {
+    if (isError) { 
       console.error('Error fetching categories');
     }
   }, [isError]);
@@ -26,6 +26,7 @@ const AddSubcategoryForm: React.FC = () => {
         await createSubcategory({ categoryId: selectedCategory, subcategory: {
           name: subcategory,
           subcategories: undefined,
+          id: ''
         } });
         console.log(`Subcategory: ${subcategory} added to Category ID: ${selectedCategory}`);
       } catch (error) {

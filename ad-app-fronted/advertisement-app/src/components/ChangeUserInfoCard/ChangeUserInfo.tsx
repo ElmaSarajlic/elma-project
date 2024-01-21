@@ -31,7 +31,7 @@ const ChangeUserInfoCard = ({
     updateUserMutation.mutate({ id: user.id, user: updatedUser }, {
       onSuccess: () => {
         setUser(updatedUser);
-        handleClose();
+        handleClose(); 
       }
     });
   };

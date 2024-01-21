@@ -12,10 +12,12 @@ import IconButton from '@mui/material/IconButton';
 import { useNavigate } from 'react-router-dom';
 import DeleteButton from '../DeleteBtn';
 import { useDeleteSubcategory } from '../../hooks';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 interface CategoryCardProps {
-  categories : Category;
-  id: string;
+  categories? : Category;
+  id?: string;
   name: string;
   subcategories: Subcategory[];
 }
@@ -24,6 +26,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({name, id,  subcategories }) 
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { mutate: deleteSubcategory } = useDeleteSubcategory();
+  const userType = useSelector((state: RootState) => state.auth.userType);
 
 
 
@@ -32,22 +35,22 @@ const CategoryCard: React.FC<CategoryCardProps> = ({name, id,  subcategories }) 
   };
 
   const handleDeleteSubcategory = (subcategoryId: string) => {
-    if (!subcategoryId) {
-      console.error('Cannot delete subcategory with null ID');
-      return; 
+    if (id == null) {
+      console.error('Cannot delete subcategory because categoryId is null');
+      // Additional error handling logic can go here
+      return;
     }
-      deleteSubcategory({ categoryId: id, subcategoryId });
-    window.location.reload(); 
-  };
-
   
+    deleteSubcategory({ categoryId: id, subcategoryId });
+    window.location.reload();
+  };
 
   return (
     <Card
       sx={{
         marginBottom: '1rem',
         boxShadow: 2,
-        transition: '0.3s',
+        transition: '0.3s', 
         '&:hover': {
           boxShadow: '0 8px 16px 0 rgba(0,0,0,0.2)',
         },
@@ -109,8 +112,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({name, id,  subcategories }) 
                     {subcategory.name}
                   </Typography>
                 </ListItemButton>
-                <DeleteButton onDelete={() => handleDeleteSubcategory(subcategory.id)} />
-              </ListItem>
+                {userType === 'ADMIN' && (
+              <DeleteButton onDelete={() => handleDeleteSubcategory(subcategory.id)} />
+            )}              </ListItem>
             ))}
           </List>
         )}
