@@ -39,7 +39,7 @@ const NewAdForm: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
 
-  const { mutate: createAd } = useCreateAd(); // Assuming createAd is provided by useCreateAd
+  const { mutate: createAd } = useCreateAd(); 
 
 
   useEffect(() => {
@@ -95,13 +95,11 @@ const NewAdForm: React.FC = () => {
     if (validateForm()) {
       try {
         await createAd(formData); 
-        navigate('/Home');// Call the createAd function from useCreateAd
+        navigate('/Home');
 
         window.location.reload();
-        // Optionally: Reset form or show success message
       } catch (error) {
         console.error('Error creating ad:', error);
-        // Optionally: Show error message
       }
     }
   };

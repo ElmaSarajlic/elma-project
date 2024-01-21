@@ -23,19 +23,22 @@ const PasswordCard = ({ }: Props) => {
   const handleChangePassword = async () => {
     if (oldPassword && newPassword) {
       try {
+        if (userId) {
         await updateUserPassword.mutateAsync({ 
           id: userId, 
           password: {
               oldPassword, newPassword,
               userId: undefined
           } 
+          
         });
         setIsPasswordChanged(true);
         setError(''); 
         navigate("/userinfo"); 
-
-       
-      } catch (error) {
+    } else {
+        setError("User ID is not defined.");
+      }
+    } catch (error) {
         setIsPasswordChanged(false);
         setError(error instanceof Error ? error.message : String(error));
       }

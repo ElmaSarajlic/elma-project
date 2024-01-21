@@ -48,7 +48,6 @@ const deleteUser = async (id: string): Promise<void> => {
 
 };
 
-// update user password 
 const updateUserPassword = async (id: string, password: Password): Promise<User> => {
     return appAxios.put(`/users/password/${id}`, password).then(
         (response) => {
