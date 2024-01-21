@@ -8,7 +8,7 @@ export type Ad =  {
     description: string;
     contact:string;
     imgUrl:string;
-    creationDate: Date;
+    creationDate?: Date;
 
 }
 
@@ -28,7 +28,7 @@ export type Subcategory = {
   };
   
   export type Category = {
-    id: string
+    id?: string
     name: string;
     subcategories: Subcategory[];
   };

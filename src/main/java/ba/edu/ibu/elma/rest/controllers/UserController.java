@@ -43,7 +43,7 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    //@PreAuthorize("hasAuthority( 'REGISTERED', 'ADMIN')")
     @RequestMapping(method = RequestMethod.PUT, path = "/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody UserRequestDTO user) {
         return ResponseEntity.ok(userService.updateUser(id, user));

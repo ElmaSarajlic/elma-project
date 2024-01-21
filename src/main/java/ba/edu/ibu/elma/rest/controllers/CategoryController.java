@@ -91,6 +91,8 @@ public class CategoryController {
     }
 
     @RequestMapping(value ="/{categoryId}/subcategories/{subcategoryId}", method = RequestMethod.DELETE)
+    //@PreAuthorize("hasAuthority('ADMIN')")
+
     public ResponseEntity<String> deleteSubcategoryFromCategory(@PathVariable String categoryId, @PathVariable String subcategoryId) {
         try {
             categoryService.deleteSubcategoryFromCategory(categoryId, subcategoryId);

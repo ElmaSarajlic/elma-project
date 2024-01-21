@@ -59,7 +59,7 @@ public class AdController {
     }
 
     @RequestMapping(value = "/{adId}", method = RequestMethod.DELETE)
-    //@PreAuthorize("hasAnyAuthority('REGISTERED', 'ADMIN')")
+    //@PreAuthorize("hasAnyAuthority('ADMIN')")
     public ResponseEntity<Void> deleteAd(@PathVariable String adId) {
         adService.deleteAd(adId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

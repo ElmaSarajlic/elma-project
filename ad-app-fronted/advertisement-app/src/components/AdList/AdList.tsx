@@ -20,15 +20,21 @@ const AdList = () => {
   
     const getSortedAds = () => {
       if (!ads) return [];
-  
-      switch (sortMethod) {
-        case 'newest':
-          return [...ads].sort((a, b) => new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime());
-        case 'oldest':
-          return [...ads].sort((a, b) => new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime());
-        default:
-          return ads;
-      }
+    
+      return ads.filter(a => a.creationDate).sort((a, b) => {
+        switch (sortMethod) {
+          case 'newest':
+            if (!b.creationDate) return -1;
+            if (!a.creationDate) return 1;
+            return new Date(b.creationDate).getTime() - new Date(a.creationDate).getTime();
+          case 'oldest':
+            if (!a.creationDate) return -1;
+            if (!b.creationDate) return 1;
+            return new Date(a.creationDate).getTime() - new Date(b.creationDate).getTime();
+          default:
+            return 0; 
+        }
+      });
     };
   
     const sortedAds = getSortedAds();

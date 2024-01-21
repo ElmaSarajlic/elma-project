@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Card, CardContent, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
+import { Container, Card, CardContent, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText, SelectChangeEvent } from '@mui/material';
 import appAxios from '../../services/AppAxios';
 import { Category, Subcategory } from '../../utils/types';
 import useCreateAd from '../../hooks/useCreateAd';
@@ -13,6 +13,7 @@ interface AdFormData {
   contact: string;
   category: string;
   subcategory: string;
+
 }
 
 interface FormErrors {
@@ -28,7 +29,8 @@ const NewAdForm: React.FC = () => {
     description: '',
     contact: '',
     category: '',
-    subcategory: ''
+    subcategory: '',
+
   });
 
   const [errors, setErrors] = useState<FormErrors>({
@@ -109,7 +111,6 @@ const NewAdForm: React.FC = () => {
       <Card variant="outlined">
         <CardContent>
           <form onSubmit={handleSubmit}>
-            {/* Image URL Field */}
             <TextField
               fullWidth
               label="Image URL"
@@ -119,7 +120,6 @@ const NewAdForm: React.FC = () => {
               margin="normal"
               variant="outlined"
             />
-            {/* title Field */}
             <TextField
               fullWidth
               label="Title"
@@ -129,7 +129,6 @@ const NewAdForm: React.FC = () => {
               margin="normal"
               variant="outlined"
             />
-            {/* Description Field */}
             <TextField
               fullWidth
               label="Description"
@@ -141,7 +140,6 @@ const NewAdForm: React.FC = () => {
               margin="normal"
               variant="outlined"
             />
-            {/* Contact Field */}
             <TextField
               error={Boolean(errors.contact)}
               fullWidth
@@ -153,13 +151,12 @@ const NewAdForm: React.FC = () => {
               variant="outlined"
               helperText={errors.contact}
             />
-            {/* Category Selection */}
             <FormControl fullWidth margin="normal" error={Boolean(errors.category)}>
               <InputLabel>Category</InputLabel>
               <Select
                 name="category"
                 value={formData.category}
-                onChange={handleInputChange}
+                onChange={handleInputChange as unknown as (event: SelectChangeEvent<string>) => void}
                 label="Category"
               >
                 <MenuItem value="">
@@ -171,14 +168,13 @@ const NewAdForm: React.FC = () => {
               </Select>
               <FormHelperText>{errors.category}</FormHelperText>
             </FormControl>
-            {/* Subcategory Selection */}
             {subcategories.length > 0 && (
               <FormControl fullWidth margin="normal">
                 <InputLabel>Subcategory</InputLabel>
                 <Select
                   name="subcategory"
                   value={formData.subcategory}
-                  onChange={handleInputChange}
+                  onChange={handleInputChange as unknown as (event: SelectChangeEvent<string>) => void}
                   label="Subcategory"
                 >
                   <MenuItem value="">
@@ -190,7 +186,6 @@ const NewAdForm: React.FC = () => {
                 </Select>
               </FormControl>
               )}
-            {/* Submit Button */}
             <Button
               type="submit"
               color="primary"

@@ -43,7 +43,7 @@ const deleteAd = async (id: string): Promise<void> => {
 
 
 
-const updateAd = async (id: string, ad: Ad): Promise<Ad> => {
+/*const updateAd = async (id: string, ad: Ad): Promise<Ad> => {
      return appAxios.put(`/ads/${id}`, ad)
        .then((response) => response.data)
        .catch((error) => {
@@ -51,8 +51,8 @@ const updateAd = async (id: string, ad: Ad): Promise<Ad> => {
             throw error;
           }); 
       }
-  
+  */
 
 
 
-export default {getallAds, CreateAd, getAdsBySubcategory, deleteAd, updateAd}
+export default {getallAds, CreateAd, getAdsBySubcategory, deleteAd}

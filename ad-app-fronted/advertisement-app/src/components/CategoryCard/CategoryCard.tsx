@@ -26,14 +26,21 @@ const CategoryCard: React.FC<CategoryCardProps> = ({name, id,  subcategories }) 
   const { mutate: deleteSubcategory } = useDeleteSubcategory();
 
 
+
   const handleSubCategoryClick = (subcategory: Subcategory) => {
     navigate(`/subcategory/${subcategory.name}`);
   };
 
   const handleDeleteSubcategory = (subcategoryId: string) => {
-    deleteSubcategory({ categoryId : id , subcategoryId });
-    window.location.reload();
+    if (!subcategoryId) {
+      console.error('Cannot delete subcategory with null ID');
+      return; 
+    }
+      deleteSubcategory({ categoryId: id, subcategoryId });
+    window.location.reload(); 
   };
+
+  
 
   return (
     <Card

@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'react-query';
+/*import { useMutation, useQueryClient } from 'react-query';
 import { Ad } from '../utils/types';
 import { AdService } from '../services';
 
@@ -19,4 +19,4 @@ const useUpdateAd = () => {
 };
 
 
-export default useUpdateAd;
+export default useUpdateAd;*/
