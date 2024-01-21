@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { useUser } from '../../hooks';
 import { logout } from '../../store/authSlice';
+import { Box, Card } from '@mui/material';
 
 const UserInfo = () => {
   const userId = useSelector((state: RootState) => state.auth.userId);
@@ -50,6 +51,10 @@ const UserInfo = () => {
     navigate('/AdSubcategory');
   };
 
+  const handleCategoryClick = () => {
+    navigate('/createcategories');
+  };
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -59,7 +64,8 @@ const UserInfo = () => {
   }
 
   return (
-    <Container maxWidth="sm" sx={{  textAlign: 'center', padding: '20px' }}>
+    <Container maxWidth="sm" sx={{ textAlign: 'center', padding: '20px' }}>
+      <Card sx={{  boxShadow: 3, borderRadius: 2, padding: 2 }}>
       {user && (
         <>
           <Avatar
@@ -73,20 +79,26 @@ const UserInfo = () => {
           <Typography variant="body2">
             {user.email}
           </Typography>
-          <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleEditClick}>
-            Edit personal information
-          </Button>
-          <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleLogout}>
-            Log out
-          </Button>
-
-          <><Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleUsersClick}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, marginTop: '20px' }}>
+            <Button size="medium" variant="outlined" onClick={handleLogout}>
+              Log out
+            </Button>
+            <Button size="medium" variant="outlined" onClick={handleEditClick}>
+              Edit personal information
+            </Button>
+            <Button size="medium" variant="outlined" onClick={handleCategoryClick}>
+              Add new Category
+            </Button>
+            <Button size="medium" variant="outlined" onClick={handleSubcategoryClick}>
+              Add new Subcategory
+            </Button>
+            <Button size="medium" variant="outlined" onClick={handleUsersClick}>
               Users
-            </Button><Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleSubcategoryClick}>
-                Add new Subcategory
-              </Button></>
+            </Button>
+          </Box>
         </>
       )}
+      </Card>
     </Container>
   );
 };

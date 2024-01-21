@@ -5,7 +5,6 @@ import useGetAdsBySubcategory from '../../hooks/usegetAds';
 import { useParams } from 'react-router-dom';
 import { SetStateAction, useState } from 'react';
 
-type Props = {};
 
 const AdList = () => {
   const { subcategoryName } = useParams<{ subcategoryName?: string }>();

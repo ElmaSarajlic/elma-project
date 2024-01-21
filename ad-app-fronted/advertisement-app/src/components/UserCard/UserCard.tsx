@@ -1,6 +1,4 @@
-import React from 'react';
-import { Card, CardContent, CardHeader, Avatar, Typography, IconButton } from '@mui/material';
-import useGetUsers from '../../hooks/useGetUsers';
+import { Card, CardHeader, Avatar } from '@mui/material';
 import { User } from '../../utils/types';
 import DeleteBtn from '../DeleteBtn';
 import useDeleteUser from '../../hooks/useDeleteUser';

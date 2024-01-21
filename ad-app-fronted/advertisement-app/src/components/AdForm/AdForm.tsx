@@ -39,7 +39,7 @@ const NewAdForm: React.FC = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
 
-  const { mutate: createAd, isError: isAdError } = useCreateAd(); // Assuming createAd is provided by useCreateAd
+  const { mutate: createAd } = useCreateAd(); // Assuming createAd is provided by useCreateAd
 
 
   useEffect(() => {

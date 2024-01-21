@@ -28,7 +28,7 @@ export type Subcategory = {
   };
   
   export type Category = {
-    id?: string
+    id: string
     name: string;
     subcategories: Subcategory[];
   };

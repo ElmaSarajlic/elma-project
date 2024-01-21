@@ -47,7 +47,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ name, subcategories }) => {
         <Typography 
           sx={{ 
             fontWeight: 'bold', 
-            color:'#7c4e79',
+            color:'black',
             display: 'flex', 
             alignItems: 'center', 
             fontSize: '1.25rem', 
@@ -58,7 +58,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ name, subcategories }) => {
           <IconButton 
             onClick={() => setIsOpen(!isOpen)} 
             size="small" 
-            sx={{ marginRight: '0.5rem', color: isOpen ? '#7c4e79' : 'inherit' }} 
+            sx={{ marginRight: '0.5rem', color: isOpen ? 'black' : 'inherit' }} 
           >
             {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>

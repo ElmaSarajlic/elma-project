@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -22,10 +22,12 @@ const ChangeUserInfoCard = ({
   const [imgUrl, setImgUrl] = useState(user.imgUrl);
 
   const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
+
 
   const updateUserMutation = useUpdateUser(); 
   const handleSave = () => {
-    const updatedUser = { ...user, imgUrl, username };
+    const updatedUser = { ...user, imgUrl, username, email };
     updateUserMutation.mutate({ id: user.id, user: updatedUser }, {
       onSuccess: () => {
         setUser(updatedUser);
@@ -56,6 +58,13 @@ const ChangeUserInfoCard = ({
           label="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+        />
+        <TextField
+          margin="dense"
+          fullWidth
+          label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
           <Button

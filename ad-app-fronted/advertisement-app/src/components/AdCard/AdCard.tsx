@@ -1,4 +1,3 @@
-import React from 'react';
 import { Ad } from "../../utils/types";
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,8 +5,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import DeleteButton from '../DeleteBtn';
 import useDeleteAd from '../../hooks/useDeleteAd';
-import EditButton from '../EditButton';
-import { useNavigate } from 'react-router-dom';
 
 type Props = {
   ad: Ad;
@@ -35,7 +32,6 @@ const AdCard = ({ ad }: Props) => {
     });
   };
 
-  const navigate = useNavigate();
 
 
   return (

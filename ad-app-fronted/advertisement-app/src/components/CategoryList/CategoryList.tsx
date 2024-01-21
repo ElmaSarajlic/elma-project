@@ -1,4 +1,3 @@
-import React from 'react';
 import useCategories from '../../hooks/useCategories'; // Custom hook to fetch categories
 import CategoryCard from '../CategoryCard/CategoryCard'; // Component to display each category
 import { Grid } from '@mui/material'; // Material-UI grid for layout

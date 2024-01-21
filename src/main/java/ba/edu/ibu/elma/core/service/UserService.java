@@ -81,6 +81,9 @@ public class UserService {
         if (payload.getImgUrl() != null) {
             existingUser.setImgUrl(payload.getImgUrl());
         }
+        if (payload.getEmail() != null) {
+            existingUser.setEmail(payload.getEmail());
+        }
 
         // save the updated user
         User updatedUser = userRepository.save(existingUser);
