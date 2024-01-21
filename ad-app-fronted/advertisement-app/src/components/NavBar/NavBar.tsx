@@ -16,17 +16,17 @@ const AppNavbar: React.FC = () => {
 
 
   const handleUserInfoClick = () => {
-    navigate('/Userinfo');
+    navigate('/userinfo');
   };
 
   return (
-    <AppBar position="static" sx={{ width: '100%', position: 'absolute', top: 0, left: 0, bgcolor: "#7c4e79" }}>
+    <AppBar position="static" sx={{ width: '100%', position: 'absolute', top: 0, left: 0, bgcolor: "black" }}>
       <Navbar expand="lg" variant="dark" style={{ backgroundColor: 'yourColorHere' }}> {/* Replace yourColorHere with your desired color */}
         <Navbar.Brand href="/home" style={{ color: 'white' }}>AdMe</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/Home" style={{ color: 'white' }}>Home</Nav.Link>
+            <Nav.Link href="/home" style={{ color: 'white' }}>Home</Nav.Link>
             <Nav.Link href="/AdForm" style={{ color: 'white' }}>Add ad</Nav.Link>
             <Nav.Link href="/Categories" style={{ color: 'white' }}>Categories</Nav.Link>
           </Nav>

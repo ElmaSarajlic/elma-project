@@ -4,20 +4,29 @@ import { LoginFormData } from '../pages/Login'
 import { decodeToken } from '../utils/jwtDecode'
 import appAxios from '../services/AppAxios';
 
-// helper function to decode token
+// helper function to decode token for userId
 const getUserIdFromToken = (token: string): string | null => { // returns userId or null
    const decodedToken = decodeToken(token);
    return decodedToken ? decodedToken.userId : null;
 };
 
+// helper function to decode token for user type
+const getUserTypeFromToken = (token: string): string | null => {
+   const decodedToken = decodeToken(token);
+   return decodedToken ? decodedToken.userType : null;
+};
+
+
 // initialize userToken and userId from local storage
 const userToken = localStorage.getItem('userToken') ?? null;
 const userId = userToken ? getUserIdFromToken(userToken) : null;
+const userType = userToken ? getUserTypeFromToken(userToken) : null;
 
 const initialState = {
    loading: false,
    userInfo: null, // for user object
-   userId: userId as string | null, // for storing the userId
+   userId: userId as string | null, // for storing the userId,
+   userType: userType as string | null,
    userToken, // for storing the JWT
    error: null,
    success: false, // for monitoring the registration process.
@@ -73,6 +82,8 @@ const authSlice = createSlice({
          state.loading = false
          state.userInfo = null
          state.userToken = null
+         state.userId = null // reset userId
+         state.userType = null // reset userType
          state.error = null
       }
    },
@@ -98,6 +109,7 @@ const authSlice = createSlice({
          state.userInfo = action.payload
          state.userToken = action.payload.jwt
          state.userId = getUserIdFromToken(action.payload.jwt); // get userId from token
+         state.userType = getUserTypeFromToken(action.payload.jwt);
       })
       builder.addCase(login.rejected, (state, action: any) => {
          state.loading = false

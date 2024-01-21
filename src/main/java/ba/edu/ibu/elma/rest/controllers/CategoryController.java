@@ -82,6 +82,8 @@ public class CategoryController {
 
 
     @RequestMapping(value = "/{categoryId}/subcategories", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN')")
+
     public ResponseEntity<Category> addSubcategory(
             @PathVariable String categoryId,
             @RequestBody Subcategory subcategory) {

@@ -34,12 +34,12 @@ const UserInfo = () => {
   }, [user, isError, error]);
 
   const handleEditClick = () => {
-    navigate('/EditUser', { state: { user } });
+    navigate('/EditUser');
   };
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate('/Home');
+    navigate('/home');
   };
 
   const handleUsersClick = () => {
@@ -79,12 +79,12 @@ const UserInfo = () => {
           <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleLogout}>
             Log out
           </Button>
-          <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleUsersClick}>
-            Users
-          </Button>
-          <Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleSubcategoryClick}>
-            Add new Subcategory
-          </Button>
+
+          <><Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleUsersClick}>
+              Users
+            </Button><Button size="medium" variant="outlined" sx={{ marginTop: '20px' }} onClick={handleSubcategoryClick}>
+                Add new Subcategory
+              </Button></>
         </>
       )}
     </Container>
