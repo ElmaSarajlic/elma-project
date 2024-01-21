@@ -13,14 +13,13 @@ public class Ad {
     private String description;
     private Date creationDate;
     private String subcategory;
-
     private String contact;
     private String imgUrl;
 
 
     public Ad(){}
 
-    public Ad(String id, String title, String imgUrl, String subcategory, String category, String contact,  String description, Date creationDate) {
+    public Ad(String id, String title, String imgUrl, String subcategory, String contact,  String description, Date creationDate) {
         this.id = id;
         this.title = title;
         this.description = description;
