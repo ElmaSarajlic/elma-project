@@ -3,10 +3,7 @@ package ba.edu.ibu.elma.core.service;
 import ba.edu.ibu.elma.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.elma.core.model.User;
 import ba.edu.ibu.elma.core.repository.UserRepository;
-import ba.edu.ibu.elma.rest.dto.LoginDTO;
-import ba.edu.ibu.elma.rest.dto.LoginRequestDTO;
-import ba.edu.ibu.elma.rest.dto.UserDTO;
-import ba.edu.ibu.elma.rest.dto.UserRequestDTO;
+import ba.edu.ibu.elma.rest.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -55,5 +52,23 @@ public class AuthService {
         String jwt = jwtService.generateToken(user, user.getId()); // passing the user ID
 
         return new LoginDTO(jwt);
+    }
+
+    public boolean updateUserPassword(String id, PasswordRequestDTO request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+            throw new IllegalStateException("Old password does not match");
+        }
+
+        if (passwordEncoder.matches(request.getNewPassword(), user.getPassword())) {
+            throw new IllegalStateException("New password cannot be the same as the old password");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);
+
+        return true;
     }
 }

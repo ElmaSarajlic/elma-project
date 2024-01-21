@@ -9,4 +9,6 @@ export {default as AdSubcategory} from './AdSubcategoryForm'
 //export {default as UpdateAd} from './UpdateAdForm'
 export {default as CreateCategory} from './CreateCategory'
 export {default as UserList} from './UserList'
+export {default as ChangePassword} from './ChangePassword'
+
 

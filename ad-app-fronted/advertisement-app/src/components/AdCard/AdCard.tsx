@@ -17,16 +17,13 @@ const AdCard = ({ ad }: Props) => {
 
 
   const onDelete = () => {
-    // Call the delete function with the ad's ID
     deleteAd(ad.id, {
       onSuccess: () => {
-        // You may want to refetch the ads list or update the state to remove the deleted ad
         console.log(`Ad with ID ${ad.id} was deleted.`);
         window.location.reload();
         
       },
       onError: (error) => { 
-        // Handle the deletion error
         console.error('Error deleting the ad:', error);
       },
     });

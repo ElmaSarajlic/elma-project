@@ -13,7 +13,7 @@ export type Ad =  {
 }
 
 export type User ={
-    id: string;
+    id?: string;
     username?: string;
     userType?: string;
     email?: string;
@@ -33,3 +33,8 @@ export type Subcategory = {
     subcategories: Subcategory[];
   };
   
+  export type Password = {
+    userId: any;
+    oldPassword: string,
+    newPassword: string
+}

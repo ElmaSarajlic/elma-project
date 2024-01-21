@@ -1,4 +1,4 @@
-import { User } from "../utils/types";
+import { Password, User } from "../utils/types";
 import appAxios from "./AppAxios";
 
 const getUserById = async (id: string): Promise<User> => {
@@ -48,6 +48,17 @@ const deleteUser = async (id: string): Promise<void> => {
 
 };
 
+// update user password 
+const updateUserPassword = async (id: string, password: Password): Promise<User> => {
+    return appAxios.put(`/users/password/${id}`, password).then(
+        (response) => {
+            const data = response.data;
+            console.log(data);
+
+            return data;
+        });
+}
+
  
 
-export default { getUserById , updateUser, getUsers, deleteUser};
+export default { getUserById , updateUser, getUsers, deleteUser, updateUserPassword};

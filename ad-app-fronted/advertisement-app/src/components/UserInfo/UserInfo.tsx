@@ -63,6 +63,11 @@ const UserInfo = () => {
     return <div>Error: {error?.message || 'Failed to load user data'}</div>;
   }
 
+  const handlePasswordClick  = () => {
+    navigate('/ChangePassword');
+  };
+
+
   return (
     <Container maxWidth="sm" sx={{ textAlign: 'center', padding: '20px' }}>
       <Card sx={{  boxShadow: 3, borderRadius: 2, padding: 2 }}>
@@ -94,6 +99,9 @@ const UserInfo = () => {
             </Button>
             <Button size="medium" variant="outlined" onClick={handleUsersClick}>
               Users
+            </Button>
+            <Button size="medium" variant="outlined" onClick={handlePasswordClick}>
+              Change Password
             </Button>
           </Box>
         </>
