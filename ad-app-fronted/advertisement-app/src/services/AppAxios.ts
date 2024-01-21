@@ -21,7 +21,7 @@ appAxios.interceptors.response.use(response => {
     return Promise.reject(error);
 });
 
-/*appAxios.interceptors.request.use((config) => {
+appAxios.interceptors.request.use((config) => {
     const token = localStorage.getItem('userToken');
   
     if (token) {
@@ -35,6 +35,6 @@ appAxios.interceptors.response.use(response => {
   }, (error) => {
     return Promise.reject(error);
   });
-*/
+
 
 export default appAxios;

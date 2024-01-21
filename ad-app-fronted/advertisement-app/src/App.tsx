@@ -64,6 +64,7 @@ function App() {
 import { Route, Routes } from "react-router-dom"
 import { Home, Login, Register, UserInfo, Categories, AdForm, EditUser, AdSubcategory, CreateCategory, UserList, ChangePassword } from "./pages"
 import NavBar from "./components/NavBar"
+import ProtectedRoute from "./utils/ProtectedRoutes"
 
 function App() {
 
@@ -78,6 +79,7 @@ function App() {
         <Route path="/categories" element={<Categories />} />
         <Route path="/subcategory/:subcategoryName" element={<Home />} />
 
+        <Route element={<ProtectedRoute />}>
 
         <Route path="/userinfo" element={<UserInfo />} />
         <Route path="/AdForm" element={<AdForm />} />
@@ -86,7 +88,7 @@ function App() {
         <Route path="/createcategories" element = {<CreateCategory />} />
         <Route path="/userList" element = {<UserList />} />
         <Route path="/ChangePassword" element = {< ChangePassword/>}/>
-
+        </Route>
 
       </Routes>
     </>

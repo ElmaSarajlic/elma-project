@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/subcategories") // Changed
-//@SecurityRequirement(name = "JWT Security")
+@SecurityRequirement(name = "JWT Security")
 public class SubcategoryController { // Changed
 
     @Autowired
@@ -34,7 +34,7 @@ public class SubcategoryController { // Changed
     }
 
     @RequestMapping(value = "/{subcategoryId}", method = RequestMethod.GET) // Changed
-    //@PreAuthorize("hasAuthority('ADMIN', 'REGISTERED')")
+    @PreAuthorize("hasAuthority('ADMIN', 'REGISTERED')")
     public ResponseEntity<SubcategoryDTO> getSubcategoryById(@PathVariable String subcategoryId) { // Changed
         SubcategoryDTO subcategory = subcategoryService.getSubcategoryById(subcategoryId); // Changed
         if (subcategory != null) {
@@ -45,14 +45,14 @@ public class SubcategoryController { // Changed
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SubcategoryDTO> createSubcategory(@RequestBody SubcategoryRequestDTO subcategoryRequestDTO) { // Changed
         SubcategoryDTO createdSubcategory = subcategoryService.createSubcategory(subcategoryRequestDTO); // Changed
         return new ResponseEntity<>(createdSubcategory, HttpStatus.CREATED);
     }
 
     @RequestMapping(value = "/{subcategoryId}", method = RequestMethod.PUT) // Changed
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<SubcategoryDTO> updateSubcategory(@PathVariable String subcategoryId, @RequestBody SubcategoryRequestDTO subcategoryRequestDTO) { // Changed
         SubcategoryDTO updatedSubcategory = subcategoryService.updateSubcategory(subcategoryId, subcategoryRequestDTO); // Changed
         if (updatedSubcategory != null) {
@@ -63,7 +63,7 @@ public class SubcategoryController { // Changed
     }
 
     @RequestMapping(value = "/{subcategoryId}", method = RequestMethod.DELETE) // Changed
-    //@PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Void> deleteSubcategory(@PathVariable String subcategoryId) { // Changed
         subcategoryService.deleteSubcategory(subcategoryId); // Changed
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
