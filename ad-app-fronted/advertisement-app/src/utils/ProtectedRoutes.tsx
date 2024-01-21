@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux'
+/*import { useSelector } from 'react-redux'
 import { NavLink, Outlet } from 'react-router-dom'
 import { RootState } from '../store'
 import { Box, Typography } from '@mui/material'
@@ -19,7 +19,8 @@ const ProtectedRoute = () => {
        )
    }
 
+   // returns child route elements
    return <Outlet />
 }
 
-export default ProtectedRoute
+export default ProtectedRoute*/

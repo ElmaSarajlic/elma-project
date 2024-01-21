@@ -2,6 +2,7 @@ package ba.edu.ibu.elma.rest.dto;
 import ba.edu.ibu.elma.core.model.Category;
 import ba.edu.ibu.elma.core.model.Subcategory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryRequestDTO {
@@ -21,6 +22,8 @@ public class CategoryRequestDTO {
         Category category = new Category();
         category.setId(id);
         category.setName(name);
+        category.setSubcategories(new ArrayList<>()); // Initialize an empty list of subcategories
+
         return category;
     }
 

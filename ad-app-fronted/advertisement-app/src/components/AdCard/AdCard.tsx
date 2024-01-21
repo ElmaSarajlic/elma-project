@@ -38,10 +38,6 @@ const AdCard = ({ ad }: Props) => {
   const navigate = useNavigate();
 
 
-  
-  function onEdit(): void {
-     navigate ('/edit/:adId')  }
-
   return (
     <Card sx={{ marginBottom: 3 }}>
       <CardMedia
@@ -63,7 +59,7 @@ const AdCard = ({ ad }: Props) => {
         <Typography variant="body2" color="text.secondary">
           {ad.subcategory}
         </Typography>
-        <DeleteButton onDelete={onDelete} /> <EditButton handleClick={onEdit} />
+        <DeleteButton onDelete={onDelete} /> 
 
       </CardContent>
     </Card>

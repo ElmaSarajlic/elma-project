@@ -55,9 +55,12 @@ public class CategoryService {
     }
 
     public CategoryDTO createCategory(CategoryRequestDTO categoryRequestDTO) {
-        Category category = categoryRepository.save(categoryRequestDTO.toEntity());
-        return new CategoryDTO(category);
+        // This will create a new Category entity with an empty list of subcategories
+        Category category = categoryRequestDTO.toEntity();
+        category = categoryRepository.save(category); // Save the new Category entity to the database
+        return new CategoryDTO(category); // Convert the saved entity back to DTO
     }
+
 
     public CategoryDTO updateCategory(String categoryId, CategoryRequestDTO categoryRequestDTO) {
         Optional<Category> existingCategory = categoryRepository.findById(categoryId);

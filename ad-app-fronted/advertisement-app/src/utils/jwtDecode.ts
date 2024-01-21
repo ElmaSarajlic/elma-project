@@ -1,7 +1,7 @@
 import { jwtDecode } from 'jwt-decode';
 
 interface JwtPayload {
-    userType: string;
+    //userType: string;
     userId: string;
     iat: number;
     exp: number;

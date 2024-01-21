@@ -2,6 +2,7 @@ package ba.edu.ibu.elma.core.model;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +10,7 @@ public class Category {
     @Id
     private String id;
     private String name;
-    private List<Subcategory> subcategories;
+    private List<Subcategory> subcategories = new ArrayList<>();
 
     public Category(){}
 

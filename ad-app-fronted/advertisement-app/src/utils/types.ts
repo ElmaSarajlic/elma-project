@@ -8,7 +8,7 @@ export type Ad =  {
     description: string;
     contact:string;
     imgUrl:string;
-    creationDate?: Date;
+    creationDate: Date;
 
 }
 
@@ -22,7 +22,7 @@ export type User ={
     
 }
 export type Subcategory = {
-    subcategories: SetStateAction<Subcategory[]>;
+    subcategories?: SetStateAction<Subcategory[]>;
     id?: string;
     name: string;
   };

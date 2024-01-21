@@ -37,7 +37,7 @@ const AdList = () => {
   return (
     <div>
       <FormControl fullWidth sx={{ marginBottom: 5}}>
-        <InputLabel id="sort-select-label" sx={{ color: 'white' }} >Sort By</InputLabel>
+        <InputLabel id="sort-select-label" sx={{ color: 'black' }} >Sort By</InputLabel>
         <Select
           labelId="sort-select-label"
           value={sortMethod}
