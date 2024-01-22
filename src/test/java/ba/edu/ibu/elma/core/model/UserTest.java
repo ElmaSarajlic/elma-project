@@ -2,6 +2,7 @@ package ba.edu.ibu.elma.core.model;
 
 import ba.edu.ibu.elma.core.model.enums.UserType;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
@@ -11,6 +12,7 @@ import java.util.Date;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@SpringBootTest
 public class UserTest {
     @Test
     public void testUserGettersAndSetters() {

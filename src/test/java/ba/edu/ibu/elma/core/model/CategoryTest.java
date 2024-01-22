@@ -1,9 +1,11 @@
 package ba.edu.ibu.elma.core.model;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@SpringBootTest
 public class CategoryTest {
     @Test
     public void testCategoryGettersAndSetters() {

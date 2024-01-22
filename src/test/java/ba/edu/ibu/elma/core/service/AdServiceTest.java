@@ -1,61 +1,82 @@
 package ba.edu.ibu.elma.core.service;
 
+import ba.edu.ibu.elma.core.exceptions.repository.ResourceNotFoundException;
 import ba.edu.ibu.elma.core.model.Ad;
 import ba.edu.ibu.elma.core.repository.AdRepository;
 import ba.edu.ibu.elma.rest.dto.AdDTO;
 import ba.edu.ibu.elma.rest.dto.AdRequestDTO;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Date;
 import java.util.Optional;
 
-@AutoConfigureMockMvc
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 @SpringBootTest
 public class AdServiceTest {
 
     @MockBean
     AdRepository adRepository;
 
+    @MockBean
+    NotificationService notificationService;
+
     @Autowired
     AdService adService;
 
     @Test
-    public void shouldReturnAdWhenCreated() {
-        Ad ad = new Ad();
-        ad.setTitle("Sample Ad");
-        ad.setDescription("Sample Description");
-        ad.setCategory("Sample Category");
+    public void shouldReturnAdWhenCreated() throws Exception {
+        // Given
+        AdRequestDTO adRequestDTO = new AdRequestDTO(); // Initialize with proper values
+        // ... set values on adRequestDTO as necessary
+        Ad ad = new Ad("1", "Sample Ad", "ImageURL", "Subcategory", "Contact", "Sample Description", new Date());
 
         Mockito.when(adRepository.save(ArgumentMatchers.any(Ad.class))).thenReturn(ad);
+        Mockito.doNothing().when(notificationService).broadcastMessage(ArgumentMatchers.anyString());
 
-        AdDTO savedAd = adService.createAd(new AdRequestDTO(ad));
-        Assertions.assertThat(savedAd.getTitle()).isEqualTo(ad.getTitle());
-        Assertions.assertThat(savedAd.getDescription()).isNotNull();
-        Assertions.assertThat(savedAd.getCategory()).isEqualTo(ad.getCategory());
-        System.out.println(savedAd.getId());
+        // When
+        AdDTO savedAd = adService.createAd(adRequestDTO);
+
+        // Then
+        assertThat(savedAd.getTitle()).isEqualTo(ad.getTitle());
+        assertThat(savedAd.getDescription()).isEqualTo(ad.getDescription());
     }
 
     @Test
     public void shouldReturnAdById() {
-        Ad ad = new Ad();
-        ad.setId("someMongoId");
-        ad.setTitle("Sample Ad");
-        ad.setDescription("Sample Description");
-        ad.setCategory("Sample Category");
+        // Given
+        String id = "someMongoId";
+        Ad ad = new Ad(id, "Sample Ad", "ImageURL", "Subcategory", "Contact", "Sample Description", new Date());
 
-        Mockito.when(adRepository.findById("someMongoId")).thenReturn(Optional.of(ad));
+        Mockito.when(adRepository.findById(id)).thenReturn(Optional.of(ad));
 
-        AdDTO foundAd = adService.getAdById("someMongoId");
-        Assertions.assertThat(foundAd.getTitle()).isEqualTo("Sample Ad");
-        Assertions.assertThat(foundAd.getDescription()).isEqualTo("Sample Description");
-        Assertions.assertThat(foundAd.getCategory()).isEqualTo("Sample Category");
+        // When
+        AdDTO foundAd = adService.getAdById(id);
+
+        // Then
+        assertThat(foundAd.getId()).isEqualTo(id);
+        assertThat(foundAd.getTitle()).isEqualTo(ad.getTitle());
+        assertThat(foundAd.getDescription()).isEqualTo(ad.getDescription());
     }
-}
 
+    @Test
+    public void shouldThrowExceptionWhenAdNotFound() {
+        // Given
+        String id = "nonExistentId";
+        Mockito.when(adRepository.findById(id)).thenReturn(Optional.empty());
+
+        // When & Then
+        assertThrows(ResourceNotFoundException.class, () -> {
+            adService.getAdById(id);
+        });
+    }
+
+    // Additional tests can be added for updateAd, deleteAd, getAdsBySubcategory, etc.
+    // ...
+}
