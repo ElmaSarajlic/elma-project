@@ -1,59 +1,44 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { User } from '../../utils/types';
-import { useNavigate } from 'react-router-dom';
-
-
+import useUpdateUser from '../../hooks/useUpdateUser';
 
 interface ChangeUserInfoCardProps {
+  open: boolean;
+  handleClose: () => void;
   user: User;
-  onSave: (editedUser: User) => void;
-  onCancel: () => void;
+  setUser: any;
 }
 
+const ChangeUserInfoCard = ({
+  handleClose,
+  user,
+  setUser,
+}: ChangeUserInfoCardProps) => {
+  const [imgUrl, setImgUrl] = useState(user.imgUrl);
 
-const ChangeUserInfoCard: React.FC<ChangeUserInfoCardProps> = ({ user, onSave, onCancel }) => {
-  const [editedUser, setEditedUser] = useState(user);
-  const [errors, setErrors] = useState<{ [key: string]: string }>({});
-  const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(user.email);
 
-  const validateForm = () => {
-    const newErrors: { [key: string]: string } = {};
-    if (!editedUser.email) {
-      newErrors.email = 'Email is required';
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEditedUser({ ...editedUser, [name]: value });
-  };
-  const handlePasswordVisibilityToggle = () => {
-    setShowPassword(!showPassword);
-  };
-
+  const updateUserMutation = useUpdateUser(); 
   const handleSave = () => {
-    if (validateForm()) {
-      onSave(editedUser);
-    }
-  };
-  const navigate = useNavigate();
-
-
-  const handleCancel = () => {
-    navigate('/UserInfo'); 
+    const updatedUser = { ...user, imgUrl, username, email };
+    updateUserMutation.mutate({ id: user.id, user: updatedUser }, {
+      onSuccess: () => {
+        setUser(updatedUser);
+        handleClose(); 
+      }
+    });
   };
 
+  console.log(imgUrl);
+
+  
   return (
     <Card variant="outlined">
       <CardContent>
@@ -61,60 +46,39 @@ const ChangeUserInfoCard: React.FC<ChangeUserInfoCardProps> = ({ user, onSave, o
           Edit User Information
         </Typography>
         <TextField
+          margin="dense"
           fullWidth
-          label="Image URL"
-          name="imageUrl"
-          value={editedUser.imageURL}
-          onChange={handleChange}
-          margin="normal"
-          variant="outlined"
+          label="Image Url"
+          value={imgUrl}
+          onChange={(e) => setImgUrl(e.target.value)}
         />
         <TextField
-          fullWidth
-          label="Password"
-          name="password"
-          type={showPassword ? 'text' : 'password'}
-          value={editedUser.password}
-          onChange={handleChange}
-          margin="normal"
-          variant="outlined"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton onClick={handlePasswordVisibilityToggle} edge="end">
-                  {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
-        <TextField
-          fullWidth
-          label="Email"
-          name="email"
-          type="email"
-          value={editedUser.email}
-          onChange={handleChange}
-          margin="normal"
-          variant="outlined"
-          error={!!errors.email}
-          helperText={errors.email}
-        />
-        <TextField
+          margin="dense"
           fullWidth
           label="Username"
-          name="username"
-          value={editedUser.username}
-          onChange={handleChange}
-          margin="normal"
-          variant="outlined"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
-        <Button onClick={handleSave} variant="contained" color="primary" style={{ marginTop: '1rem' }}>
-          Save
-        </Button>
-        <Button onClick={handleCancel} color="secondary" style={{ marginTop: '1rem', marginLeft: '1rem' }}>
-          Cancel
-        </Button>
+        <TextField
+          margin="dense"
+          fullWidth
+          label="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '16px' }}>
+          <Button
+            variant="contained"
+            onClick={handleSave}
+            color="primary"
+            style={{ marginRight: '8px' }}
+          >
+            Save Changes
+          </Button>
+          <Button onClick={handleClose} color="secondary">
+            Cancel
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

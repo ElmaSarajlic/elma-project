@@ -1,4 +1,4 @@
-import TextField from '@mui/material/TextField';
+/*import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -8,6 +8,14 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+export type RegisterFormData = {
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    // userType: string;
+}
 
 const RegisterForm = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -114,4 +122,4 @@ const RegisterForm = () => {
     );
 }
 
-export default RegisterForm;
+export default RegisterForm;*/

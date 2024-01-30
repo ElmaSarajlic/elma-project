@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private Date creationDate;
+    private String imgUrl;
 
     public String getId() {
         return id;
@@ -93,4 +95,15 @@ public class User implements UserDetails {
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
+
+    public String getImgUrl(){
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl){
+        this.imgUrl = imgUrl;
+    }
+
+
+
 }

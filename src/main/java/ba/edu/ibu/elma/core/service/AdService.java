@@ -38,7 +38,9 @@ public class AdService {
     }
 
     public AdDTO createAd(AdRequestDTO adRequestDTO) throws Exception {
+
         Ad ad = adRepository.save(adRequestDTO.toEntity());
+
         try {
             notificationService.broadcastMessage("New add added: " + ad.getTitle());
         } catch (Exception e) {

@@ -10,7 +10,7 @@ type EditButtonProps = {
   sx?: SxProps;
 };
 
-const AddButton = ({ color = "primary", size, handleClick, sx }: EditButtonProps) => {
+const EditButton = ({ color = "inherit", size, handleClick, sx }: EditButtonProps) => {
   return (
     <IconButton aria-label="add" size={size} onClick={handleClick}>
       <EditOutlinedIcon color={color} sx={{ ...sx }} />
@@ -18,4 +18,4 @@ const AddButton = ({ color = "primary", size, handleClick, sx }: EditButtonProps
   )
 }
 
-export default AddButton
+export default EditButton

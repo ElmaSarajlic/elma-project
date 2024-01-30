@@ -14,16 +14,20 @@ public class Ad {
     private Date creationDate;
     private String subcategory;
     private String contact;
+    private String imgUrl;
+
 
     public Ad(){}
 
-    public Ad(String id, String title, String subcategory, String contact,  String description, Date creationDate) {
+    public Ad(String id, String title, String imgUrl, String subcategory, String contact,  String description, Date creationDate) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.subcategory = subcategory;
         this.contact = contact;
         this.creationDate = creationDate;
+        this.imgUrl = imgUrl;
+
     }
 
     public String getId() {
@@ -74,6 +78,14 @@ public class Ad {
 
     public void setContact(String contact){
         this.contact = contact;
+    }
+
+    public String getImgUrl(){
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl){
+        this.imgUrl = imgUrl;
     }
 
 

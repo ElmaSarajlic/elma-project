@@ -1,14 +1,19 @@
-import React, { useState } from 'react';
-import { categoryList } from '../../constants';
-import { Category, SubCategory } from '../../utils/types'; 
-import { Container, Card, CardContent, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { Container, Card, CardContent, TextField, Button, FormControl, InputLabel, Select, MenuItem, FormHelperText, SelectChangeEvent } from '@mui/material';
+import appAxios from '../../services/AppAxios';
+import { Category, Subcategory } from '../../utils/types';
+import useCreateAd from '../../hooks/useCreateAd';
+import { useNavigate } from 'react-router-dom';
 
 interface AdFormData {
-  imageUrl: string;
+  id: string;
+  title: string;
+  imgUrl: string;
   description: string;
   contact: string;
   category: string;
-  subCategory: string;
+  subcategory: string;
+
 }
 
 interface FormErrors {
@@ -18,17 +23,39 @@ interface FormErrors {
 
 const NewAdForm: React.FC = () => {
   const [formData, setFormData] = useState<AdFormData>({
-    imageUrl: '',
+    id: '',
+    title : '',
+    imgUrl: '',
     description: '',
     contact: '',
     category: '',
-    subCategory: ''
+    subcategory: '',
+
   });
+
   const [errors, setErrors] = useState<FormErrors>({
     contact: '',
     category: ''
   });
-  const [subCategories, setSubCategories] = useState<SubCategory[]>([]);
+
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [subcategories, setSubcategories] = useState<Subcategory[]>([]);
+
+  const { mutate: createAd } = useCreateAd(); 
+
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await appAxios.get('/categories');
+        setCategories(response.data);
+      } catch (err) {
+        console.error('Error fetching categories:', err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | { name?: string | undefined; value: unknown }>) => {
     const name = e.target.name as keyof AdFormData;
@@ -40,9 +67,9 @@ const NewAdForm: React.FC = () => {
     }
 
     if (name === 'category') {
-      const selectedCategory = categoryList.find(category => category.title === value);
-      setSubCategories(selectedCategory?.subCategories || []);
-      setFormData(prevFormData => ({ ...prevFormData, subCategory: '' }));
+      const selectedCategory = categories.find(category => category.name === value);
+      setSubcategories(selectedCategory?.subcategories || []);
+      setFormData(prevFormData => ({ ...prevFormData, subcategory: '' }));
     }
   };
 
@@ -62,11 +89,20 @@ const NewAdForm: React.FC = () => {
     setErrors(newErrors);
     return isValid;
   };
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log(formData); 
+      try {
+        await createAd(formData); 
+        navigate('/Home');
+
+        window.location.reload();
+      } catch (error) {
+        console.error('Error creating ad:', error);
+      }
     }
   };
 
@@ -78,8 +114,17 @@ const NewAdForm: React.FC = () => {
             <TextField
               fullWidth
               label="Image URL"
-              name="imageUrl"
-              value={formData.imageUrl}
+              name="imgUrl"
+              value={formData.imgUrl}
+              onChange={handleInputChange}
+              margin="normal"
+              variant="outlined"
+            />
+            <TextField
+              fullWidth
+              label="Title"
+              name="title"
+              value={formData.title}
               onChange={handleInputChange}
               margin="normal"
               variant="outlined"
@@ -111,36 +156,36 @@ const NewAdForm: React.FC = () => {
               <Select
                 name="category"
                 value={formData.category}
-                onChange={handleInputChange}
+                onChange={handleInputChange as unknown as (event: SelectChangeEvent<string>) => void}
                 label="Category"
               >
                 <MenuItem value="">
                   <em>None</em>
                 </MenuItem>
-                {categoryList.map((category: Category) => (
-                  <MenuItem key={category.id} value={category.title}>{category.title}</MenuItem>
+                {categories.map((category) => (
+                  <MenuItem key={category.id} value={category.name}>{category.name}</MenuItem>
                 ))}
               </Select>
               <FormHelperText>{errors.category}</FormHelperText>
             </FormControl>
-            {subCategories.length > 0 && (
+            {subcategories.length > 0 && (
               <FormControl fullWidth margin="normal">
                 <InputLabel>Subcategory</InputLabel>
                 <Select
-                  name="subCategory"
-                  value={formData.subCategory}
-                  onChange={handleInputChange}
+                  name="subcategory"
+                  value={formData.subcategory}
+                  onChange={handleInputChange as unknown as (event: SelectChangeEvent<string>) => void}
                   label="Subcategory"
                 >
                   <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
-                  {subCategories.map((subCategory: SubCategory) => (
-                    <MenuItem key={subCategory.id} value={subCategory.title}>{subCategory.title}</MenuItem>
+                  {subcategories.map((subcategory) => (
+                    <MenuItem key={subcategory.id} value={subcategory.name}>{subcategory.name}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
-            )}
+              )}
             <Button
               type="submit"
               color="primary"

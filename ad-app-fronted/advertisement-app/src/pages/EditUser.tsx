@@ -1,27 +1,40 @@
-import NavBar from '../components/NavBar';
-import { user } from '../constants';
-import ChangeUserInfoCard from '../components/ChangeUserInfoCard';
+import React, { useState } from 'react';
+import NavBar from '../components/NavBar'; 
+import Container from '@mui/material/Container';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 import '../App.css'
+import ChangeUserInfoCard from '../components/ChangeUserInfoCard';
+import { useNavigate } from 'react-router-dom';
+
+const EditUserPage: React.FC = () => {
+  const userId = useSelector((state: RootState) => state.auth.userId);
+  const navigate = useNavigate(); 
+
+
+  const [user, setUser] = useState({
+    id: userId,
+    imgUrl :'',
+    username: ''
+  });
 
 
 
-
-const EditUserInfoPage : React.FC = () => {
-
-    const onSave = () => {
-        console.log('Changes saved');
-      };
-    
-      const onCancel = () => {
-        console.log('Changes canceled');
-      };
-
-    return (
-        
-            <><NavBar /><div style={{ marginTop: '20px' }} />
-            <ChangeUserInfoCard user={user} onSave={onSave} onCancel={onCancel} /></>         
-        
-    );
+  return (
+    <div>
+      <NavBar />
+      <Container style={{ marginTop: '100px' }}>
+        <ChangeUserInfoCard
+          open={false}
+          handleClose={() => {
+            navigate('/UserInfo');
+          }}
+          user={user}
+          setUser={setUser} 
+        />
+      </Container>
+    </div>
+  );
 };
 
-export default EditUserInfoPage;
+export default EditUserPage;

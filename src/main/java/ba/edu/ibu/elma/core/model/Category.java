@@ -2,18 +2,22 @@ package ba.edu.ibu.elma.core.model;
 
 import org.springframework.data.annotation.Id;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Category {
     @Id
     private String id;
     private String name;
+    private List<Subcategory> subcategories = new ArrayList<>();
 
     public Category(){}
 
-    public Category(String id, String name) {
+    public Category(String id, String name, List<Subcategory> subcategories) {
         this.id = id;
         this.name = name;
+        this.subcategories = subcategories;
     }
 
     public String getId() {
@@ -31,5 +35,13 @@ public class Category {
     public void setName(String name) {
         this.name = name;
 
+    }
+
+    public List<Subcategory> getSubcategories() {
+        return subcategories;
+    }
+
+    public void setSubcategories(List<Subcategory> subcategories) {
+        this.subcategories = subcategories;
     }
 }

@@ -1,23 +1,20 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
-import CategoryList from '../components/CategoryList'; 
-import { categoryList } from '../constants'
+import CategoryList from '../components/CategoryList';
 import Container from '@mui/material/Container';
+import NavBar from '../components/NavBar';
 import '../App.css'
 
 
-
-
 const CategoryPage: React.FC = () => {
+
   return (
     <div>
       <NavBar />
-      <Container maxWidth="lg" style={{ marginTop: '100px' }}>
-        <CategoryList categories={categoryList} />
+      <Container style={{ marginTop: '100px' }}>
+        <CategoryList />
       </Container>
     </div>
   );
 };
 
 export default CategoryPage;
-

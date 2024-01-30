@@ -66,13 +66,27 @@ public class UserService {
     }
 
     public UserDTO updateUser(String id, UserRequestDTO payload) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()) {
-            throw new ResourceNotFoundException("The user with the given ID does not exist.");
+        Optional<User> existingUserOpt = userRepository.findById(id);
+
+        if (existingUserOpt.isEmpty()) {
+            throw new ResourceNotFoundException("User with the given ID does not exist.");
         }
-        User updatedUser = payload.toEntity();
-        updatedUser.setId(user.get().getId());
-        updatedUser = userRepository.save(updatedUser);
+
+        User existingUser = existingUserOpt.get();
+
+        // update only fields that are present in the payload
+        if (payload.getUsername() != null) {
+            existingUser.setUsername(payload.getUsername());
+        }
+        if (payload.getImgUrl() != null) {
+            existingUser.setImgUrl(payload.getImgUrl());
+        }
+        if (payload.getEmail() != null) {
+            existingUser.setEmail(payload.getEmail());
+        }
+
+        // save the updated user
+        User updatedUser = userRepository.save(existingUser);
         return new UserDTO(updatedUser);
     }
 

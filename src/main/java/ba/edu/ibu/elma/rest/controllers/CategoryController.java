@@ -1,5 +1,7 @@
 package ba.edu.ibu.elma.rest.controllers;
 
+import ba.edu.ibu.elma.core.model.Category;
+import ba.edu.ibu.elma.core.model.Subcategory;
 import ba.edu.ibu.elma.core.service.CategoryService;
 import ba.edu.ibu.elma.rest.dto.CategoryDTO;
 import ba.edu.ibu.elma.rest.dto.CategoryRequestDTO;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,9 +28,15 @@ public class CategoryController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    @PreAuthorize("hasAuthority( 'ADMIN')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryRequestDTO categoryRequestDTO) {
         CategoryDTO createdCategory = categoryService.createCategory(categoryRequestDTO);
+
+        // Initialize subcategories as an empty ArrayList if it's null
+        if (createdCategory.getSubcategories() == null) {
+            createdCategory.setSubcategories(new ArrayList<>());
+        }
+
         return new ResponseEntity<>(createdCategory, HttpStatus.CREATED);
     }
 
@@ -35,8 +44,12 @@ public class CategoryController {
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<CategoryDTO>> getAllCategories() {
         List<CategoryDTO> categories = categoryService.getAllCategories();
+        if (categories.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+
 
     @RequestMapping(value = "/{categoryId}", method = RequestMethod.GET)
     @PreAuthorize("hasAuthority('ADMIN', 'REGISTERED')")
@@ -65,6 +78,28 @@ public class CategoryController {
     public ResponseEntity<Void> deleteCategory(@PathVariable String categoryId) {
         categoryService.deleteCategory(categoryId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+    @RequestMapping(value = "/{categoryId}/subcategories", method = RequestMethod.POST)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<Category> addSubcategory(
+            @PathVariable String categoryId,
+            @RequestBody Subcategory subcategory) {
+        Category updatedCategory = categoryService.addSubcategoryToCategory(categoryId, subcategory);
+        return ResponseEntity.status(HttpStatus.CREATED).body(updatedCategory);
+    }
+
+    @RequestMapping(value ="/{categoryId}/subcategories/{subcategoryId}", method = RequestMethod.DELETE)
+    @PreAuthorize("hasAuthority('ADMIN')")
+
+    public ResponseEntity<String> deleteSubcategoryFromCategory(@PathVariable String categoryId, @PathVariable String subcategoryId) {
+        try {
+            categoryService.deleteSubcategoryFromCategory(categoryId, subcategoryId);
+            return ResponseEntity.ok("Subcategory deleted successfully");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }
 

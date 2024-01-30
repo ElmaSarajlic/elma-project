@@ -11,6 +11,7 @@ public class UserRequestDTO {
     private String email;
     private String username;
     private String password;
+    private String imgUrl;
 
     public UserRequestDTO() { }
 
@@ -20,6 +21,7 @@ public class UserRequestDTO {
         this.email = user.getEmail();
         this.username = user.getUsername();
         this.password = user.getPassword();
+        this.imgUrl = user.getImgUrl();
     }
 
     public User toEntity() {
@@ -29,6 +31,7 @@ public class UserRequestDTO {
         user.setUsername(username);
         user.setPassword(password);
         user.setCreationDate(new Date());
+        user.setImgUrl(imgUrl);
         return user;
     }
 
@@ -62,5 +65,13 @@ public class UserRequestDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getImgUrl(){
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl){
+        this.imgUrl = imgUrl;
     }
 }
